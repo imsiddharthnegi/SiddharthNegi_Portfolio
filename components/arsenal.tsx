@@ -28,7 +28,21 @@ const CATEGORIES: Category[] = [
     label: "AI & APIs",
     skills: ["Gemini API", "OpenAI", "GitHub OAuth", "JWT"],
   },
+  {
+    label: "No-Code · AI",
+    skills: ["Lovable", "Bolt.new", "Zapier", "Make", "Framer", "Prompt Engineering"],
+  },
 ]
+
+const HIGHLIGHTED_SKILLS = new Set([
+  "React.js",
+  "Node.js",
+  "Python",
+  "MongoDB",
+  "AWS",
+  "REST APIs",
+  "Gemini API",
+])
 
 export function Arsenal() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -79,13 +93,24 @@ export function Arsenal() {
         </div>
 
         <h2
-          className="mt-8 text-pretty font-light leading-[0.95] tracking-[-0.04em] text-white"
-          style={{
-            fontSize: "clamp(48px, 7vw, 96px)",
-            fontFamily: "var(--font-sans), Geist, sans-serif",
-          }}
+          className="mt-8 text-pretty leading-[0.92] tracking-[-0.04em] text-white"
+          style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
         >
-          My Arsenal
+          <span
+            className="block italic"
+            style={{
+              fontSize: "clamp(56px, 9vw, 128px)",
+              fontWeight: 800,
+              backgroundImage:
+                "linear-gradient(90deg, #ffffff 0%, #ffffff 40%, #00e5ff 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Arsenal.
+          </span>
         </h2>
 
         <p className="mt-5 font-serif text-base italic text-white/45 md:text-lg">
@@ -124,6 +149,7 @@ export function Arsenal() {
               <div className="flex flex-wrap items-baseline gap-x-2 gap-y-2 text-white/90">
                 {cat.skills.map((skill, i) => {
                   const idx = globalIndex++
+                  const isHighlighted = HIGHLIGHTED_SKILLS.has(skill)
                   return (
                     <span
                       key={skill}
@@ -135,7 +161,12 @@ export function Arsenal() {
                         transitionDelay: `${idx * 30}ms`,
                       }}
                     >
-                      <span className="text-[15px] font-light tracking-tight md:text-base">
+                      <span
+                        className={[
+                          "text-[15px] font-light tracking-tight md:text-base",
+                          isHighlighted ? "text-white" : "text-white/50",
+                        ].join(" ")}
+                      >
                         {skill}
                       </span>
                       {i < cat.skills.length - 1 && (
