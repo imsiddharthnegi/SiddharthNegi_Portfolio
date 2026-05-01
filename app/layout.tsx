@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SmoothScroll } from '@/components/smooth-scroll'
+import { CustomCursor } from '@/components/custom-cursor'
 import './globals.css'
 
 const geist = Geist({
@@ -45,6 +47,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable}`} style={{ backgroundColor: "#020408" }}>
       <body className="font-sans antialiased" style={{ backgroundColor: "#020408" }}>
+        <SmoothScroll />
+        <CustomCursor />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
