@@ -4,8 +4,7 @@
 > experience, and technical skills as a Full-Stack Engineer & SaaS Builder.
 
 ## 🔗 Live Site
-https://siddharthnegiportfolio.vercel.app/
-
+https://siddharthnegi.vercel.app/
 ## ⚡ Built With
 - React.js
 - Tailwind CSS
