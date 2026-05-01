@@ -145,7 +145,7 @@ export function Hero() {
         style={{ animation: "fade-in-up 900ms ease-out 500ms forwards" }}
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/40">
-          Bengaluru, IN
+          Dehradun, IN
         </span>
         <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/40">
           {"["}Available Q3{"]"}

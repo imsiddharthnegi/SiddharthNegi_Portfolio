@@ -205,7 +205,7 @@ export function About() {
           <div className="mt-12 grid max-w-xl gap-6">
             {[
               "Four internships, five shipped products, and counting. I've worked across early-stage SaaS, ed-tech, and brand systems — owning features end-to-end and turning ambiguity into things real users press buttons on.",
-              "My stack stays sharp and intentional: Next.js, TypeScript, React, and Tailwind on the front; Postgres, Supabase, and serverless on the back. AWS & GCP certified — I prefer infra I can reason about over magic.",
+              "My stack stays sharp and intentional: Next.js, React.js, and Tailwind on the front; Node.js, MongoDB, and AWS on the back. AWS & GCP certified — I prefer infra I can reason about over magic.",
               "Craft is non-negotiable. Pixel-precise UI, sub-100ms perceived performance, accessible by default. I sweat the spacing, the easing curves, and the empty states — because the difference is felt, not always seen.",
             ].map((text, i) => (
               <p

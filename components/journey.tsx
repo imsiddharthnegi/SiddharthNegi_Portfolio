@@ -12,27 +12,27 @@ type Entry = {
 const ENTRIES: Entry[] = [
   {
     years: "Jan — May 2026",
-    role: "Frontend Developer Intern",
+    role: "Full-Stack Developer Intern",
     company: "Tech Vista",
-    description: "Building dashboards and shipping production UI in React and Next.js.",
+    description: "Built responsive React.js components and reworked MongoDB schemas to cut API response times.",
   },
   {
     years: "Jul — Dec 2025",
     role: "Full Stack Developer",
     company: "LaunchED Global",
-    description: "Owned end-to-end features across the learner platform and admin tools.",
+    description: "Shipped 6+ features end-to-end working closely with designers and backend developers.",
   },
   {
     years: "Apr — Jun 2025",
-    role: "Open Source Contributor",
+    role: "Software Engineer Trainee",
     company: "Web Dev Open",
-    description: "Shipped accessibility fixes and component refactors merged into core.",
+    description: "Built 5+ RESTful API endpoints with clean MongoDB schemas and connected Gemini API for automated code feedback.",
   },
   {
     years: "Jan — Mar 2025",
-    role: "Web Developer Intern",
+    role: "Data Analyst Intern",
     company: "Blacksof",
-    description: "Translated brand systems into pixel-precise marketing experiences.",
+    description: "Automated data processing pipelines using Python cutting manual workload by 30% and queried large datasets with SQL.",
   },
 ]
 

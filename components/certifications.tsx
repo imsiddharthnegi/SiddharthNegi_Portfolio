@@ -11,24 +11,24 @@ type Cert = {
 
 const CERTS: Cert[] = [
   {
-    name: "AWS Certified Cloud Practitioner",
+    name: "AWS Cloud Practitioner",
     issuer: "Amazon Web Services",
     year: "2025",
   },
   {
-    name: "Google Cloud Digital Leader",
-    issuer: "Google Cloud",
+    name: "Google Cloud Study Jams",
+    issuer: "Google Developers Group",
     year: "2025",
   },
   {
-    name: "Meta Front-End Developer",
-    issuer: "Meta · Coursera",
-    year: "2024",
+    name: "Career Essentials in GitHub Copilot",
+    issuer: "LinkedIn Learning",
+    year: "2026",
   },
   {
-    name: "Full-Stack Open",
-    issuer: "University of Helsinki",
-    year: "2024",
+    name: "Ideathon 2026 Certificate of Appreciation",
+    issuer: "Careerprep",
+    year: "2026",
   },
 ]
 
