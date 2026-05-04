@@ -42,7 +42,7 @@ const PROJECTS: Project[] = [
   {
     name: "StyleMatch",
     description:
-      "AI-powered ecommerce recommendation engine. Users complete a 60-second style quiz, get personalized product recommendations with AI explanations, and checkout via Stripe. Built with Lovable (no-code), Claude AI, and real-time filtering.",
+      "AI-powered ecommerce recommendation engine. Users complete a 60-second style quiz, get personalized product recommendations with AI explanations, and checkout via Stripe.",
     tech: ["JAVASCRIPT", "TAILWIND CSS", "CLAUDE AI", "STRIPE", "DATABASE"],
     href: "https://stylematchapp.lovable.app",
   },
