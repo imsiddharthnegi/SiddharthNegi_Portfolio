@@ -14,21 +14,25 @@ const CERTS: Cert[] = [
     name: "AWS Cloud Practitioner",
     issuer: "Amazon Web Services",
     year: "2025",
+    link: "https://www.linkedin.com/in/imsiddarthnegi/overlay/Certifications/255126307/treasury/?profileId=ACoAAGKCXngBt2_vpXBw8C4gLx6DpGriZ_-b2m8"
   },
   {
     name: "Google Cloud Study Jams",
     issuer: "Google Developers Group",
     year: "2025",
+    link: "https://www.linkedin.com/in/imsiddarthnegi/overlay/Certifications/258855114/treasury/?profileId=ACoAAGKCXngBt2_vpXBw8C4gLx6DpGriZ_-b2m8"
   },
   {
     name: "Career Essentials in GitHub Copilot",
     issuer: "LinkedIn Learning",
     year: "2026",
+    link: "https://www.linkedin.com/in/imsiddarthnegi/overlay/Certifications/1545539275/treasury/?profileId=ACoAAGKCXngBt2_vpXBw8C4gLx6DpGriZ_-b2m8"
   },
   {
     name: "Ideathon 2026 Certificate of Appreciation",
     issuer: "Careerprep",
     year: "2026",
+    link: "https://www.linkedin.com/in/imsiddarthnegi/overlay/Certifications/1650502975/treasury/?profileId=ACoAAGKCXngBt2_vpXBw8C4gLx6DpGriZ_-b2m8"
   },
 ]
 
@@ -85,12 +89,22 @@ function CertCard({ cert, index, revealed }: { cert: Cert; index: number; reveal
           </span>
         </div>
 
-        <span
-          className="shrink-0 font-mono tabular-nums text-white/45"
-          style={{ fontSize: "clamp(13px, 1vw, 14px)" }}
-        >
-          {cert.year}
-        </span>
+        <div className="shrink-0 flex flex-col items-end gap-2">
+  <span
+    className="font-mono tabular-nums text-white/45"
+    style={{ fontSize: "clamp(13px, 1vw, 14px)" }}
+  >
+    {cert.year}
+  </span>
+  
+    href={cert.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-400/70 hover:text-cyan-300 transition-colors"
+  >
+    View Certificate →
+  </a>
+</div>
       </div>
 
       {/* Hover sheen */}
