@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Github, ExternalLink } from "lucide-react"
 
 type Project = {
   name: string
   description: string
   tech: string[]
   href: string
+  demoUrl?: string
+  githubUrl?: string
 }
 
 const PROJECTS: Project[] = [
@@ -16,47 +18,61 @@ const PROJECTS: Project[] = [
     description:
       "AI-powered lead generation platform that scrapes, enriches, and scores prospects in real time using Gemini for intelligent qualification.",
     tech: ["REACT", "GEMINI API", "VERCEL"],
-    href: "#",
+    href: "https://leadforgeproject.vercel.app/",
+    demoUrl: "https://leadforgeproject.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/forge-leap-ai",
   },
   {
     name: "UrbanPulse",
     description:
       "Civic insights dashboard mapping real-time urban activity across cities — traffic, events, and public infrastructure on an interactive Leaflet canvas.",
     tech: ["NEXT.JS", "MONGODB", "LEAFLET.JS"],
-    href: "#",
+    href: "https://urbanpulseportal.lovable.app/",
+    demoUrl: "https://urbanpulseportal.lovable.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/urbanpulse",
   },
   {
     name: "DisasterShield",
     description:
       "Emergency response companion aggregating live disaster feeds, shelter routing, and community alerts into a single resilient mobile-first interface.",
     tech: ["REACT", "REST APIS", "TAILWIND"],
-    href: "#",
+    href: "https://disastershieldin.vercel.app/",
+    demoUrl: "https://disastershieldin.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/disastershield",
   },
   {
     name: "CarbonTrace",
     description:
       "Personal carbon footprint tracker with Gemini-powered habit insights and beautiful visual breakdowns of weekly emissions across categories.",
     tech: ["REACT", "CHART.JS", "GEMINI API"],
-    href: "#",
+    href: "https://carbontraceproject.lovable.app/",
+    demoUrl: "https://carbontraceproject.lovable.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/carbontrace",
   },
   {
     name: "StyleMatch",
     description:
       "AI-powered ecommerce recommendation engine. Users complete a 60-second style quiz, get personalized product recommendations with AI explanations, and checkout via Stripe.",
     tech: ["JAVASCRIPT", "TAILWIND CSS", "CLAUDE AI", "STRIPE", "DATABASE"],
-    href: "https://stylematchapp.lovable.app",
+    href: "https://stylematchapp.lovable.app/",
+    demoUrl: "https://stylematchapp.lovable.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/stylematchapp",
   },
   {
     name: "BrandForge",
     description:
       "Brand identity generator that drafts logos, voice guidelines, and color systems from a single prompt — built for solo founders shipping fast.",
     tech: ["REACT", "GEMINI API", "TAILWIND"],
-    href: "#",
+    href: "https://brandforgeproject.lovable.app/",
+    demoUrl: "https://brandforgeproject.lovable.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/brandforge",
   },
 ]
 
 function ProjectRow({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false)
+  const [demoHovered, setDemoHovered] = useState(false)
+  const [githubHovered, setGithubHovered] = useState(false)
   const isLast = index === PROJECTS.length - 1
 
   return (
@@ -86,18 +102,20 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         }}
       />
 
-      <a
-        href={project.href}
+      <div
         className="block w-full"
-        aria-label={`${project.name} — Live demo`}
+        style={{
+          paddingLeft: "clamp(24px, 8vw, 120px)",
+          paddingRight: "clamp(24px, 8vw, 120px)",
+          paddingTop: hovered ? "44px" : "32px",
+          paddingBottom: hovered ? "44px" : "32px",
+          transition: "all 500ms ease-out",
+        }}
       >
         <div
-          className="grid grid-cols-12 items-center gap-4 transition-all duration-500 ease-out"
+          className="grid grid-cols-12 items-center gap-4"
           style={{
-            paddingLeft: "clamp(24px, 8vw, 120px)",
-            paddingRight: "clamp(24px, 8vw, 120px)",
-            paddingTop: hovered ? "44px" : "32px",
-            paddingBottom: hovered ? "44px" : "32px",
+            transition: "all 500ms ease-out",
           }}
         >
           {/* Number */}
@@ -129,7 +147,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             <div
               className="overflow-hidden transition-all duration-500 ease-out"
               style={{
-                maxHeight: hovered ? "120px" : "0px",
+                maxHeight: hovered ? "200px" : "0px",
                 opacity: hovered ? 1 : 0,
                 marginTop: hovered ? "12px" : "0px",
               }}
@@ -137,11 +155,73 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               <p className="max-w-xl text-balance text-sm leading-relaxed text-white/55">
                 {project.description}
               </p>
-              <div className="mt-3 flex items-center gap-2">
-                <span className="block h-px w-4 bg-cyan-400/60" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300/80">
-                  Live Demo
-                </span>
+
+              {/* Action Buttons */}
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-3">
+                {/* Live Demo Button */}
+                <a
+                  href={project.demoUrl || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setDemoHovered(true)}
+                  onMouseLeave={() => setDemoHovered(false)}
+                  onClick={(e) => {
+                    if (!project.demoUrl || project.demoUrl === "#") {
+                      e.preventDefault()
+                    }
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-cyan-400/40 bg-cyan-500/10 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-cyan-300 transition-all duration-200 ease-out hover:border-cyan-400/70 hover:bg-cyan-500/20 hover:scale-105 hover:text-cyan-200 cursor-pointer"
+                  style={{
+                    height: "40px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    padding: "10px 16px",
+                    borderRadius: "6px",
+                    gap: "8px",
+                    backgroundColor: demoHovered ? "rgba(34, 211, 238, 0.15)" : "rgba(34, 211, 238, 0.05)",
+                    borderColor: demoHovered ? "rgba(34, 211, 238, 0.7)" : "rgba(34, 211, 238, 0.4)",
+                    color: demoHovered ? "rgb(165, 243, 252)" : "rgb(165, 243, 252)",
+                    transform: demoHovered ? "scale(1.05)" : "scale(1)",
+                  }}
+                >
+                  LIVE DEMO
+                  <ExternalLink
+                    className="h-3 w-3 transition-transform duration-200"
+                    style={{
+                      transform: demoHovered ? "translateX(2px)" : "translateX(0)",
+                    }}
+                  />
+                </a>
+
+                {/* GitHub Button */}
+                <a
+                  href={project.githubUrl || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setGithubHovered(true)}
+                  onMouseLeave={() => setGithubHovered(false)}
+                  onClick={(e) => {
+                    if (!project.githubUrl || project.githubUrl === "#") {
+                      e.preventDefault()
+                    }
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-white/70 transition-all duration-200 ease-out hover:border-white/30 hover:bg-white/10 hover:scale-105 hover:text-white/90 cursor-pointer"
+                  style={{
+                    height: "40px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    padding: "10px 16px",
+                    borderRadius: "6px",
+                    gap: "8px",
+                    backgroundColor: githubHovered ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.03)",
+                    borderColor: githubHovered ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.15)",
+                    color: githubHovered ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",
+                    transform: githubHovered ? "scale(1.05)" : "scale(1)",
+                  }}
+                >
+                  GITHUB
+                  <Github className="h-3 w-3" />
+                </a>
               </div>
             </div>
           </div>
@@ -164,9 +244,16 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
           {/* Arrow */}
           <div className="col-span-12 mt-4 flex items-center justify-end md:col-span-1 md:mt-0">
-            <span
-              aria-hidden
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-500 ease-out"
+            <a
+              href={project.demoUrl || project.href || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                if (!project.demoUrl && project.href === "#") {
+                  e.preventDefault()
+                }
+              }}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-500 ease-out hover:no-underline"
               style={{
                 borderColor: hovered
                   ? "rgba(0, 229, 255, 0.5)"
@@ -175,6 +262,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                   ? "rgba(0, 229, 255, 0.08)"
                   : "rgba(255, 255, 255, 0.02)",
                 transform: hovered ? "rotate(45deg)" : "rotate(0deg)",
+                cursor: project.demoUrl && project.demoUrl !== "#" ? "pointer" : "default",
               }}
             >
               <ArrowUpRight
@@ -183,10 +271,10 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                   color: hovered ? "rgb(103, 232, 249)" : "rgba(255, 255, 255, 0.6)",
                 }}
               />
-            </span>
+            </a>
           </div>
         </div>
-      </a>
+      </div>
     </div>
   )
 }
