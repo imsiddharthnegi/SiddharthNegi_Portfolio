@@ -12,12 +12,12 @@ const CATEGORIES: Category[] = [
   {
     label: "Frontend",
     color: "#00e5ff",
-    skills: ["React.js", "Next.js", "Tailwind CSS", "JavaScript", "HTML5"],
+    skills: ["React.js", "Next.js", "Tailwind CSS", "JavaScript"],
   },
   {
     label: "Backend",
     color: "#6366f1",
-    skills: ["Node.js", "Express.js", "Python", "Django", "REST APIs"],
+    skills: ["Node.js", "Express.js", "Python", "Django"],
   },
   {
     label: "Database",
@@ -27,17 +27,17 @@ const CATEGORIES: Category[] = [
   {
     label: "Cloud",
     color: "#10b981",
-    skills: ["AWS", "GCP", "Docker", "Vercel", "CloudFormation"],
+    skills: ["AWS", "GCP", "Docker", "Vercel"],
   },
   {
-    label: "AI & APIs",
+    label: "API Integration",
     color: "#ec4899",
-    skills: ["Gemini API", "OpenAI", "GitHub OAuth", "JWT"],
+    skills: ["REST APIs", "Gemini API", "OpenAI", "Claude API"],
   },
   {
-    label: "No-Code · AI",
+    label: "No-Code",
     color: "#f59e0b",
-    skills: ["Lovable", "Bolt.new", "Zapier", "Make", "Framer", "Prompt Engineering"],
+    skills: ["Lovable", "Zapier", "Cursor", "n8n"],
   },
 ]
 
@@ -49,6 +49,7 @@ const HIGHLIGHTED_SKILLS = new Set([
   "AWS",
   "REST APIs",
   "Gemini API",
+  "Lovable",
 ])
 
 // Icon map for different skills
@@ -57,12 +58,10 @@ const SKILL_ICONS: Record<string, string> = {
   "Next.js": "▲",
   "Tailwind CSS": "🎨",
   "JavaScript": "JS",
-  "HTML5": "🏷️",
   "Node.js": "🟢",
   "Express.js": "⚡",
   "Python": "🐍",
   "Django": "🎯",
-  "REST APIs": "🔗",
   "MongoDB": "🍃",
   "PostgreSQL": "🐘",
   "SQLite": "💾",
@@ -71,17 +70,14 @@ const SKILL_ICONS: Record<string, string> = {
   "GCP": "🔵",
   "Docker": "🐳",
   "Vercel": "▲",
-  "CloudFormation": "🏗️",
+  "REST APIs": "🔗",
   "Gemini API": "✨",
   "OpenAI": "🤖",
-  "GitHub OAuth": "🔐",
-  "JWT": "🔑",
+  "Claude API": "🧠",
   "Lovable": "💜",
-  "Bolt.new": "⚡",
   "Zapier": "⚙️",
-  "Make": "🔄",
-  "Framer": "🎬",
-  "Prompt Engineering": "📝",
+  "Cursor": "💻",
+  "n8n": "🔄",
 }
 
 export function Arsenal() {
