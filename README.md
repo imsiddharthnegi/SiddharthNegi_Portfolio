@@ -31,7 +31,7 @@ https://siddharthnegi.vercel.app/
 | BrandForge | AI Brand Identity Studio |
 
 ## 📬 Contact
-- Email: imsiddarthnegi@gmail.com
+- Email: siddharthnegi.dev@gmail.com
 - LinkedIn: linkedin.com/in/imsiddarthnegi
 - WhatsApp: +91 7579156938
 

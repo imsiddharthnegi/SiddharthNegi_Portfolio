@@ -234,11 +234,11 @@ export function Navbar() {
               Direct line
             </span>
             <a
-              href="mailto:imsiddarthnegi@gmail.com"
+              href="mailto:siddharthnegi.dev@gmail.com"
               className="font-light tracking-tight text-white"
               style={{ fontSize: "clamp(16px, 4vw, 20px)" }}
             >
-              imsiddarthnegi@gmail.com
+              siddharthnegi.dev@gmail.com
             </a>
           </div>
         </div>
