@@ -145,13 +145,13 @@ export function Contact() {
           </div>
 
           <h2
-            className="mt-8 lg:mt-10 text-pretty leading-[1] lg:leading-[0.92] tracking-[-0.045em] text-white"
+            className="mt-10 lg:mt-12 text-pretty leading-[1.2] lg:leading-[1.1] tracking-[-0.045em] text-white"
             style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
           >
             <span
               className="block font-light"
               style={{
-                fontSize: "clamp(48px, 9vw, 120px)",
+                fontSize: "clamp(32px, 5vw, 64px)",
                 fontWeight: 300,
                 opacity: revealed ? 1 : 0,
                 transform: revealed ? "translateY(0)" : "translateY(24px)",
@@ -163,7 +163,7 @@ export function Contact() {
             <span
               className="block italic"
               style={{
-                fontSize: "clamp(48px, 9vw, 120px)",
+                fontSize: "clamp(32px, 5vw, 64px)",
                 fontWeight: 700,
                 backgroundImage:
                   "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, #00e5ff 100%)",
@@ -222,7 +222,7 @@ export function Contact() {
               {SOCIALS.map((s) => (
                 <TravelingLink key={s.label} href={s.href} external size="sm">
                   <span
-                    className="font-light tracking-tight text-white/85 hover:text-cyan-300 transition-colors duration-300"
+                    className="font-light tracking-tight text-white/85 transition-colors duration-300 ease-out hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.6)] underline-offset-2"
                     style={{ fontSize: "clamp(15px, 1.2vw, 17px)" }}
                   >
                     {s.label}
