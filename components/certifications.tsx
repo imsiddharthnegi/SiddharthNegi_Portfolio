@@ -96,7 +96,7 @@ function CertCard({ cert, index, revealed }: { cert: Cert; index: number; reveal
   >
     {cert.year}
   </span>
-  
+  <a
     href={cert.link}
     target="_blank"
     rel="noopener noreferrer"
