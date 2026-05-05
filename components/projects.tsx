@@ -17,7 +17,7 @@ const PROJECTS: Project[] = [
     name: "LeadForge",
     description:
       "AI-powered lead generation platform that scrapes, enriches, and scores prospects in real time using Gemini for intelligent qualification.",
-    tech: ["REACT", "GEMINI API", "VERCEL"],
+    tech: ["REACT", "CLAUDE API", "VERCEL", "REST APIS"],
     href: "https://leadforgeproject.vercel.app/",
     demoUrl: "https://leadforgeproject.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/forge-leap-ai",
@@ -26,7 +26,7 @@ const PROJECTS: Project[] = [
     name: "UrbanPulse",
     description:
       "Civic insights dashboard mapping real-time urban activity across cities — traffic, events, and public infrastructure on an interactive Leaflet canvas.",
-    tech: ["NEXT.JS", "MONGODB", "LEAFLET.JS"],
+    tech: ["NEXT.JS", "MONGODB", "LEAFLET.JS", "VERCEL"],
     href: "https://urbanpulseportal.lovable.app/",
     demoUrl: "https://urbanpulseportal.lovable.app/",
     githubUrl: "https://github.com/imsiddharthnegi/urbanpulse",
@@ -35,7 +35,7 @@ const PROJECTS: Project[] = [
     name: "DisasterShield",
     description:
       "Emergency response companion aggregating live disaster feeds, shelter routing, and community alerts into a single resilient mobile-first interface.",
-    tech: ["REACT", "REST APIS", "TAILWIND"],
+    tech: ["REACT", "REST APIS", "TAILWIND CSS", "FIREBASE"],
     href: "https://disastershieldin.vercel.app/",
     demoUrl: "https://disastershieldin.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/disastershield",
@@ -44,7 +44,7 @@ const PROJECTS: Project[] = [
     name: "CarbonTrace",
     description:
       "Personal carbon footprint tracker with Gemini-powered habit insights and beautiful visual breakdowns of weekly emissions across categories.",
-    tech: ["REACT", "CHART.JS", "GEMINI API"],
+    tech: ["REACT", "CHART.JS", "GEMINI API", "PYTHON"],
     href: "https://carbontraceproject.lovable.app/",
     demoUrl: "https://carbontraceproject.lovable.app/",
     githubUrl: "https://github.com/imsiddharthnegi/carbontrace",
@@ -53,7 +53,7 @@ const PROJECTS: Project[] = [
     name: "StyleMatch",
     description:
       "AI-powered ecommerce recommendation engine. Users complete a 60-second style quiz, get personalized product recommendations with AI explanations, and checkout via Stripe.",
-    tech: ["JAVASCRIPT", "TAILWIND CSS", "CLAUDE AI", "STRIPE", "DATABASE"],
+    tech: ["LOVABLE", "JAVASCRIPT", "STRIPE", "POSTGRESQL"],
     href: "https://stylematchapp.lovable.app/",
     demoUrl: "https://stylematchapp.lovable.app/",
     githubUrl: "https://github.com/imsiddharthnegi/stylematchapp",
@@ -62,7 +62,7 @@ const PROJECTS: Project[] = [
     name: "BrandForge",
     description:
       "Brand identity generator that drafts logos, voice guidelines, and color systems from a single prompt — built for solo founders shipping fast.",
-    tech: ["REACT", "GEMINI API", "TAILWIND"],
+    tech: ["FRAMER", "REACT", "TAILWIND CSS", "NODE.JS"],
     href: "https://brandforgeproject.lovable.app/",
     demoUrl: "https://brandforgeproject.lovable.app/",
     githubUrl: "https://github.com/imsiddharthnegi/brandforge",
@@ -227,14 +227,26 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           </div>
 
           {/* Tech pills */}
-          <div className="col-span-12 mt-4 flex flex-wrap items-center gap-2 md:col-span-4 md:mt-0 md:justify-end">
+          <div className="col-span-12 mt-4 flex flex-wrap items-center gap-2.5 md:col-span-4 md:mt-0 md:justify-end">
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 transition-colors duration-500"
+                className="rounded transition-all duration-300"
                 style={{
-                  borderColor: hovered ? "rgba(0, 229, 255, 0.25)" : undefined,
-                  color: hovered ? "rgba(255, 255, 255, 0.75)" : undefined,
+                  padding: "8px",
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-mono), monospace",
+                  backgroundColor: "rgba(100, 116, 139, 0.1)",
+                  border: "1px solid rgba(100, 116, 139, 0.3)",
+                  borderRadius: "6px",
+                  color: "rgba(255, 255, 255, 0.7)",
+                  transform: hovered ? "scale(1.05)" : "scale(1)",
+                  backgroundColor: hovered ? "rgba(100, 116, 139, 0.2)" : "rgba(100, 116, 139, 0.1)",
+                  color: hovered ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",
+                  borderColor: hovered ? "rgba(100, 116, 139, 0.5)" : "rgba(100, 116, 139, 0.3)",
                 }}
               >
                 {t}

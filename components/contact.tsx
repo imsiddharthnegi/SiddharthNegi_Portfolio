@@ -8,7 +8,7 @@ const SOCIALS = [
   { label: "WhatsApp", href: "https://wa.me/917579156938" },
 ]
 
-const EMAIL = "imsiddarthnegi@gmail.com"
+const EMAIL = "siddharthnegi.dev@gmail.com"
 
 function TravelingLink({
   children,
