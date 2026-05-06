@@ -278,21 +278,6 @@ export function Hero() {
               Available for work: May&nbsp;2026
             </span>
           </span>
-
-          {/* Mobile "Open for opportunities" sub-badge */}
-          <span
-            className="inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5"
-            style={{
-              background: "rgba(0,229,255,0.07)",
-              border: "1px solid rgba(0,229,255,0.20)",
-            }}
-          >
-            <span
-              className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300/80"
-            >
-              Open for opportunities
-            </span>
-          </span>
         </div>
 
         {/* ── MOBILE STAT CARDS (below headline, visible on small screens) ── */}
@@ -322,35 +307,9 @@ export function Hero() {
         <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
         <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
 
-        {/* "Open for opportunities" sub-badge */}
-        <div
-          className="mt-3 opacity-0"
-          style={{ animation: "fade-in-up 800ms ease-out 1800ms forwards" }}
-        >
-          <span
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full px-3 py-2"
-            style={{
-              background: "rgba(0,229,255,0.07)",
-              border: "1px solid rgba(0,229,255,0.20)",
-              boxShadow: "0 0 20px rgba(0,229,255,0.06)",
-            }}
-          >
-            <span className="relative flex h-1.5 w-1.5" aria-hidden>
-              <span
-                className="absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-60"
-                style={{ animation: "ping 2.4s cubic-bezier(0,0,0.2,1) infinite" }}
-              />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300/80">
-              Actively hiring-ready
-            </span>
-          </span>
-        </div>
-
         {/* Bottom divider */}
         <div
-          className="mt-1 h-px w-full bg-white/10 opacity-0"
+          className="mt-3 h-px w-full bg-white/10 opacity-0"
           style={{ animation: "fade-in 900ms ease-out 1900ms forwards" }}
           aria-hidden
         />
