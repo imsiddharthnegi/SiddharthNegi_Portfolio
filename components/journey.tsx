@@ -70,6 +70,15 @@ function JourneyRow({
           : "none",
       }}
     >
+      {/* Circular timeline node on left */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-1/2 z-10 h-3 w-3 -translate-x-[5px] -translate-y-1/2 rounded-full bg-cyan-400 transition-all duration-500 ease-out"
+        style={{
+          boxShadow: hovered ? "0 0 20px rgba(0, 229, 255, 0.8)" : "0 0 8px rgba(0, 229, 255, 0.4)",
+        }}
+      />
+
       {/* Cyan left edge accent on hover */}
       <span
         aria-hidden
@@ -201,14 +210,25 @@ export function Journey() {
         </h2>
       </div>
 
-      {/* Rows */}
+      {/* Rows with timeline connector */}
       <div
-        className="pb-24 md:pb-32"
+        className="relative pb-24 md:pb-32"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",
         }}
       >
+        {/* Vertical timeline connector line */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-400/0 via-cyan-400/40 to-cyan-400/0"
+          style={{
+            marginLeft: "clamp(24px, 8vw, 120px)",
+            opacity: revealed ? 1 : 0,
+            transition: "opacity 800ms ease-out",
+            transitionDelay: "300ms",
+          }}
+        />
         <div className="flex flex-col">
           {ENTRIES.map((e, i) => (
             <JourneyRow

@@ -301,8 +301,8 @@ export function Hero() {
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} />
-          <StatCard target={5} label="Projects" icon="🚀" delay={1600} animDelay={60} />
-          <StatCard target={2} label="Certs" icon="🏅" delay={1750} animDelay={120} />
+          <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} />
+          <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} />
         </div>
       </div>
 
@@ -319,8 +319,8 @@ export function Hero() {
 
         {/* Stat cards column */}
         <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} />
-        <StatCard target={5} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
-        <StatCard target={2} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
+        <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
+        <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
 
         {/* "Open for opportunities" sub-badge */}
         <div
