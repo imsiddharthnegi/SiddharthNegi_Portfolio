@@ -14,25 +14,25 @@ const ENTRIES: Entry[] = [
     years: "Jan — May 2026",
     role: "Full-Stack Developer Intern",
     company: "Tech Vista",
-    description: "Built responsive React.js components and reworked MongoDB schemas to cut API response times.",
+    description: "Engineered React.js component architecture and redesigned MongoDB schemas, reducing API response times by ~40% and improving page load performance across core product views.",
   },
   {
     years: "Jul — Dec 2025",
     role: "Full Stack Developer",
     company: "LaunchED Global",
-    description: "Shipped 6+ features end-to-end working closely with designers and backend developers.",
+    description: "Owned 6+ features end-to-end in an ed-tech SaaS product — from scoping with designers to production deployment — moving at startup speed in a cross-functional team.",
   },
   {
     years: "Apr — Jun 2025",
     role: "Software Engineer Trainee",
     company: "Web Dev Open",
-    description: "Built 5+ RESTful API endpoints with clean MongoDB schemas and connected Gemini API for automated code feedback.",
+    description: "Designed 5+ RESTful endpoints with structured MongoDB schemas and integrated Gemini API to power an automated code-feedback pipeline for learners.",
   },
   {
     years: "Jan — Mar 2025",
     role: "Data Analyst Intern",
     company: "Blacksof",
-    description: "Automated data processing pipelines using Python cutting manual workload by 30% and queried large datasets with SQL.",
+    description: "Automated data processing pipelines in Python, cutting manual workload by 30%. Queried and analyzed large datasets with SQL to surface insights for business reporting.",
   },
 ]
 
