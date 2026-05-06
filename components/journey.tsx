@@ -18,7 +18,7 @@ const ENTRIES: Entry[] = [
   },
   {
     years: "Jul — Dec 2025",
-    role: "Full Stack Developer",
+    role: "Web Developer",
     company: "LaunchED Global",
     description: "Owned 6+ features end-to-end in an ed-tech SaaS product — from scoping with designers to production deployment — moving at startup speed in a cross-functional team.",
   },
