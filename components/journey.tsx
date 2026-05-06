@@ -39,18 +39,39 @@ const ENTRIES: Entry[] = [
 function JourneyRow({
   entry,
   index,
-  revealed,
   isLast,
 }: {
   entry: Entry
   index: number
-  revealed: boolean
   isLast: boolean
 }) {
   const [hovered, setHovered] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const cardElement = ref.current
+    if (!cardElement) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.unobserve(cardElement)
+          }
+        })
+      },
+      { threshold: 0.1 },
+    )
+
+    observer.observe(cardElement)
+    return () => observer.disconnect()
+  }, [index])
 
   return (
     <div
+      ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
@@ -61,35 +82,15 @@ function JourneyRow({
         isLast ? "border-b" : "",
       ].join(" ")}
       style={{
-        opacity: revealed ? 1 : 0,
-        transform: revealed ? "translateY(0)" : "translateY(16px)",
-        transition: "opacity 600ms ease-out, transform 600ms ease-out",
-        transitionDelay: `${index * 90}ms`,
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
+        transitionDelay: `${index * 120}ms`,
         backgroundImage: hovered
           ? "linear-gradient(90deg, rgba(0, 229, 255, 0.04) 0%, rgba(79, 10, 235, 0.05) 60%, rgba(0, 229, 255, 0.02) 100%)"
           : "none",
       }}
     >
-      {/* Circular timeline node on left */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-0 top-1/2 z-10 h-3 w-3 -translate-x-[5px] -translate-y-1/2 rounded-full bg-cyan-400 transition-all duration-500 ease-out"
-        style={{
-          boxShadow: hovered ? "0 0 20px rgba(0, 229, 255, 0.8)" : "0 0 8px rgba(0, 229, 255, 0.4)",
-        }}
-      />
-
-      {/* Cyan left edge accent on hover */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-0 top-0 h-full w-[2px] bg-cyan-400 transition-transform duration-500 ease-out"
-        style={{
-          transform: hovered ? "scaleY(1)" : "scaleY(0)",
-          transformOrigin: "top",
-          boxShadow: "0 0 24px rgba(0, 229, 255, 0.6)",
-        }}
-      />
-
       <div
         className="grid grid-cols-12 items-baseline gap-4 transition-all duration-500 ease-out"
         style={{
@@ -97,7 +98,7 @@ function JourneyRow({
           paddingBottom: hovered ? "32px" : "26px",
         }}
       >
-        {/* Years */}
+          {/* Years */}
         <div className="col-span-12 md:col-span-3">
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">
             {entry.years}
@@ -137,25 +138,6 @@ function JourneyRow({
 
 export function Journey() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const [revealed, setRevealed] = useState(false)
-
-  useEffect(() => {
-    const node = sectionRef.current
-    if (!node) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setRevealed(true)
-            observer.disconnect()
-          }
-        })
-      },
-      { threshold: 0.15 },
-    )
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <section
@@ -210,32 +192,20 @@ export function Journey() {
         </h2>
       </div>
 
-      {/* Rows with timeline connector */}
+      {/* Rows */}
       <div
-        className="relative pb-24 md:pb-32"
+        className="pb-24 md:pb-32"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",
         }}
       >
-        {/* Vertical timeline connector line */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-400/0 via-cyan-400/40 to-cyan-400/0"
-          style={{
-            marginLeft: "clamp(24px, 8vw, 120px)",
-            opacity: revealed ? 1 : 0,
-            transition: "opacity 800ms ease-out",
-            transitionDelay: "300ms",
-          }}
-        />
         <div className="flex flex-col">
           {ENTRIES.map((e, i) => (
             <JourneyRow
               key={e.company}
               entry={e}
               index={i}
-              revealed={revealed}
               isLast={i === ENTRIES.length - 1}
             />
           ))}
