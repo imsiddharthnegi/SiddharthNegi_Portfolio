@@ -29,7 +29,6 @@ https://siddharthnegi.vercel.app/
 | DisasterShield | India Disaster Operations Center |
 | CarbonTrace | Corporate Carbon Intelligence |
 | BrandForge | AI Brand Identity Studio |
-| StyleMatch| 
 
 ## 📬 Contact
 - Email: siddharthnegi.dev@gmail.com
