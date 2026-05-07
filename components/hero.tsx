@@ -137,21 +137,10 @@ export function Hero() {
         style={{ animation: "fade-in 1200ms ease-out 200ms forwards" }}
       />
 
-      {/* ══════════════════════════════════════════════════════════════
-          TOP-LEFT: portfolio index tag
-      ══════════════════════════════════════════════════════════════ */}
-      <div
-        className="absolute left-5 top-[72px] z-20 flex items-center gap-3 opacity-0 md:left-12"
-        style={{ animation: "fade-in-up 900ms ease-out 400ms forwards" }}
-      >
-        <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" aria-hidden />
-        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/40">
-          Portfolio / 2026 — Index 01
-        </span>
-      </div>
+
 
       {/* ══════════════════════════════════════════════════════════════
-          TOP-RIGHT: location + availability statement
+          TOP-RIGHT: location
       ══════════════════════════════════════════════════════════════ */}
       <div
         className="absolute right-5 top-[72px] z-20 hidden items-center gap-4 opacity-0 md:flex md:right-12"
@@ -159,32 +148,6 @@ export function Hero() {
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/40">
           Dehradun, IN
-        </span>
-
-        {/* ── GREEN AVAILABILITY BADGE ── */}
-        <span
-          className="flex items-center gap-2 rounded-full px-3 py-1.5"
-          style={{
-            background: "rgba(34,197,94,0.18)",
-            border: "1px solid rgba(34,197,94,0.45)",
-            boxShadow: "0 0 16px rgba(34,197,94,0.18)",
-          }}
-          aria-label="Available for work: May 2026"
-        >
-          {/* animated ping dot */}
-          <span className="relative flex h-2 w-2 items-center justify-center" aria-hidden>
-            <span
-              className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
-              style={{ animation: "ping 1.8s cubic-bezier(0,0,0.2,1) infinite" }}
-            />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
-          </span>
-          <span
-            className="font-mono font-semibold uppercase tracking-[0.16em] text-green-300"
-            style={{ fontSize: "11px" }}
-          >
-            Available for work: May&nbsp;2026
-          </span>
         </span>
       </div>
 
@@ -278,21 +241,6 @@ export function Hero() {
               Available for work: May&nbsp;2026
             </span>
           </span>
-
-          {/* Mobile "Open for opportunities" sub-badge */}
-          <span
-            className="inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5"
-            style={{
-              background: "rgba(0,229,255,0.07)",
-              border: "1px solid rgba(0,229,255,0.20)",
-            }}
-          >
-            <span
-              className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300/80"
-            >
-              Open for opportunities
-            </span>
-          </span>
         </div>
 
         {/* ── MOBILE STAT CARDS (below headline, visible on small screens) ── */}
@@ -301,8 +249,8 @@ export function Hero() {
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} />
-          <StatCard target={5} label="Projects" icon="🚀" delay={1600} animDelay={60} />
-          <StatCard target={2} label="Certs" icon="🏅" delay={1750} animDelay={120} />
+          <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} />
+          <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} />
         </div>
       </div>
 
@@ -319,38 +267,12 @@ export function Hero() {
 
         {/* Stat cards column */}
         <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} />
-        <StatCard target={5} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
-        <StatCard target={2} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
-
-        {/* "Open for opportunities" sub-badge */}
-        <div
-          className="mt-3 opacity-0"
-          style={{ animation: "fade-in-up 800ms ease-out 1800ms forwards" }}
-        >
-          <span
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full px-3 py-2"
-            style={{
-              background: "rgba(0,229,255,0.07)",
-              border: "1px solid rgba(0,229,255,0.20)",
-              boxShadow: "0 0 20px rgba(0,229,255,0.06)",
-            }}
-          >
-            <span className="relative flex h-1.5 w-1.5" aria-hidden>
-              <span
-                className="absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-60"
-                style={{ animation: "ping 2.4s cubic-bezier(0,0,0.2,1) infinite" }}
-              />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300/80">
-              Actively hiring-ready
-            </span>
-          </span>
-        </div>
+        <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
+        <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
 
         {/* Bottom divider */}
         <div
-          className="mt-1 h-px w-full bg-white/10 opacity-0"
+          className="mt-3 h-px w-full bg-white/10 opacity-0"
           style={{ animation: "fade-in 900ms ease-out 1900ms forwards" }}
           aria-hidden
         />
@@ -370,7 +292,7 @@ export function Hero() {
           </span>
         </div>
         <span className="pl-9 font-mono text-[10px] tracking-[0.16em] text-white/35">
-          Full-Stack Engineer &amp; SaaS Builder
+          Full-Stack Developer · AI-Native SaaS Builder
         </span>
       </div>
 

@@ -35,7 +35,7 @@ const PROJECTS: Project[] = [
     name: "DisasterShield",
     description:
       "Emergency response companion aggregating live disaster feeds, shelter routing, and community alerts into a single resilient mobile-first interface.",
-    tech: ["REACT", "REST APIS", "TAILWIND CSS", "FIREBASE"],
+    tech: ["REACT", "REST APIS", "TAILWIND", "FIREBASE"],
     href: "https://disastershieldin.vercel.app/",
     demoUrl: "https://disastershieldin.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/disastershield",

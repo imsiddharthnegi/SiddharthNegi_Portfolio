@@ -204,9 +204,9 @@ export function About() {
           {/* Paragraphs */}
           <div className="mt-12 grid max-w-xl gap-6">
             {[
-              "Four internships, five shipped products, and counting. I've worked across early-stage SaaS, ed-tech, and brand systems — owning features end-to-end and turning ambiguity into things real users press buttons on.",
-              "My stack stays sharp and intentional: Next.js, React.js, and Tailwind on the front; Node.js, MongoDB, and AWS on the back. AWS & GCP certified — I prefer infra I can reason about over magic.",
-              "Craft is non-negotiable. Pixel-precise UI, sub-100ms perceived performance, accessible by default. I sweat the spacing, the easing curves, and the empty states — because the difference is felt, not always seen.",
+              "Six shipped products, four internships, and a bias toward building things people actually use. I've worked across ed-tech SaaS, civic tech, and AI tooling — owning features from the first commit to production, and turning vague briefs into things real users press buttons on.",
+              "Full-stack by discipline, AI-native by choice. My stack: Next.js, React, and Tailwind on the front; Node.js, MongoDB, and AWS on the back. I layer in Gemini and Claude APIs where intelligence adds real value — not as a buzzword, but as a feature. AWS & GCP certified — I prefer infrastructure I can reason about.",
+              "Craft is non-negotiable. Pixel-precise UI, sub-100ms perceived performance, accessible by default. I sweat the spacing, the easing curves, and the empty states — because the gap between good and great is felt, not always seen.",
             ].map((text, i) => (
               <p
                 key={i}
