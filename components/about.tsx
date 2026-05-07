@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 
 const STATS: { label: string; value: string }[] = [
   { label: "Based In", value: "Dehradun, India" },
-  { label: "Focus", value: "Full-Stack · AI-Native" },
+  { label: "Focus", value: "Full-Stack SaaS" },
   { label: "Certs", value: "AWS · GCP" },
   { label: "Projects", value: "6 Live Products" },
 ]
