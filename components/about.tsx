@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react"
 
 const STATS: { label: string; value: string }[] = [
   { label: "Based In", value: "Dehradun, India" },
-  { label: "Focus", value: "Full-Stack SaaS" },
+  { label: "Focus", value: "Full-Stack · AI-Native" },
   { label: "Certs", value: "AWS · GCP" },
-  { label: "Shipped", value: "5 Live Products" },
+  { label: "Projects", value: "6 Live Products" },
 ]
 
 export function About() {
@@ -224,7 +224,7 @@ export function About() {
 
           {/* Stats row */}
           <div
-            className="mt-14 flex flex-wrap items-start gap-x-10 gap-y-6 border-t border-white/[0.08] pt-8"
+            className="mt-14 grid grid-cols-4 gap-x-10 gap-y-6 border-t border-white/[0.08] pt-8"
             style={{
               opacity: revealed ? 1 : 0,
               transform: revealed ? "translateY(0)" : "translateY(12px)",
@@ -233,13 +233,13 @@ export function About() {
           >
             {STATS.map((s, i) => (
               <div key={s.label} className="flex flex-col gap-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35" style={{ whiteSpace: "nowrap" }}>
                   <span className="text-cyan-400/70">{String(i + 1).padStart(2, "0")}</span>{" "}
                   {s.label}
                 </span>
                 <span
                   className="font-light tracking-tight text-white"
-                  style={{ fontSize: "clamp(15px, 1.2vw, 17px)" }}
+                  style={{ fontSize: "clamp(15px, 1.2vw, 17px)", whiteSpace: "nowrap" }}
                 >
                   {s.value}
                 </span>
