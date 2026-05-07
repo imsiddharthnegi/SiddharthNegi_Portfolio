@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react"
 
 export function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement | null>(null)
   const ringRef = useRef<HTMLDivElement | null>(null)
   const [enabled, setEnabled] = useState(false)
   const [hovering, setHovering] = useState(false)
@@ -20,9 +19,8 @@ export function CustomCursor() {
   useEffect(() => {
     if (!enabled) return
 
-    const dot = dotRef.current
     const ring = ringRef.current
-    if (!dot || !ring) return
+    if (!ring) return
 
     let mouseX = window.innerWidth / 2
     let mouseY = window.innerHeight / 2
@@ -35,23 +33,18 @@ export function CustomCursor() {
       mouseY = e.clientY
       if (!visible) {
         visible = true
-        dot.style.opacity = "1"
-        ring.style.opacity = "1"
+        ring.style.opacity = "0.65"
       }
-      // Dot follows instantly
-      dot.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`
     }
 
     const onLeave = () => {
       visible = false
-      dot.style.opacity = "0"
       ring.style.opacity = "0"
     }
 
     const onEnter = () => {
       visible = true
-      dot.style.opacity = "1"
-      ring.style.opacity = "1"
+      ring.style.opacity = "0.65"
     }
 
     // Lag behind animation for the ring (~120ms feel via lerp)
@@ -96,36 +89,22 @@ export function CustomCursor() {
   if (!enabled) return null
 
   return (
-    <>
-      <div
-        ref={dotRef}
-        aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] h-2 w-2 rounded-full"
-        style={{
-          backgroundColor: "#00e5ff",
-          opacity: 0,
-          transition: "opacity 200ms ease, width 200ms ease, height 200ms ease",
-          willChange: "transform",
-          mixBlendMode: "difference",
-        }}
-      />
-      <div
-        ref={ringRef}
-        aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] rounded-full border"
-        style={{
-          width: hovering ? "48px" : "32px",
-          height: hovering ? "48px" : "32px",
-          marginLeft: hovering ? "-8px" : "0",
-          marginTop: hovering ? "-8px" : "0",
-          borderColor: hovering ? "rgba(0, 229, 255, 0.85)" : "rgba(0, 229, 255, 0.45)",
-          backgroundColor: hovering ? "rgba(0, 229, 255, 0.06)" : "transparent",
-          opacity: 0,
-          transition:
-            "opacity 200ms ease, width 220ms cubic-bezier(0.2, 0.7, 0.2, 1), height 220ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 220ms ease, background-color 220ms ease, margin 220ms ease",
-          willChange: "transform",
-        }}
-      />
-    </>
+    <div
+      ref={ringRef}
+      aria-hidden
+      className="pointer-events-none fixed left-0 top-0 z-[100] rounded-full border"
+      style={{
+        width: hovering ? "48px" : "32px",
+        height: hovering ? "48px" : "32px",
+        marginLeft: hovering ? "-8px" : "0",
+        marginTop: hovering ? "-8px" : "0",
+        borderColor: hovering ? "rgba(0, 229, 255, 0.75)" : "rgba(0, 229, 255, 0.65)",
+        backgroundColor: "transparent",
+        opacity: 0,
+        transition:
+          "opacity 200ms ease, width 220ms cubic-bezier(0.2, 0.7, 0.2, 1), height 220ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 220ms ease, margin 220ms ease",
+        willChange: "transform",
+      }}
+    />
   )
 }
