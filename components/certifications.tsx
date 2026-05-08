@@ -153,7 +153,7 @@ export function Certifications() {
       style={{ backgroundColor: "#020408" }}
     >
       <div
-        className="pt-20 pb-24 md:pt-28 md:pb-32"
+        className="pt-20 pb-16 md:pt-28 md:pb-20"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",

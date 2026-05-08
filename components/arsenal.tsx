@@ -155,7 +155,7 @@ export function Arsenal() {
 
       {/* Grid-based categories */}
       <div
-        className="pb-24 md:pb-32"
+        className="pb-16 md:pb-20"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",
