@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 
 export function CustomCursor() {
   const ringRef = useRef<HTMLDivElement | null>(null)
+  const arrowRef = useRef<HTMLDivElement | null>(null)
   const [enabled, setEnabled] = useState(false)
   const [hovering, setHovering] = useState(false)
 
@@ -34,6 +35,11 @@ export function CustomCursor() {
       if (!visible) {
         visible = true
         ring.style.opacity = "0.65"
+      }
+      // Arrow tracks exactly at mouse position (no lag)
+      const arrow = arrowRef.current
+      if (arrow) {
+        arrow.style.transform = `translate3d(${mouseX - 8}px, ${mouseY - 8}px, 0)`
       }
     }
 
@@ -89,22 +95,51 @@ export function CustomCursor() {
   if (!enabled) return null
 
   return (
-    <div
-      ref={ringRef}
-      aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[100] rounded-full border"
-      style={{
-        width: hovering ? "48px" : "32px",
-        height: hovering ? "48px" : "32px",
-        marginLeft: hovering ? "-8px" : "0",
-        marginTop: hovering ? "-8px" : "0",
-        borderColor: hovering ? "rgba(0, 229, 255, 0.75)" : "rgba(0, 229, 255, 0.65)",
-        backgroundColor: "transparent",
-        opacity: 0,
-        transition:
-          "opacity 200ms ease, width 220ms cubic-bezier(0.2, 0.7, 0.2, 1), height 220ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 220ms ease, margin 220ms ease",
-        willChange: "transform",
-      }}
-    />
+    <>
+      <div
+        ref={ringRef}
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[100] rounded-full border"
+        style={{
+          width: hovering ? "48px" : "32px",
+          height: hovering ? "48px" : "32px",
+          marginLeft: hovering ? "-8px" : "0",
+          marginTop: hovering ? "-8px" : "0",
+          borderColor: hovering ? "rgba(0, 229, 255, 0.75)" : "rgba(0, 229, 255, 0.65)",
+          backgroundColor: "transparent",
+          opacity: 0,
+          transition:
+            "opacity 200ms ease, width 220ms cubic-bezier(0.2, 0.7, 0.2, 1), height 220ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 220ms ease, margin 220ms ease",
+          willChange: "transform",
+        }}
+      />
+      <div
+        ref={arrowRef}
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[101]"
+        style={{
+          width: "16px",
+          height: "16px",
+          willChange: "transform",
+        }}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="16"
+          height="16"
+          fill="white"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))",
+          }}
+        >
+          {/* Standard arrow cursor pointing up-left */}
+          <path d="M3 3l18 18m0-18l-6 14h-6l2-6h-6l9-8z" fill="white" />
+        </svg>
+      </div>
+    </>
   )
 }
