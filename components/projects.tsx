@@ -41,13 +41,13 @@ const PROJECTS: Project[] = [
     githubUrl: "https://github.com/imsiddharthnegi/DisasterShield",
   },
   {
-    name: "CarbonTrace",
+    name: "WritePro",
     description:
-      "Personal carbon footprint tracker with Gemini-powered habit insights and beautiful visual breakdowns of weekly emissions across categories.",
-    tech: ["REACT", "CHART.JS", "GEMINI API", "PYTHON"],
-    href: "https://carbontraceproject.lovable.app/",
-    demoUrl: "https://carbontraceproject.lovable.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/carbontrace",
+      "Full-stack AI writing SaaS for professionals and content creators. Features a distraction-free editor with real-time Claude-powered suggestions, project management dashboard, subscription billing, and secure auth — built end to end with Next.js and Supabase.",
+    tech: ["NEXT.JS", "CLAUDE API", "SUPABASE", "PRISMA"],
+    href: "https://writepro-ai.vercel.app/",
+    demoUrl: "https://writepro-ai.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
   },
   {
     name: "StyleMatch",
