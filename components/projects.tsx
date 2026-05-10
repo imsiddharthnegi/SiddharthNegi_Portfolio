@@ -20,16 +20,16 @@ const PROJECTS: Project[] = [
     tech: ["REACT", "CLAUDE API", "VERCEL", "REST APIS"],
     href: "https://leadforgeproject.vercel.app/",
     demoUrl: "https://leadforgeproject.vercel.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/forge-leap-ai",
+    githubUrl: "https://github.com/imsiddharthnegi/LeadForge",
   },
   {
     name: "UrbanPulse",
     description:
       "Civic insights dashboard mapping real-time urban activity across cities — traffic, events, and public infrastructure on an interactive Leaflet canvas.",
     tech: ["NEXT.JS", "MONGODB", "LEAFLET.JS", "VERCEL"],
-    href: "https://urbanpulseportal.lovable.app/",
-    demoUrl: "https://urbanpulseportal.lovable.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/urbanpulse",
+    href: "https://projecturbanpulse.vercel.app/",
+    demoUrl: "https://projecturbanpulse.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/UrbanPulse",
   },
   {
     name: "DisasterShield",
@@ -38,7 +38,7 @@ const PROJECTS: Project[] = [
     tech: ["REACT", "REST APIS", "TAILWIND", "FIREBASE"],
     href: "https://disastershieldin.vercel.app/",
     demoUrl: "https://disastershieldin.vercel.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/disastershield",
+    githubUrl: "https://github.com/imsiddharthnegi/DisasterShield",
   },
   {
     name: "CarbonTrace",
@@ -56,7 +56,7 @@ const PROJECTS: Project[] = [
     tech: ["LOVABLE", "JAVASCRIPT", "STRIPE", "POSTGRESQL"],
     href: "https://stylematchapp.lovable.app/",
     demoUrl: "https://stylematchapp.lovable.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/stylematchapp",
+    githubUrl: "https://github.com/imsiddharthnegi/StyleMatch",
   },
   {
     name: "BrandForge",
