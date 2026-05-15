@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { TerminalWindow } from "./terminal-window"
 
 /* ─── Count-up hook ──────────────────────────────────────────────── */
 function useCountUp(target: number, durationMs = 1600, delayMs = 0) {
@@ -253,6 +254,11 @@ export function Hero() {
           <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} />
         </div>
       </div>
+
+      {/* ══════════════════════════════════════════════════════════════
+          CENTER — Floating Terminal Window (desktop only)
+      ══════════════════════════════════════════════════════════════ */}
+      <TerminalWindow />
 
       {/* ══════════════════════════════════════════════════════════════
           RIGHT COLUMN — stat cards + open-for-work badge (desktop)
