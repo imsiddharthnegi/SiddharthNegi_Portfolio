@@ -143,9 +143,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               {project.name}
             </h3>
 
-            {/* Expandable description */}
+            {/* Expandable description — desktop: hover to expand; mobile: always visible */}
             <div
-              className="overflow-hidden transition-all duration-500 ease-out"
+              className="overflow-hidden transition-all duration-500 ease-out mobile-description"
               style={{
                 maxHeight: hovered ? "200px" : "0px",
                 opacity: hovered ? 1 : 0,
