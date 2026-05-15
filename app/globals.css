@@ -258,7 +258,7 @@
   }
 
   /* Hide desktop-only elements in hero */
-  .hero .hidden.md\\:flex {
+  .hidden {
     display: none !important;
   }
 
@@ -277,7 +277,7 @@
   }
 
   /* Hide location text on mobile */
-  .absolute.right-5.top-\\[72px\\] {
+  .absolute.right-5 {
     display: none !important;
   }
 
@@ -309,7 +309,7 @@
   }
 
   /* Make project number smaller on mobile */
-  .font-mono.text-3xl.md\\:text-4xl {
+  .font-mono.text-3xl {
     font-size: 24px !important;
   }
 
@@ -319,7 +319,7 @@
   }
 
   /* Stack tech pills on mobile */
-  .flex.flex-wrap.items-center.gap-2\\.5 {
+  .flex.flex-wrap.items-center {
     flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
@@ -327,13 +327,13 @@
   }
 
   /* Stack action buttons on mobile */
-  .flex.flex-col.gap-3.sm\\:flex-row {
+  .flex.flex-col {
     flex-direction: column;
     width: 100%;
     gap: 12px !important;
   }
 
-  .inline-flex.items-center.justify-center.gap-2 {
+  .inline-flex.items-center.justify-center {
     width: 100%;
     justify-content: center;
   }
@@ -347,13 +347,13 @@
   /* ──── ARSENAL ──── */
   
   /* Stack category cards to single column on mobile */
-  .grid.grid-cols-1.gap-8.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+  .grid.grid-cols-1 {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
 
   /* Keep tech items in 2-column grid on mobile */
-  .grid.grid-cols-2.gap-2.sm\\:grid-cols-3.lg\\:grid-cols-2 {
+  .grid.grid-cols-2 {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
@@ -377,7 +377,7 @@
   }
 
   /* Hide "hover to expand" text on mobile */
-  section#projects .text-white\\/35 {
+  section#projects .text-white {
     display: none !important;
   }
 }
