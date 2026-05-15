@@ -377,7 +377,7 @@
   }
 
   /* Hide "hover to expand" text on mobile */
-  .font-mono.text-\\[10px\\].uppercase.tracking-\\[0\\.24em\\].text-white\\/35 {
+  section#projects .text-white\\/35 {
     display: none !important;
   }
 }
