@@ -120,7 +120,7 @@ export function Navbar() {
                 border: "1px solid rgba(34,197,94,0.40)",
                 boxShadow: "0 0 14px rgba(34,197,94,0.14)",
               }}
-              aria-label="Available for work: May 2026 — contact me"
+              aria-label="Open to opportunities — contact me"
             >
               <span className="relative flex h-2 w-2 items-center justify-center" aria-hidden>
                 <span
@@ -130,7 +130,7 @@ export function Navbar() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
               </span>
               <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-green-300">
-                Available · May 2026
+                Open to opportunities
               </span>
             </a>
 
