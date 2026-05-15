@@ -1,0 +1,236 @@
+
+
+SUMMARY
+Full Stack Developer with hands-on experience across four internships and
+six shipped SaaS products. Proficient in React.js, Next.js, Node.js,
+PostgreSQL, and MongoDB. Experienced integrating REST APIs and LLM APIs
+(Claude, Gemini) into production applications — from building AI-powered
+lead generation platforms to full-stack writing SaaS. Comfortable across the
+stack, from designing RESTful backend services to shipping pixel-precise
+front-end UIs. AWS and GCP Certified Cloud Practitioner.
+SKILLS
+JavaScriptPythonTailwind CSSReact.jsNext.js
+Leaflet.jsNode.jsSQLExpress.jsDjangoREST API
+MongoDBPostgreSQLSupabaseFirebaseAWSGCP
+DockerVercelClaude APIGemini APIOpenAI APIGit
+GitHubPrismaStripeFigmaPrompt Engineering
+PROJECTS
+WritePro | Next.js, Supabase, Claude API, Stripe, Prisma
+Built a full-stack AI writing SaaS using Next.js, Supabase, and Prisma with
+end-to-end features including user authentication, subscription billing via
+Stripe, and a real-time Claude API-powered editor
+Designed and implemented a project management dashboard with role-
+based access, demonstrating production-grade application architecture
+beyond a single-feature prototype
+Integrated Claude API to deliver context-aware writing suggestions inline,
+reducing friction in the content creation workflow for end users.
+LeadForge | React.js, Gemini API, REST APIs, Vercel, JavaScript
+Developed an AI-powered lead generation platform using React.js and
+Claude API that scrapes, enriches, and scores prospects in real time,
+automating a workflow typically done manually in sales teams
+Built an intelligent qualification layer using Gemini API to evaluate lead
+quality against configurable criteria, reducing noise in prospect pipelines
+Deployed on Vercel with REST API integrations for live data enrichment,
+ensuring low-latency responses across the core user-facing flow
+StyleMatch | PostgreSQL, Stripe, Python, Node.js, Express.js
+Built an AI-driven ecommerce recommendation engine where users
+complete a style quiz and receive personalized product matches with AI-
+generated explanations, integrated end-to-end with Stripe for checkout
+Designed the recommendation logic to map quiz responses to product
+attributes using JavaScript and PostgreSQL, creating a data-driven
+personalization layer without a third-party ML service
+UrbanPulse | Next.js, MongoDB, Leaflet.js, Tailwind CSS, Firebase
+EDUCATION
+Bachelor of Technology in Computer
+Science & Engineering
+Quantum University
+09/2025 - 09/2026
+EXPERIENCE
+Full Stack Developer intern
+Tech Vista
+01/2026 - 05/2026
+Refactored React.js component architecture
+across core product views, reducing API
+response times by ~40% and improving page
+load performance for end users
+Redesigned MongoDB schemas to normalize
+data relationships, eliminating redundant
+queries and improving read efficiency across
+high-traffic endpoints
+Web Developer Intern
+LaunchED Global
+07/2025 - 12/2025
+Built and maintained responsive frontend
+interfaces using React.js as part of a full-stack
+team working across design, development, an
+deployment
+Managed the full feature lifecycle
+independently, including scoping,
+implementation, QA, and release, reducing
+handoff delays across the development cycle
+Software Engineer Trainee
+Dev Open
+04/2025 - 06/2025
+Designed and documented 5+ RESTful API
+endpoints with structured MongoDB schemas
+improving backend consistency and reducing
+integration errors for frontend consumers
+Integrated Gemini API to build an automated
+code-feedback pipeline, enabling real-time, AI
+generated assessment for learners without
+manual reviewer involvement
+CERTIFICATIONS
+AWS Cloud Practitioner — Amazon Web
+Services
+Google Cloud Study Jams — Google
+Developers Group
+Career Essentials in GitHub Copilot — LinkedI
+Eqq
+SIDDHARTH NEGI
+Full Stack Developer
++91 9389273455siddharthnegi.dev@gmail.comsiddharthnegi.vercel.apphttps://github.com/imsiddharthnegi
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Improve text
+
+Check
+
+History
+Home
+
+
+New Resume (5)(Saved)
+Upgrade
+
+|
+Eqq
+SIDDHARTH NEGI
+Full Stack Developer
++91 9389273455siddharthnegi.dev@gmail.comsiddharthnegi.vercel.apphttps://github.com/imsiddharthnegi
+SUMMARY
+Full Stack Developer with hands-on experience across four internships and
+six shipped SaaS products. Proficient in React.js, Next.js, Node.js,
+PostgreSQL, and MongoDB. Experienced integrating REST APIs and LLM APIs
+(Claude, Gemini) into production applications — from building AI-powered
+lead generation platforms to full-stack writing SaaS. Comfortable across the
+stack, from designing RESTful backend services to shipping pixel-precise
+front-end UIs. AWS and GCP Certified Cloud Practitioner.
+SKILLS
+JavaScriptPythonTailwind CSSReact.jsNext.js
+Leaflet.jsNode.jsSQLExpress.jsDjangoREST API
+MongoDBPostgreSQLSupabaseFirebaseAWSGCP
+DockerVercelClaude APIGemini APIOpenAI APIGit
+GitHubPrismaStripeFigmaPrompt Engineering
+PROJECTS
+WritePro | Next.js, Supabase, Claude API, Stripe, Prisma
+Built a full-stack AI writing SaaS using Next.js, Supabase, and Prisma with
+end-to-end features including user authentication, subscription billing via
+Stripe, and a real-time Claude API-powered editor
+Designed and implemented a project management dashboard with role-
+based access, demonstrating production-grade application architecture
+beyond a single-feature prototype
+Integrated Claude API to deliver context-aware writing suggestions inline,
+reducing friction in the content creation workflow for end users.
+LeadForge | React.js, Gemini API, REST APIs, Vercel, JavaScript
+Developed an AI-powered lead generation platform using React.js and
+Claude API that scrapes, enriches, and scores prospects in real time,
+automating a workflow typically done manually in sales teams
+Built an intelligent qualification layer using Gemini API to evaluate lead
+quality against configurable criteria, reducing noise in prospect pipelines
+Deployed on Vercel with REST API integrations for live data enrichment,
+ensuring low-latency responses across the core user-facing flow
+StyleMatch | PostgreSQL, Stripe, Python, Node.js, Express.js
+Built an AI-driven ecommerce recommendation engine where users
+complete a style quiz and receive personalized product matches with AI-
+generated explanations, integrated end-to-end with Stripe for checkout
+Designed the recommendation logic to map quiz responses to product
+attributes using JavaScript and PostgreSQL, creating a data-driven
+personalization layer without a third-party ML service
+UrbanPulse | Next.js, MongoDB, Leaflet.js, Tailwind CSS, Firebase
+Developed a civic data dashboard using Next.js, MongoDB, and Leaflet.js
+that visualizes real-time urban activity — traffic, events, and
+infrastructure-- on an interactive map canvas
+Connected MongoDB as the backend data store for city event records,
+designing schemas to support fast geospatial queries and efficient front-
+end rendering.
+EDUCATION
+Bachelor of Technology in Computer
+Science & Engineering
+Quantum University
+09/2025 - 09/2026
+EXPERIENCE
+Full Stack Developer intern
+Tech Vista
+01/2026 - 05/2026
+Refactored React.js component architecture
+across core product views, reducing API
+response times by ~40% and improving page
+load performance for end users
+Redesigned MongoDB schemas to normalize
+data relationships, eliminating redundant
+queries and improving read efficiency across
+high-traffic endpoints
+Web Developer Intern
+LaunchED Global
+07/2025 - 12/2025
+Built and maintained responsive frontend
+interfaces using React.js as part of a full-stack
+team working across design, development, and
+deployment
+Managed the full feature lifecycle
+independently, including scoping,
+implementation, QA, and release, reducing
+handoff delays across the development cycle
+Software Engineer Trainee
+Dev Open
+04/2025 - 06/2025
+Designed and documented 5+ RESTful API
+endpoints with structured MongoDB schemas,
+improving backend consistency and reducing
+integration errors for frontend consumers
+Integrated Gemini API to build an automated
+code-feedback pipeline, enabling real-time, AI-
+generated assessment for learners without
+manual reviewer involvement
+CERTIFICATIONS
+AWS Cloud Practitioner — Amazon Web
+Services
+Google Cloud Study Jams — Google
+Developers Group
+Career Essentials in GitHub Copilot — LinkedIn
+Learning
+Software Engineering Job Simulation —
+Commonwealth Bank
+International Ideathon 2026 Certificate of
+Appreciation — Careerprep
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+

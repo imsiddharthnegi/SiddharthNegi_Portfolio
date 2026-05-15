@@ -162,7 +162,7 @@ export function TerminalWindow() {
 
       {/* View Resume button — left-aligned under terminal, always visible */}
       <a
-        href="#"
+        href="/siddharthnegi_resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
         style={{
