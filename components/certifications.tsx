@@ -175,7 +175,7 @@ export function Certifications() {
             className="block font-light"
             style={{ fontSize: "clamp(48px, 7vw, 96px)", fontWeight: 300 }}
           >
-            Receipts.
+            Certifications
           </span>
         </h2>
         <p className="mt-4 max-w-md text-[14px] leading-relaxed text-white/45 md:text-[15px]">
