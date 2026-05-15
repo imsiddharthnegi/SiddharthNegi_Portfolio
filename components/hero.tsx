@@ -162,7 +162,7 @@ export function Hero() {
           className="text-pretty leading-[0.92] tracking-[-0.04em]"
           style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
         >
-          {/* Word 1: Building */}
+          {/* Word 1: Code */}
           <span
             className="block font-light text-white opacity-0"
             style={{
@@ -172,10 +172,10 @@ export function Hero() {
                 "slide-from-left 1100ms cubic-bezier(0.2,0.7,0.2,1) 200ms forwards",
             }}
           >
-            Building
+            Code
           </span>
 
-          {/* Word 2: Digital */}
+          {/* Word 2: Ship */}
           <span
             className="block italic opacity-0"
             style={{
@@ -193,10 +193,10 @@ export function Hero() {
               willChange: "clip-path, transform",
             }}
           >
-            Digital
+            Ship
           </span>
 
-          {/* Word 3: Products */}
+          {/* Word 3: Repeat */}
           <span
             className="block opacity-0"
             style={{
@@ -209,7 +209,7 @@ export function Hero() {
                 "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
             }}
           >
-            Products<span className="text-cyan-400/80">.</span>
+            Repeat<span className="text-cyan-400/80">.</span>
           </span>
         </h1>
 
