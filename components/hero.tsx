@@ -164,9 +164,9 @@ export function Hero() {
         >
           {/* Word 1: Code */}
           <span
-            className="block font-light text-white opacity-0"
+            className="block text-white opacity-0"
             style={{
-              fontWeight: 300,
+              fontWeight: 900,
               fontSize: "clamp(56px, 10vw, 160px)",
               animation:
                 "slide-from-left 1100ms cubic-bezier(0.2,0.7,0.2,1) 200ms forwards",
@@ -177,9 +177,9 @@ export function Hero() {
 
           {/* Word 2: Ship */}
           <span
-            className="block italic opacity-0"
+            className="block opacity-0"
             style={{
-              fontWeight: 800,
+              fontWeight: 900,
               fontSize: "clamp(56px, 10vw, 160px)",
               backgroundImage:
                 "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, #00e5ff 100%)",
