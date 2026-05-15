@@ -238,7 +238,7 @@ export function Hero() {
               className="font-mono font-semibold uppercase tracking-[0.16em] text-green-300"
               style={{ fontSize: "11px" }}
             >
-              Available for work: May&nbsp;2026
+              Open to opportunities
             </span>
           </span>
         </div>
