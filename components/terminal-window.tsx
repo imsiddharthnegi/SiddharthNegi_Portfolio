@@ -1,151 +1,166 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
-const CLI_LINES = [
-  "> git clone reality",
-  "> npm install ambition",
-  "> npm run build",
-  "✓ 6 projects shipped",
-  "✓ 4 internships completed",
-  "> ./deploy --to=production",
-  "● Deploying...",
-  "✓ Successfully shipped.",
+const CLI_LINES: { text: string; type: "prompt" | "check" | "deploy" | "plain" }[] = [
+  { text: "> git clone reality",         type: "prompt" },
+  { text: "> npm install ambition",       type: "prompt" },
+  { text: "> npm run build",             type: "prompt" },
+  { text: "✓ 6 projects shipped",        type: "check"  },
+  { text: "✓ 4 internships completed",   type: "check"  },
+  { text: "> ./deploy --to=production",  type: "prompt" },
+  { text: "● Deploying...",              type: "deploy" },
+  { text: "✓ Successfully shipped.",     type: "check"  },
 ]
 
+function lineColor(type: string) {
+  if (type === "prompt") return "rgba(200,210,220,0.85)"
+  if (type === "check")  return "rgb(0, 229, 255)"
+  if (type === "deploy") return "#f5c542"
+  return "rgba(200,210,220,0.85)"
+}
+
 export function TerminalWindow() {
-  const [displayedLines, setDisplayedLines] = useState<string[]>([])
+  // Store each line as a fully-built string; avoids closure/undefined issues
+  const [lines, setLines] = useState<string[]>([])
   const [cursorVisible, setCursorVisible] = useState(true)
+  const restartKey = useRef(0)
 
+  // Cursor blink
   useEffect(() => {
-    // Blink cursor
-    const cursorInterval = setInterval(() => {
-      setCursorVisible((prev) => !prev)
-    }, 530)
-
-    return () => clearInterval(cursorInterval)
+    const id = setInterval(() => setCursorVisible((v) => !v), 530)
+    return () => clearInterval(id)
   }, [])
 
+  // Typewriter
   useEffect(() => {
-    let currentLineIndex = 0
-    let currentCharIndex = 0
-    let timeoutId: NodeJS.Timeout
+    let cancelled = false
+    let lineIdx = 0
+    let charIdx = 0
+    let tid: ReturnType<typeof setTimeout>
 
-    const typeNext = () => {
-      if (currentLineIndex >= CLI_LINES.length) {
-        // Restart animation loop after a pause
-        setTimeout(() => {
-          currentLineIndex = 0
-          currentCharIndex = 0
-          setDisplayedLines([])
-          typeNext()
+    function tick() {
+      if (cancelled) return
+
+      if (lineIdx >= CLI_LINES.length) {
+        // Restart after 2s pause
+        tid = setTimeout(() => {
+          if (cancelled) return
+          setLines([])
+          lineIdx = 0
+          charIdx = 0
+          restartKey.current++
+          tick()
         }, 2000)
         return
       }
 
-      const line = CLI_LINES[currentLineIndex]
+      const fullLine = CLI_LINES[lineIdx].text
 
-      if (currentCharIndex < line.length) {
-        // Type one character
-        setDisplayedLines((prev) => {
-          const updated = [...prev]
-          updated[currentLineIndex] =
-            (updated[currentLineIndex] || "") + line[currentCharIndex]
-          return updated
+      if (charIdx <= fullLine.length) {
+        const partial = fullLine.slice(0, charIdx)
+        setLines((prev) => {
+          const next = [...prev]
+          next[lineIdx] = partial
+          return next
         })
-        currentCharIndex++
-        timeoutId = setTimeout(typeNext, 45) // typewriter speed
+        charIdx++
+        tid = setTimeout(tick, 42)
       } else {
-        // Move to next line
-        currentLineIndex++
-        currentCharIndex = 0
-        timeoutId = setTimeout(typeNext, 200) // pause between lines
+        // Line done — move to next
+        lineIdx++
+        charIdx = 0
+        tid = setTimeout(tick, 180)
       }
     }
 
-    timeoutId = setTimeout(typeNext, 600) // initial delay before starting
-
-    return () => clearTimeout(timeoutId)
+    tid = setTimeout(tick, 700)
+    return () => {
+      cancelled = true
+      clearTimeout(tid)
+    }
   }, [])
 
   return (
     <div
-      className="hidden md:block absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0"
+      className="hidden md:block absolute z-20 opacity-0"
       style={{
-        width: "clamp(280px, 35vw, 420px)",
-        animation: "fade-in-up 900ms cubic-bezier(0.2,0.65,0.2,1) 800ms forwards",
+        // Sits in the open space: right of heading, left of stat cards
+        right: "clamp(100px, 16vw, 200px)",
+        top: "50%",
+        transform: "translateY(-50%)",
+        width: "clamp(260px, 26vw, 360px)",
+        animation: "fade-in-up 900ms cubic-bezier(0.2,0.65,0.2,1) 900ms forwards",
       }}
     >
-      {/* Terminal window container */}
+      {/* Terminal chrome */}
       <div
-        className="overflow-hidden rounded-lg border"
+        className="overflow-hidden rounded-lg"
         style={{
-          background: "rgba(2, 4, 8, 0.65)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          borderColor: "rgba(0, 229, 255, 0.35)",
+          background: "rgba(5, 8, 14, 0.72)",
+          backdropFilter: "blur(28px)",
+          WebkitBackdropFilter: "blur(28px)",
+          border: "1px solid rgba(0, 229, 255, 0.28)",
           boxShadow:
-            "0 0 32px rgba(0, 229, 255, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(0, 229, 255, 0.15)",
+            "0 0 0 1px rgba(0,0,0,0.4), 0 8px 40px rgba(0,0,0,0.55), 0 0 28px rgba(0,229,255,0.10)",
         }}
       >
         {/* Title bar */}
         <div
-          className="flex items-center justify-between px-3 py-2.5"
+          className="flex items-center gap-2 px-3 py-2"
           style={{
-            background: "rgba(255, 255, 255, 0.04)",
-            borderBottom: "1px solid rgba(0, 229, 255, 0.15)",
+            background: "rgba(255,255,255,0.035)",
+            borderBottom: "1px solid rgba(0,229,255,0.12)",
           }}
         >
           {/* Traffic lights */}
-          <div className="flex gap-2">
-            <div
-              className="h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: "#ff5f56" }}
-            />
-            <div
-              className="h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: "#ffbd2e" }}
-            />
-            <div
-              className="h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: "#27c93f" }}
-            />
-          </div>
-
-          {/* Terminal title */}
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#ff5f56" }} />
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#ffbd2e" }} />
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: "#27c93f" }} />
           <span
-            className="flex-1 text-center font-mono text-[11px] tracking-[0.08em]"
-            style={{ color: "rgba(0, 229, 255, 0.7)" }}
+            className="ml-auto font-mono"
+            style={{ fontSize: "10px", letterSpacing: "0.08em", color: "rgba(0,229,255,0.6)" }}
           >
-            siddharth@dev ~ 
+            siddharth@dev ~
           </span>
-
-          <div className="w-6" />
         </div>
 
-        {/* Terminal content */}
-        <div className="p-4 font-mono text-sm leading-relaxed">
-          {displayedLines.map((line, idx) => (
-            <div
-              key={idx}
-              className="text-white/85"
-              style={{ fontSize: "13px", letterSpacing: "0.02em" }}
-            >
-              {line}
-            </div>
-          ))}
+        {/* Body */}
+        <div className="p-4" style={{ minHeight: "192px" }}>
+          {CLI_LINES.map((meta, idx) => {
+            const text = lines[idx] ?? ""
+            if (text === "" && idx > (lines.length)) return null
+            return (
+              <div
+                key={idx}
+                style={{
+                  fontFamily: "'Fira Code', 'JetBrains Mono', 'Courier New', monospace",
+                  fontSize: "12px",
+                  lineHeight: "1.7",
+                  letterSpacing: "0.02em",
+                  color: lineColor(meta.type),
+                  minHeight: text !== "" || idx === lines.length - 1 ? "1.7em" : 0,
+                  overflow: "hidden",
+                }}
+              >
+                {text}
+              </div>
+            )
+          })}
 
           {/* Blinking cursor */}
-          <div
-            className="inline-block"
+          <span
             style={{
-              color: "rgb(0, 229, 255)",
-              opacity: cursorVisible ? 1 : 0.3,
-              transition: "opacity 0s",
+              fontFamily: "'Fira Code', monospace",
+              fontSize: "12px",
+              color: "rgb(0,229,255)",
+              opacity: cursorVisible ? 1 : 0.15,
+              transition: "opacity 0.05s",
+              display: "inline-block",
             }}
           >
             ▋
-          </div>
+          </span>
         </div>
       </div>
     </div>
