@@ -258,7 +258,7 @@ export function Hero() {
         }}
       >
         {/* Column 1: Heading */}
-        <div className="flex-shrink-0">
+        <div className="flex flex-shrink-0 flex-col justify-center self-stretch">
           <h1
             className="text-pretty leading-[0.92] tracking-[-0.04em]"
             style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
@@ -278,11 +278,7 @@ export function Hero() {
               style={{
                 fontWeight: 800,
                 fontSize: "clamp(56px, 10vw, 160px)",
-                backgroundImage: "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, #00e5ff 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                WebkitTextFillColor: "transparent",
+                color: "#ffffff",
                 clipPath: "inset(100% 0 0 0)",
                 animation: "clip-reveal-up 1100ms cubic-bezier(0.65,0,0.2,1) 600ms forwards, fade-in 600ms ease-out 600ms forwards",
                 willChange: "clip-path, transform",
