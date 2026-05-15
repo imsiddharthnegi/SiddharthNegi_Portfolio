@@ -25,7 +25,7 @@ const PROJECTS: Project[] = [
   {
     name: "LeadForge",
     description:
-      "AI-powered lead generation platform that scrapes, enriches, and scores prospects in real time using Gemini for intelligent qualification.",
+      "AI-powered lead generation platform that scrapes, enriches, and scores prospects in real time — cutting manual qualification time with Gemini-powered intelligence.",
     tech: ["REACT", "CLAUDE API", "VERCEL", "REST APIS"],
     href: "https://leadforgeproject.vercel.app/",
     demoUrl: "https://leadforgeproject.vercel.app/",
@@ -34,7 +34,7 @@ const PROJECTS: Project[] = [
   {
     name: "StyleMatch",
     description:
-      "AI-powered ecommerce recommendation engine. Users complete a 60-second style quiz, get personalized product recommendations with AI explanations, and checkout via Stripe.",
+      "AI-powered ecommerce recommendation engine with a personalized style quiz, AI-generated product explanations, and end-to-end Stripe checkout.",
     tech: ["LOVABLE", "JAVASCRIPT", "STRIPE", "POSTGRESQL"],
     href: "https://stylematchapp.lovable.app/",
     demoUrl: "https://stylematchapp.lovable.app/",
@@ -43,7 +43,7 @@ const PROJECTS: Project[] = [
   {
     name: "UrbanPulse",
     description:
-      "Civic insights dashboard mapping real-time urban activity across cities — traffic, events, and public infrastructure on an interactive Leaflet canvas.",
+      "Civic insights dashboard mapping real-time urban activity across cities — traffic, events, and public infrastructure on an interactive map interface.",
     tech: ["NEXT.JS", "MONGODB", "LEAFLET.JS", "VERCEL"],
     href: "https://projecturbanpulse.vercel.app/",
     demoUrl: "https://projecturbanpulse.vercel.app/",
@@ -52,7 +52,7 @@ const PROJECTS: Project[] = [
   {
     name: "DisasterShield",
     description:
-      "Emergency response companion aggregating live disaster feeds, shelter routing, and community alerts into a single resilient mobile-first interface.",
+      "Emergency response platform aggregating live disaster feeds, shelter routing, and community alerts into a resilient mobile-first interface.",
     tech: ["REACT", "REST APIS", "TAILWIND", "FIREBASE"],
     href: "https://disastershieldin.vercel.app/",
     demoUrl: "https://disastershieldin.vercel.app/",
@@ -61,7 +61,7 @@ const PROJECTS: Project[] = [
   {
     name: "BrandForge",
     description:
-      "Brand identity generator that drafts logos, voice guidelines, and color systems from a single prompt — built for solo founders shipping fast.",
+      "Brand identity generator that creates logo concepts, voice guidelines, and color systems from a single prompt — built for solo founders shipping fast.",
     tech: ["FRAMER", "REACT", "TAILWIND CSS", "NODE.JS"],
     href: "https://brandforgeproject.lovable.app/",
     demoUrl: "https://brandforgeproject.lovable.app/",
