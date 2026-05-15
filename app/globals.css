@@ -222,268 +222,160 @@
 }
 
 /* ════════════════════════════════════════════════════════════════
-   MOBILE-ONLY RESPONSIVE STYLES (max-width: 768px)
+   MOBILE-ONLY RESPONSIVE STYLES
+   All rules are scoped so they ONLY affect mobile. Desktop is untouched.
    ════════════════════════════════════════════════════════════════ */
 
+/* Prevent horizontal overflow on all screen sizes */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 @media (max-width: 768px) {
-  /* ──── NAVBAR ──── */
-  
-  /* Hide desktop nav links on mobile */
-  header nav {
+
+  /* ── GENERAL ─────────────────────────────────────────────────── */
+
+  /* Minimum tap target height for all interactive elements */
+  a, button {
+    min-height: 44px;
+  }
+
+  /* ── NAVBAR ──────────────────────────────────────────────────── */
+
+  /* "Open to opportunities" badge — hide on very small screens to avoid overflow */
+  @media (max-width: 480px) {
+    header .sm\:inline-flex {
+      display: none !important;
+    }
+  }
+
+  /* ── HERO ────────────────────────────────────────────────────── */
+
+  /* Hide location tag (top-right) on mobile */
+  .absolute.right-5.top-\[72px\] {
     display: none !important;
-  }
-
-  /* Keep hamburger visible on mobile */
-  header button[aria-expanded] {
-    display: grid !important;
-  }
-
-  /* Keep SN logo and available pill visible */
-  header a[aria-label*="Home"] {
-    display: flex !important;
-  }
-
-  header a[aria-label*="Available"] {
-    display: inline-flex !important;
-  }
-
-  /* ──── HERO ──── */
-  
-  /* Hide stat cards on mobile */
-  .hero div[aria-label*="Internships"],
-  .hero div[aria-label*="Projects"],
-  .hero div[aria-label*="Certifications"],
-  .hero div[aria-label*="Certs"] {
-    display: none !important;
-  }
-
-  /* Hide desktop-only elements in hero */
-  .hidden {
-    display: none !important;
-  }
-
-  /* Make hero headline scale responsively */
-  h1 {
-    font-size: clamp(36px, 8vw, 56px) !important;
-  }
-
-  h1 span {
-    font-size: clamp(36px, 8vw, 56px) !important;
   }
 
   /* Hide scroll indicator on mobile */
-  .hero [aria-hidden] ~ div:last-child {
+  .absolute.bottom-12.right-12.z-20 {
     display: none !important;
   }
 
-  /* Hide location text on mobile */
-  .absolute.right-5 {
-    display: none !important;
-  }
+  /* ── JOURNEY ─────────────────────────────────────────────────── */
 
-  /* ──── JOURNEY ──── */
-  
-  /* Stack journey entry columns vertically */
+  /* Stack all 4 grid columns into a single column */
   #journey .grid.grid-cols-12 {
-    display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-    align-items: baseline !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
   }
 
-  /* Stack all journey row sections vertically */
-  #journey .col-span-12.md\:col-span-3,
-  #journey .col-span-12.md\:col-span-2,
-  #journey .col-span-12.md\:col-span-4 {
-    grid-column: span 1 !important;
-    width: 100%;
-  }
-
-  /* Make journey row description left-aligned on mobile */
+  /* Remove right-alignment on description column */
   #journey .md\:text-right {
     text-align: left !important;
   }
 
-  /* ──── ABOUT ──── */
-  
-  /* Hide left side (01 + portrait card) on mobile */
-  #about > div > div:first-child {
-    display: none !important;
+  /* Reduce row padding on mobile */
+  #journey .grid.grid-cols-12 {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
   }
 
-  /* Show about content full width */
-  #about > div {
-    grid-template-columns: 1fr !important;
-    display: block !important;
+  /* ── PROJECTS ────────────────────────────────────────────────── */
+
+  /* Stack project number + name + tags into single-column layout */
+  #projects .grid.grid-cols-12 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
   }
 
-  #about > div > div:last-child {
-    margin-top: 0 !important;
+  /* Full-width tech tag row */
+  #projects .col-span-12 {
+    width: 100% !important;
   }
 
-  /* Display stats in 2x2 grid on mobile */
-  #about .grid.grid-cols-4 {
+  /* Ensure action buttons stack and are full-width */
+  #projects .sm\:flex-row {
+    flex-direction: column !important;
+  }
+
+  #projects .inline-flex.items-center.justify-center {
+    width: 100% !important;
+  }
+
+  /* Arrow button full-width on mobile */
+  #projects .inline-flex.h-10.w-10 {
+    width: 100% !important;
+    border-radius: 6px !important;
+  }
+
+  /* Tech tags wrap naturally */
+  #projects .flex.flex-wrap {
+    flex-wrap: wrap !important;
+  }
+
+  /* ── ARSENAL ─────────────────────────────────────────────────── */
+
+  /* Collapse multi-column grid to 2 columns max */
+  #arsenal .grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 32px 16px !important;
   }
 
-  /* ──── CERTIFICATIONS (RECEIPTS) ──── */
-  
-  /* Stack certification cards to single column */
-  #certifications .grid.grid-cols-1.md\:grid-cols-2 {
+  /* Single column for category cards */
+  #arsenal > div > div.grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
 
-  /* Make cert cards equal height */
-  #certifications .group.relative.overflow-hidden {
-    min-height: 100%;
+  /* ── CERTIFICATIONS ──────────────────────────────────────────── */
+
+  /* Single column cert cards */
+  #certifications .grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
   }
 
-  /* ──── CONTACT ──── */
-  
-  /* Stack contact sections vertically on mobile */
-  #contact > div {
+  /* ── ABOUT ───────────────────────────────────────────────────── */
+
+  /* Collapse 2-col layout to single col */
+  #about .grid.grid-cols-2,
+  #about .grid.lg\:grid-cols-2 {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
+  }
+
+  /* Stats grid: 2x2 on mobile */
+  #about .grid.grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px 16px !important;
+  }
+
+  /* ── CONTACT ─────────────────────────────────────────────────── */
+
+  /* Stack contact columns vertically */
+  #contact .grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
   }
 
   #contact .lg\:col-span-7,
   #contact .lg\:col-span-5 {
     grid-column: span 1 !important;
-    width: 100%;
   }
 
-  /* Center contact links on mobile */
-  #contact .flex.flex-col.gap-4.lg\:items-end {
-    align-items: center !important;
-    text-align: center !important;
+  /* Center social links */
+  #contact .lg\:items-end {
+    align-items: flex-start !important;
   }
 
-  #contact .flex.flex-wrap.items-center.gap-x-8.gap-y-3.lg\:justify-end {
-    justify-content: center !important;
-  }
+  /* ── CUSTOM CURSOR ───────────────────────────────────────────── */
 
-  /* Make email and social buttons large and centered */
-  #contact .font-light.tracking-tight.text-white {
-    display: inline-block;
-  }
-
-  /* ──── CURSOR ──── */
-  
-  /* Disable custom cursor on touch devices */
+  /* Hide custom cursor element on touch devices */
   @media (pointer: coarse) {
-    document {
-      cursor: auto !important;
-    }
-
-    body {
-      cursor: auto !important;
-    }
-
-    [role="cursor"],
-    [aria-hidden="true"] {
+    [data-cursor], #custom-cursor {
       display: none !important;
+      pointer-events: none !important;
     }
-  }
-
-  /* ──── PROJECTS ──── */
-  
-  /* Stack project cards vertically on mobile */
-  .grid.grid-cols-12 {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  /* Make project cards full width and stack content */
-  .col-span-2,
-  .col-span-10,
-  .col-span-4,
-  .col-span-1,
-  .col-span-12 {
-    grid-column: span 12 !important;
-    width: 100%;
-  }
-
-  /* Stack project number, title, description vertically */
-  .group.relative.w-full {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-    padding-top: 24px !important;
-    padding-bottom: 24px !important;
-  }
-
-  /* Make project number smaller on mobile */
-  .font-mono.text-3xl {
-    font-size: 24px !important;
-  }
-
-  /* Scale down project title on mobile */
-  h3 {
-    font-size: clamp(20px, 5vw, 28px) !important;
-  }
-
-  /* Stack tech pills on mobile */
-  .flex.flex-wrap.items-center {
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: flex-start;
-    margin-top: 12px !important;
-  }
-
-  /* Stack action buttons on mobile */
-  .flex.flex-col {
-    flex-direction: column;
-    width: 100%;
-    gap: 12px !important;
-  }
-
-  .inline-flex.items-center.justify-center {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Adjust arrow button size on mobile */
-  .inline-flex.h-10.w-10 {
-    width: 100% !important;
-    justify-content: center;
-  }
-
-  /* ──── ARSENAL ──── */
-  
-  /* Stack category cards to single column on mobile */
-  .grid.grid-cols-1 {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-  /* Keep tech items in 2-column grid on mobile */
-  .grid.grid-cols-2 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
-  /* Adjust arsenal section padding on mobile */
-  section#arsenal > div {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-  }
-
-  section#arsenal > div > div {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-  }
-
-  /* ──── GENERAL ──── */
-  
-  /* Reduce padding on projects section on mobile */
-  section#projects > div {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-  }
-
-  /* Hide "hover to expand" text on mobile */
-  section#projects .text-white {
-    display: none !important;
   }
 }
