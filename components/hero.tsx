@@ -225,7 +225,7 @@ export function Hero() {
               border: "1px solid rgba(34,197,94,0.45)",
               boxShadow: "0 0 16px rgba(34,197,94,0.18)",
             }}
-            aria-label="Available for work: May 2026"
+            aria-label="Open to opportunities"
           >
             <span className="relative flex h-2 w-2 items-center justify-center" aria-hidden>
               <span
@@ -238,7 +238,7 @@ export function Hero() {
               className="font-mono font-semibold uppercase tracking-[0.16em] text-green-300"
               style={{ fontSize: "11px" }}
             >
-              Available for work: May&nbsp;2026
+              Open to opportunities
             </span>
           </span>
         </div>
