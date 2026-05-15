@@ -14,6 +14,15 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    name: "WritePro",
+    description:
+      "Full-stack AI writing SaaS for professionals and content creators. Features a distraction-free editor with real-time Claude-powered suggestions, project management dashboard, subscription billing, and secure auth — built end to end with Next.js and Supabase.",
+    tech: ["NEXT.JS", "CLAUDE API", "SUPABASE", "PRISMA"],
+    href: "https://writepro-ai.vercel.app/",
+    demoUrl: "https://writepro-ai.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
+  },
+  {
     name: "LeadForge",
     description:
       "AI-powered lead generation platform that scrapes, enriches, and scores prospects in real time using Gemini for intelligent qualification.",
@@ -21,6 +30,15 @@ const PROJECTS: Project[] = [
     href: "https://leadforgeproject.vercel.app/",
     demoUrl: "https://leadforgeproject.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/LeadForge",
+  },
+  {
+    name: "StyleMatch",
+    description:
+      "AI-powered ecommerce recommendation engine. Users complete a 60-second style quiz, get personalized product recommendations with AI explanations, and checkout via Stripe.",
+    tech: ["LOVABLE", "JAVASCRIPT", "STRIPE", "POSTGRESQL"],
+    href: "https://stylematchapp.lovable.app/",
+    demoUrl: "https://stylematchapp.lovable.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/StyleMatch",
   },
   {
     name: "UrbanPulse",
@@ -39,24 +57,6 @@ const PROJECTS: Project[] = [
     href: "https://disastershieldin.vercel.app/",
     demoUrl: "https://disastershieldin.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/DisasterShield",
-  },
-  {
-    name: "WritePro",
-    description:
-      "Full-stack AI writing SaaS for professionals and content creators. Features a distraction-free editor with real-time Claude-powered suggestions, project management dashboard, subscription billing, and secure auth — built end to end with Next.js and Supabase.",
-    tech: ["NEXT.JS", "CLAUDE API", "SUPABASE", "PRISMA"],
-    href: "https://writepro-ai.vercel.app/",
-    demoUrl: "https://writepro-ai.vercel.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
-  },
-  {
-    name: "StyleMatch",
-    description:
-      "AI-powered ecommerce recommendation engine. Users complete a 60-second style quiz, get personalized product recommendations with AI explanations, and checkout via Stripe.",
-    tech: ["LOVABLE", "JAVASCRIPT", "STRIPE", "POSTGRESQL"],
-    href: "https://stylematchapp.lovable.app/",
-    demoUrl: "https://stylematchapp.lovable.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/StyleMatch",
   },
   {
     name: "BrandForge",
