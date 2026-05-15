@@ -153,70 +153,60 @@ export function Hero() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
-          MAIN TYPOGRAPHY BLOCK
+          MOBILE — typography + badge + stat cards stacked vertically
       ══════════════════════════════════════════════════════════════ */}
       <div
-        className="relative z-20 flex h-full flex-col justify-center"
+        className="relative z-20 flex h-full flex-col justify-center md:hidden"
         style={{ paddingLeft: "clamp(20px, 8vw, 120px)" }}
       >
         <h1
           className="text-pretty leading-[0.92] tracking-[-0.04em]"
           style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
         >
-          {/* Word 1: Code */}
           <span
             className="block font-light text-white opacity-0"
             style={{
               fontWeight: 300,
               fontSize: "clamp(56px, 10vw, 160px)",
-              animation:
-                "slide-from-left 1100ms cubic-bezier(0.2,0.7,0.2,1) 200ms forwards",
+              animation: "slide-from-left 1100ms cubic-bezier(0.2,0.7,0.2,1) 200ms forwards",
             }}
           >
             Code
           </span>
-
-          {/* Word 2: Ship */}
           <span
             className="block italic opacity-0"
             style={{
               fontWeight: 800,
               fontSize: "clamp(56px, 10vw, 160px)",
-              backgroundImage:
-                "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, #00e5ff 100%)",
+              backgroundImage: "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, #00e5ff 100%)",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
               WebkitTextFillColor: "transparent",
               clipPath: "inset(100% 0 0 0)",
-              animation:
-                "clip-reveal-up 1100ms cubic-bezier(0.65,0,0.2,1) 600ms forwards, fade-in 600ms ease-out 600ms forwards",
+              animation: "clip-reveal-up 1100ms cubic-bezier(0.65,0,0.2,1) 600ms forwards, fade-in 600ms ease-out 600ms forwards",
               willChange: "clip-path, transform",
             }}
           >
             Ship
           </span>
-
-          {/* Word 3: Repeat */}
           <span
             className="block opacity-0"
             style={{
               fontWeight: 900,
               fontSize: "clamp(56px, 10vw, 160px)",
               color: "#ffffff",
-              textShadow:
-                "0 0 22px rgba(0,229,255,0.18), 0 0 60px rgba(0,229,255,0.08)",
-              animation:
-                "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
+              textShadow: "0 0 22px rgba(0,229,255,0.18), 0 0 60px rgba(0,229,255,0.08)",
+              animation: "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
             }}
           >
             Repeat<span className="text-cyan-400/80">.</span>
           </span>
         </h1>
 
-        {/* ── MOBILE availability badge (below headline) ── */}
+        {/* Mobile badge */}
         <div
-          className="mt-6 flex flex-col gap-3 opacity-0 md:hidden"
+          className="mt-6 flex flex-col gap-3 opacity-0"
           style={{ animation: "fade-in-up 800ms ease-out 1300ms forwards" }}
         >
           <span
@@ -244,9 +234,9 @@ export function Hero() {
           </span>
         </div>
 
-        {/* ── MOBILE STAT CARDS (below headline, visible on small screens) ── */}
+        {/* Mobile stat cards */}
         <div
-          className="mt-6 flex gap-3 opacity-0 md:hidden"
+          className="mt-6 flex gap-3 opacity-0"
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} />
@@ -256,32 +246,86 @@ export function Hero() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
-          CENTER — Floating Terminal Window (desktop only)
+          DESKTOP — 3-column flex row: [heading] [terminal] [stats]
+          Hidden on mobile; only visible md and above.
       ══════════════════════════════════════════════════════════════ */}
-      <TerminalWindow />
+      <div
+        className="relative z-20 hidden h-full items-center md:flex"
+        style={{
+          paddingLeft: "clamp(20px, 8vw, 120px)",
+          paddingRight: "clamp(20px, 5vw, 80px)",
+          gap: "clamp(24px, 4vw, 64px)",
+        }}
+      >
+        {/* Column 1: Heading */}
+        <div className="flex-shrink-0">
+          <h1
+            className="text-pretty leading-[0.92] tracking-[-0.04em]"
+            style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
+          >
+            <span
+              className="block font-light text-white opacity-0"
+              style={{
+                fontWeight: 300,
+                fontSize: "clamp(56px, 10vw, 160px)",
+                animation: "slide-from-left 1100ms cubic-bezier(0.2,0.7,0.2,1) 200ms forwards",
+              }}
+            >
+              Code
+            </span>
+            <span
+              className="block italic opacity-0"
+              style={{
+                fontWeight: 800,
+                fontSize: "clamp(56px, 10vw, 160px)",
+                backgroundImage: "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, #00e5ff 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+                WebkitTextFillColor: "transparent",
+                clipPath: "inset(100% 0 0 0)",
+                animation: "clip-reveal-up 1100ms cubic-bezier(0.65,0,0.2,1) 600ms forwards, fade-in 600ms ease-out 600ms forwards",
+                willChange: "clip-path, transform",
+              }}
+            >
+              Ship
+            </span>
+            <span
+              className="block opacity-0"
+              style={{
+                fontWeight: 900,
+                fontSize: "clamp(56px, 10vw, 160px)",
+                color: "#ffffff",
+                textShadow: "0 0 22px rgba(0,229,255,0.18), 0 0 60px rgba(0,229,255,0.08)",
+                animation: "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
+              }}
+            >
+              Repeat<span className="text-cyan-400/80">.</span>
+            </span>
+          </h1>
+        </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          RIGHT COLUMN — stat cards + open-for-work badge (desktop)
-      ══════════════════════════════════════════════════════════════ */}
-      <div className="absolute right-12 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-4 md:flex">
-        {/* Top divider */}
-        <div
-          className="mb-1 h-px w-full bg-white/10 opacity-0"
-          style={{ animation: "fade-in 900ms ease-out 1000ms forwards" }}
-          aria-hidden
-        />
+        {/* Column 2: Terminal — fills the middle space */}
+        <div className="flex flex-1 items-center justify-center">
+          <TerminalWindow />
+        </div>
 
-        {/* Stat cards column */}
-        <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} />
-        <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
-        <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
-
-        {/* Bottom divider */}
-        <div
-          className="mt-3 h-px w-full bg-white/10 opacity-0"
-          style={{ animation: "fade-in 900ms ease-out 1900ms forwards" }}
-          aria-hidden
-        />
+        {/* Column 3: Stat cards */}
+        <div className="flex flex-shrink-0 flex-col gap-4">
+          <div
+            className="mb-1 h-px w-full bg-white/10 opacity-0"
+            style={{ animation: "fade-in 900ms ease-out 1000ms forwards" }}
+            aria-hidden
+          />
+          <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} />
+          <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
+          <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
+          <div
+            className="mt-3 h-px w-full bg-white/10 opacity-0"
+            style={{ animation: "fade-in 900ms ease-out 1900ms forwards" }}
+            aria-hidden
+          />
+        </div>
       </div>
 
       {/* ══════════════════════════════════════════════════════════════

@@ -83,13 +83,9 @@ export function TerminalWindow() {
 
   return (
     <div
-      className="hidden md:block absolute z-20 opacity-0"
+      className="opacity-0 w-full"
       style={{
-        // Sits in the open space: right of heading, left of stat cards
-        right: "clamp(100px, 16vw, 200px)",
-        top: "50%",
-        transform: "translateY(-50%)",
-        width: "clamp(260px, 26vw, 360px)",
+        maxWidth: "clamp(260px, 26vw, 360px)",
         animation: "fade-in-up 900ms cubic-bezier(0.2,0.65,0.2,1) 900ms forwards",
       }}
     >
