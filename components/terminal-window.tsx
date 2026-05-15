@@ -159,6 +159,43 @@ export function TerminalWindow() {
           </span>
         </div>
       </div>
+
+      {/* View Resume button — left-aligned under terminal, always visible */}
+      <a
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          marginTop: "14px",
+          padding: "6px 14px",
+          fontFamily: "'Fira Code', 'JetBrains Mono', 'Courier New', monospace",
+          fontSize: "12px",
+          letterSpacing: "0.06em",
+          color: "rgb(0, 229, 255)",
+          background: "transparent",
+          border: "1px solid rgba(0, 229, 255, 0.45)",
+          borderRadius: "5px",
+          cursor: "pointer",
+          textDecoration: "none",
+          transition: "background 200ms ease, box-shadow 200ms ease, border-color 200ms ease",
+        }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget
+          el.style.background = "rgba(0,229,255,0.10)"
+          el.style.boxShadow = "0 0 14px rgba(0,229,255,0.22)"
+          el.style.borderColor = "rgba(0,229,255,0.75)"
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget
+          el.style.background = "transparent"
+          el.style.boxShadow = "none"
+          el.style.borderColor = "rgba(0,229,255,0.45)"
+        }}
+      >
+        View Resume →
+      </a>
     </div>
   )
 }
