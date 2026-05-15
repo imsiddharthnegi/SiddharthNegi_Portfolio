@@ -170,12 +170,13 @@ export function TerminalWindow() {
           alignItems: "center",
           marginTop: "14px",
           padding: "6px 14px",
+          width: "100%",
           fontFamily: "'Fira Code', 'JetBrains Mono', 'Courier New', monospace",
           fontSize: "12px",
           letterSpacing: "0.06em",
           color: "rgb(0, 229, 255)",
           background: "transparent",
-          border: "1px solid rgba(0, 229, 255, 0.45)",
+          border: "1px solid rgba(0, 229, 255, 0.40)",
           borderRadius: "5px",
           cursor: "pointer",
           textDecoration: "none",
@@ -185,13 +186,13 @@ export function TerminalWindow() {
           const el = e.currentTarget
           el.style.background = "rgba(0,229,255,0.10)"
           el.style.boxShadow = "0 0 14px rgba(0,229,255,0.22)"
-          el.style.borderColor = "rgba(0,229,255,0.75)"
+          el.style.borderColor = "rgba(0,229,255,0.60)"
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget
           el.style.background = "transparent"
           el.style.boxShadow = "none"
-          el.style.borderColor = "rgba(0,229,255,0.45)"
+          el.style.borderColor = "rgba(0,229,255,0.40)"
         }}
       >
         View Resume →
