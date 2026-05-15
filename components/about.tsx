@@ -233,13 +233,13 @@ export function About() {
           >
             {STATS.map((s, i) => (
               <div key={s.label} className="flex flex-col gap-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35" style={{ whiteSpace: "nowrap" }}>
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
                   <span className="text-cyan-400/70">{String(i + 1).padStart(2, "0")}</span>{" "}
                   {s.label}
                 </span>
                 <span
                   className="font-light tracking-tight text-white"
-                  style={{ fontSize: "clamp(15px, 1.2vw, 17px)", whiteSpace: "nowrap" }}
+                  style={{ fontSize: "clamp(13px, 1.2vw, 17px)" }}
                 >
                   {s.value}
                 </span>

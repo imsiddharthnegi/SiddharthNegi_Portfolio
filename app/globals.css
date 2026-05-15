@@ -222,268 +222,152 @@
 }
 
 /* ════════════════════════════════════════════════════════════════
-   MOBILE-ONLY RESPONSIVE STYLES (max-width: 768px)
+   GLOBAL — prevent horizontal scroll on all sizes
    ════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 768px) {
-  /* ──── NAVBAR ──── */
-  
-  /* Hide desktop nav links on mobile */
-  header nav {
-    display: none !important;
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE — max-width: 767px
+   DESKTOP IS COMPLETELY UNTOUCHED. Every rule here is scoped to
+   max-width: 767px (below Tailwind's md: breakpoint of 768px).
+   ════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* ── GENERAL: tap targets ─────────────────────────────────────── */
+  a,
+  button {
+    min-height: 44px;
+    min-width: 44px;
   }
 
-  /* Keep hamburger visible on mobile */
-  header button[aria-expanded] {
-    display: grid !important;
+  /* Inline span links inside text shouldn't force height */
+  span > a {
+    min-height: unset;
   }
 
-  /* Keep SN logo and available pill visible */
-  header a[aria-label*="Home"] {
-    display: flex !important;
+  /* ── PROJECTS: show description always on mobile ─────────────── */
+  /* The .mobile-description div has inline style maxHeight:0 on desktop.
+     Override it on mobile so descriptions are always readable. */
+  .mobile-description {
+    max-height: 600px !important;
+    opacity: 1 !important;
+    margin-top: 12px !important;
+    overflow: visible !important;
   }
 
-  header a[aria-label*="Available"] {
-    display: inline-flex !important;
+  /* Project action buttons: stack vertically, full width */
+  #projects .flex.flex-col.gap-3.sm\:flex-row {
+    flex-direction: column !important;
+    width: 100% !important;
   }
 
-  /* ──── HERO ──── */
-  
-  /* Hide stat cards on mobile */
-  .hero div[aria-label*="Internships"],
-  .hero div[aria-label*="Projects"],
-  .hero div[aria-label*="Certifications"],
-  .hero div[aria-label*="Certs"] {
-    display: none !important;
+  #projects .inline-flex.items-center.justify-center {
+    width: 100% !important;
+    min-height: 44px !important;
   }
 
-  /* Hide desktop-only elements in hero */
-  .hidden {
-    display: none !important;
+  /* Arrow button: full width, rounded corners */
+  #projects .inline-flex.h-10.w-10.items-center.justify-center.rounded-full {
+    width: 100% !important;
+    border-radius: 6px !important;
+    min-height: 44px !important;
   }
 
-  /* Make hero headline scale responsively */
-  h1 {
-    font-size: clamp(36px, 8vw, 56px) !important;
+  /* Tech pills: wrap naturally */
+  #projects .flex.flex-wrap.items-center.gap-2\.5 {
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
   }
 
-  h1 span {
-    font-size: clamp(36px, 8vw, 56px) !important;
-  }
-
-  /* Hide scroll indicator on mobile */
-  .hero [aria-hidden] ~ div:last-child {
-    display: none !important;
-  }
-
-  /* Hide location text on mobile */
-  .absolute.right-5 {
-    display: none !important;
-  }
-
-  /* ──── JOURNEY ──── */
-  
-  /* Stack journey entry columns vertically */
+  /* ── JOURNEY: single column, left-aligned ─────────────────────── */
   #journey .grid.grid-cols-12 {
-    display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-    align-items: baseline !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
   }
 
-  /* Stack all journey row sections vertically */
-  #journey .col-span-12.md\:col-span-3,
-  #journey .col-span-12.md\:col-span-2,
-  #journey .col-span-12.md\:col-span-4 {
-    grid-column: span 1 !important;
-    width: 100%;
-  }
-
-  /* Make journey row description left-aligned on mobile */
   #journey .md\:text-right {
     text-align: left !important;
   }
 
-  /* ──── ABOUT ──── */
-  
-  /* Hide left side (01 + portrait card) on mobile */
-  #about > div > div:first-child {
-    display: none !important;
-  }
-
-  /* Show about content full width */
-  #about > div {
-    grid-template-columns: 1fr !important;
-    display: block !important;
-  }
-
-  #about > div > div:last-child {
-    margin-top: 0 !important;
-  }
-
-  /* Display stats in 2x2 grid on mobile */
-  #about .grid.grid-cols-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 32px 16px !important;
-  }
-
-  /* ──── CERTIFICATIONS (RECEIPTS) ──── */
-  
-  /* Stack certification cards to single column */
-  #certifications .grid.grid-cols-1.md\:grid-cols-2 {
+  /* ── ARSENAL: category cards stack 1-col; skill items 2-col ───── */
+  #arsenal .grid.grid-cols-1.gap-8.lg\:grid-cols-2.xl\:grid-cols-3 {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
 
-  /* Make cert cards equal height */
-  #certifications .group.relative.overflow-hidden {
-    min-height: 100%;
+  /* Skills inside each card: keep 2-col */
+  #arsenal .grid.grid-cols-2.gap-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 
-  /* ──── CONTACT ──── */
-  
-  /* Stack contact sections vertically on mobile */
-  #contact > div {
+  /* ── CERTIFICATIONS: single column ───────────────────────────── */
+  #certifications .grid.grid-cols-1.gap-4.md\:grid-cols-2 {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
+    gap: 16px !important;
   }
 
-  #contact .lg\:col-span-7,
-  #contact .lg\:col-span-5 {
-    grid-column: span 1 !important;
-    width: 100%;
+  /* ── ABOUT: portrait card hidden; right col full width ────────── */
+  /* Hide the left "01 + portrait" column on mobile */
+  #about .relative.grid.h-full.min-h-\[100dvh\].grid-cols-1.lg\:grid-cols-2 > div:first-child {
+    display: none !important;
   }
 
-  /* Center contact links on mobile */
+  /* Stats: 2×2 grid */
+  #about .grid.grid-cols-4.gap-x-10.gap-y-6 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px 12px !important;
+  }
+
+  /* About headings: scale down slightly */
+  #about h2 span {
+    font-size: clamp(40px, 12vw, 60px) !important;
+  }
+
+  /* ── CONTACT: left-align everything ──────────────────────────── */
   #contact .flex.flex-col.gap-4.lg\:items-end {
-    align-items: center !important;
-    text-align: center !important;
+    align-items: flex-start !important;
   }
 
   #contact .flex.flex-wrap.items-center.gap-x-8.gap-y-3.lg\:justify-end {
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
 
-  /* Make email and social buttons large and centered */
-  #contact .font-light.tracking-tight.text-white {
-    display: inline-block;
+  /* Email: allow wrapping */
+  #contact a[href^="mailto:"] span {
+    font-size: clamp(16px, 4vw, 22px) !important;
+    word-break: break-all !important;
   }
 
-  /* ──── CURSOR ──── */
-  
-  /* Disable custom cursor on touch devices */
-  @media (pointer: coarse) {
-    document {
-      cursor: auto !important;
-    }
-
-    body {
-      cursor: auto !important;
-    }
-
-    [role="cursor"],
-    [aria-hidden="true"] {
-      display: none !important;
-    }
+  /* Social links: min tap size */
+  #contact .flex.flex-wrap a {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
   }
 
-  /* ──── PROJECTS ──── */
-  
-  /* Stack project cards vertically on mobile */
-  .grid.grid-cols-12 {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  /* ── HIDE TOUCH CURSOR ────────────────────────────────────────── */
+  /* Custom cursor elements should not show on touch devices */
+}
 
-  /* Make project cards full width and stack content */
-  .col-span-2,
-  .col-span-10,
-  .col-span-4,
-  .col-span-1,
-  .col-span-12 {
-    grid-column: span 12 !important;
-    width: 100%;
-  }
-
-  /* Stack project number, title, description vertically */
-  .group.relative.w-full {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-    padding-top: 24px !important;
-    padding-bottom: 24px !important;
-  }
-
-  /* Make project number smaller on mobile */
-  .font-mono.text-3xl {
-    font-size: 24px !important;
-  }
-
-  /* Scale down project title on mobile */
-  h3 {
-    font-size: clamp(20px, 5vw, 28px) !important;
-  }
-
-  /* Stack tech pills on mobile */
-  .flex.flex-wrap.items-center {
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: flex-start;
-    margin-top: 12px !important;
-  }
-
-  /* Stack action buttons on mobile */
-  .flex.flex-col {
-    flex-direction: column;
-    width: 100%;
-    gap: 12px !important;
-  }
-
-  .inline-flex.items-center.justify-center {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Adjust arrow button size on mobile */
-  .inline-flex.h-10.w-10 {
-    width: 100% !important;
-    justify-content: center;
-  }
-
-  /* ──── ARSENAL ──── */
-  
-  /* Stack category cards to single column on mobile */
-  .grid.grid-cols-1 {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-  /* Keep tech items in 2-column grid on mobile */
-  .grid.grid-cols-2 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
-  /* Adjust arsenal section padding on mobile */
-  section#arsenal > div {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-  }
-
-  section#arsenal > div > div {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-  }
-
-  /* ──── GENERAL ──── */
-  
-  /* Reduce padding on projects section on mobile */
-  section#projects > div {
-    padding-left: clamp(16px, 4vw, 24px) !important;
-    padding-right: clamp(16px, 4vw, 24px) !important;
-  }
-
-  /* Hide "hover to expand" text on mobile */
-  section#projects .text-white {
+/* Coarse pointer (touch): hide any custom cursor elements */
+@media (pointer: coarse) {
+  [data-cursor],
+  #custom-cursor {
     display: none !important;
+    pointer-events: none !important;
+  }
+
+  /* Restore default cursor */
+  * {
+    cursor: auto !important;
   }
 }

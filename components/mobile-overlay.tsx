@@ -1,81 +1,351 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+
+const STATS = [
+  { label: "6 Projects" },
+  { label: "4 Internships" },
+  { label: "4 Certs" },
+]
+
+// Floating particle — purely decorative
+function Particle({ x, y, delay, size }: { x: number; y: number; delay: number; size: number }) {
+  return (
+    <span
+      aria-hidden
+      style={{
+        position: "absolute",
+        left: `${x}%`,
+        top: `${y}%`,
+        width: size,
+        height: size,
+        borderRadius: "50%",
+        background: "rgba(0, 229, 255, 0.55)",
+        animation: `particle-float 6s ease-in-out ${delay}s infinite alternate`,
+        pointerEvents: "none",
+      }}
+    />
+  )
+}
+
+const PARTICLES = [
+  { x: 8,  y: 18, delay: 0,   size: 1.5 },
+  { x: 90, y: 12, delay: 1.2, size: 1   },
+  { x: 15, y: 72, delay: 2.4, size: 2   },
+  { x: 82, y: 68, delay: 0.7, size: 1.5 },
+  { x: 50, y: 8,  delay: 1.8, size: 1   },
+  { x: 70, y: 85, delay: 3.1, size: 1   },
+  { x: 28, y: 42, delay: 0.4, size: 1.5 },
+  { x: 94, y: 44, delay: 2,   size: 1   },
+  { x: 5,  y: 88, delay: 1.5, size: 2   },
+  { x: 60, y: 95, delay: 2.8, size: 1   },
+]
 
 export function MobileOverlay() {
-  const [dismissed, setDismissed] = useState(true)
-  const [isMobile, setIsMobile] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [fadeOut, setFadeOut] = useState(false)
+  const isMounted = useRef(false)
 
   useEffect(() => {
-    // Check if dismissed in localStorage
-    const isDismissed = localStorage.getItem("mobile-overlay-dismissed")
-    setDismissed(isDismissed === "true")
+    isMounted.current = true
 
-    // Check if mobile on mount
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
+    // Only show on mobile
+    if (window.innerWidth >= 768) return
+
+    // sessionStorage flag — don't show again this session
+    const dismissed = sessionStorage.getItem("mobile-splash-dismissed")
+    if (dismissed === "true") return
+
+    setVisible(true)
   }, [])
 
   const handleDismiss = () => {
-    setDismissed(true)
-    localStorage.setItem("mobile-overlay-dismissed", "true")
+    setFadeOut(true)
+    sessionStorage.setItem("mobile-splash-dismissed", "true")
+    setTimeout(() => {
+      if (isMounted.current) setVisible(false)
+    }, 320)
   }
 
-  // Only show if on mobile and not dismissed
-  if (dismissed || !isMobile) {
-    return null
-  }
+  if (!visible) return null
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center p-6"
-      style={{ backgroundColor: "#020408" }}
-    >
-      {/* SN Logo */}
-      <div className="mb-12 flex h-12 w-12 items-center justify-center rounded-md border border-cyan-400/40 bg-white/[0.03] backdrop-blur-md">
-        <span className="font-mono text-sm font-medium tracking-[0.08em] text-white/90">
-          SN
-        </span>
-      </div>
+    <>
+      {/* Particle + overlay keyframes */}
+      <style>{`
+        @keyframes particle-float {
+          0%   { transform: translateY(0px) scale(1);   opacity: 0.18; }
+          100% { transform: translateY(-18px) scale(1.3); opacity: 0.06; }
+        }
+        @keyframes splash-fade-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes splash-item-up {
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0);    }
+        }
+      `}</style>
 
-      {/* Content */}
-      <div className="text-center">
-        <h1 className="mb-4 font-light tracking-tight text-white" style={{ fontSize: "clamp(32px, 8vw, 48px)" }}>
-          Crafted for Desktop
-        </h1>
-
-        <p className="mb-8 max-w-sm font-light leading-relaxed text-white/60" style={{ fontSize: "clamp(14px, 3.5vw, 16px)" }}>
-          This portfolio is designed for a full desktop experience. For the best view, open on a larger screen.
-        </p>
-      </div>
-
-      {/* Button */}
-      <button
-        onClick={handleDismiss}
-        className="group relative mt-12 inline-flex items-center gap-2 rounded-lg px-6 py-3 font-light tracking-tight text-white transition-all hover:scale-105 active:scale-95"
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile entry screen"
+        className="fixed inset-0 flex flex-col"
         style={{
-          background: "rgba(0, 229, 255, 0.12)",
-          border: "1px solid rgba(0, 229, 255, 0.30)",
-          boxShadow: "0 0 20px rgba(0, 229, 255, 0.15)",
+          zIndex: 9999,
+          backgroundColor: "#020408",
+          animation: "splash-fade-in 400ms ease forwards",
+          opacity: fadeOut ? 0 : undefined,
+          transition: fadeOut ? "opacity 320ms ease" : undefined,
+          overflowY: "auto",
         }}
-        aria-label="Dismiss overlay and continue"
       >
-        <span>Continue anyway</span>
-        <span aria-hidden className="text-cyan-400">
-          →
-        </span>
+        {/* Background radial glow */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
-            boxShadow: "0 0 24px rgba(0, 229, 255, 0.25)",
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(ellipse 70% 55% at 50% 55%, rgba(0,229,255,0.07) 0%, transparent 75%)",
+            pointerEvents: "none",
           }}
         />
-      </button>
-    </div>
+
+        {/* Floating particles */}
+        <span aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+          {PARTICLES.map((p, i) => (
+            <Particle key={i} {...p} />
+          ))}
+        </span>
+
+        {/* Top accent line */}
+        <span
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "2px",
+            background: "linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.70) 30%, rgba(0,229,255,0.90) 50%, rgba(0,229,255,0.70) 70%, transparent 100%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        {/* Main content — vertically centered */}
+        <div
+          className="relative z-10 flex flex-1 flex-col items-center justify-center text-center"
+          style={{
+            padding: "96px clamp(24px, 7vw, 40px) 96px",
+            gap: "0px",
+          }}
+        >
+
+          {/* SN monogram — same as navbar but slightly larger */}
+          <div
+            style={{
+              animation: "splash-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 100ms both",
+            }}
+          >
+            <div
+              className="group relative flex items-center justify-center rounded-md"
+              style={{
+                width: "48px",
+                height: "48px",
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(0, 229, 255, 0.40)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                boxShadow: "0 0 22px rgba(0, 229, 255, 0.18)",
+                marginBottom: "32px",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-mono), monospace",
+                  fontSize: "13px",
+                  fontWeight: 500,
+                  letterSpacing: "0.08em",
+                  color: "rgba(255,255,255,0.90)",
+                }}
+              >
+                SN
+              </span>
+            </div>
+          </div>
+
+          {/* Heading */}
+          <h1
+            className="text-white"
+            style={{
+              fontFamily: "var(--font-sans), Geist, sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(36px, 10vw, 52px)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.04em",
+              marginBottom: "16px",
+              animation: "splash-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 200ms both",
+            }}
+          >
+            Optimized for Desktop
+          </h1>
+
+          {/* Subtext */}
+          <p
+            style={{
+              fontFamily: "var(--font-sans), Geist, sans-serif",
+              fontWeight: 300,
+              fontSize: "clamp(13px, 3.5vw, 15px)",
+              lineHeight: 1.65,
+              color: "rgba(255,255,255,0.50)",
+              maxWidth: "280px",
+              marginBottom: "24px",
+              animation: "splash-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 300ms both",
+            }}
+          >
+            {"You're about to enter a full-stack portfolio built for big screens. For the best experience, switch to desktop."}
+          </p>
+
+          {/* Stat pills */}
+          <div
+            className="flex items-center gap-2"
+            style={{
+              marginBottom: "32px",
+              animation: "splash-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 400ms both",
+            }}
+          >
+            {STATS.map((s, i) => (
+              <span
+                key={s.label}
+                style={{
+                  fontFamily: "var(--font-mono), monospace",
+                  fontSize: "10px",
+                  fontWeight: 500,
+                  letterSpacing: "0.10em",
+                  textTransform: "uppercase" as const,
+                  color: "rgb(0, 229, 255)",
+                  background: "rgba(0, 229, 255, 0.07)",
+                  border: "1px solid rgba(0, 229, 255, 0.22)",
+                  borderRadius: "6px",
+                  padding: "4px 10px",
+                  whiteSpace: "nowrap" as const,
+                }}
+              >
+                {s.label}
+              </span>
+            ))}
+          </div>
+
+          {/* Buttons */}
+          <div
+            className="flex w-full flex-col"
+            style={{
+              maxWidth: "280px",
+              gap: "12px",
+              animation: "splash-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 500ms both",
+            }}
+          >
+            {/* Primary: Enter Anyway */}
+            <button
+              onClick={handleDismiss}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                minHeight: "48px",
+                fontFamily: "'Fira Code', 'JetBrains Mono', 'Courier New', monospace",
+                fontSize: "12px",
+                letterSpacing: "0.06em",
+                color: "rgb(0, 229, 255)",
+                background: "transparent",
+                border: "1px solid rgba(0, 229, 255, 0.40)",
+                borderRadius: "5px",
+                cursor: "pointer",
+                transition: "background 200ms ease, box-shadow 200ms ease, border-color 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget
+                el.style.background = "rgba(0,229,255,0.10)"
+                el.style.boxShadow = "0 0 14px rgba(0,229,255,0.22)"
+                el.style.borderColor = "rgba(0,229,255,0.60)"
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget
+                el.style.background = "transparent"
+                el.style.boxShadow = "none"
+                el.style.borderColor = "rgba(0,229,255,0.40)"
+              }}
+              aria-label="Enter the portfolio site"
+            >
+              Enter Anyway →
+            </button>
+
+            {/* Secondary: View Resume */}
+            <a
+              href="/siddharthnegi_resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                minHeight: "48px",
+                fontFamily: "'Fira Code', 'JetBrains Mono', 'Courier New', monospace",
+                fontSize: "12px",
+                letterSpacing: "0.06em",
+                color: "rgba(0, 229, 255, 0.55)",
+                background: "transparent",
+                border: "1px solid rgba(0, 229, 255, 0.18)",
+                borderRadius: "5px",
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "background 200ms ease, box-shadow 200ms ease, border-color 200ms ease, color 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget
+                el.style.background = "rgba(0,229,255,0.06)"
+                el.style.boxShadow = "0 0 10px rgba(0,229,255,0.12)"
+                el.style.borderColor = "rgba(0,229,255,0.35)"
+                el.style.color = "rgba(0,229,255,0.80)"
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget
+                el.style.background = "transparent"
+                el.style.boxShadow = "none"
+                el.style.borderColor = "rgba(0,229,255,0.18)"
+                el.style.color = "rgba(0,229,255,0.55)"
+              }}
+            >
+              View Resume →
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom tagline */}
+        <div
+          className="relative z-10 flex items-center justify-center pb-8"
+          style={{
+            animation: "splash-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 650ms both",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-mono), monospace",
+              fontSize: "10px",
+              fontWeight: 400,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase" as const,
+              color: "rgba(255,255,255,0.22)",
+            }}
+          >
+            Siddharth Negi · Full-Stack Developer
+          </span>
+        </div>
+      </div>
+    </>
   )
 }

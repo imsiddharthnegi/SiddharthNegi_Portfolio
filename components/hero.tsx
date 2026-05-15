@@ -44,7 +44,7 @@ function StatCard({
   const value = useCountUp(target, 1800, delay)
   return (
     <div
-      className="relative flex flex-col items-center justify-center rounded-xl border border-white/[0.10] px-5 py-4 opacity-0 text-center min-w-[100px]"
+      className="relative flex flex-col items-center justify-center rounded-xl border border-white/[0.10] px-3 py-4 opacity-0 text-center"
       style={{
         background: "rgba(255,255,255,0.035)",
         backdropFilter: "blur(12px)",
@@ -153,21 +153,29 @@ export function Hero() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
-          MOBILE — typography + badge + stat cards stacked vertically
+          MOBILE — typography + terminal + badge + stat cards stacked
       ══════════════════════════════════════════════════════════════ */}
       <div
-        className="relative z-20 flex h-full flex-col justify-center md:hidden"
-        style={{ paddingLeft: "clamp(20px, 8vw, 120px)" }}
+        className="relative z-20 flex h-full flex-col md:hidden"
+        style={{
+          paddingLeft: "clamp(20px, 6vw, 40px)",
+          paddingRight: "clamp(20px, 6vw, 40px)",
+          paddingTop: "88px",
+          paddingBottom: "80px",
+          overflowX: "hidden",
+          overflowY: "auto",
+          justifyContent: "center",
+        }}
       >
         <h1
-          className="text-pretty leading-[0.92] tracking-[-0.04em]"
+          className="text-pretty leading-[0.9] tracking-[-0.04em]"
           style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
         >
           <span
             className="block font-light text-white opacity-0"
             style={{
               fontWeight: 300,
-              fontSize: "clamp(56px, 10vw, 160px)",
+              fontSize: "clamp(42px, 14vw, 72px)",
               animation: "slide-from-left 1100ms cubic-bezier(0.2,0.7,0.2,1) 200ms forwards",
             }}
           >
@@ -177,7 +185,7 @@ export function Hero() {
             className="block italic opacity-0"
             style={{
               fontWeight: 800,
-              fontSize: "clamp(56px, 10vw, 160px)",
+              fontSize: "clamp(42px, 14vw, 72px)",
               color: "#ffffff",
               clipPath: "inset(100% 0 0 0)",
               animation: "clip-reveal-up 1100ms cubic-bezier(0.65,0,0.2,1) 600ms forwards, fade-in 600ms ease-out 600ms forwards",
@@ -190,7 +198,7 @@ export function Hero() {
             className="block opacity-0"
             style={{
               fontWeight: 900,
-              fontSize: "clamp(56px, 10vw, 160px)",
+              fontSize: "clamp(42px, 14vw, 72px)",
               color: "#ffffff",
               textShadow: "0 0 22px rgba(0,229,255,0.18), 0 0 60px rgba(0,229,255,0.08)",
               animation: "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
@@ -200,9 +208,17 @@ export function Hero() {
           </span>
         </h1>
 
+        {/* Mobile terminal — full width */}
+        <div
+          className="mt-5 opacity-0 w-full"
+          style={{ animation: "fade-in-up 800ms ease-out 1200ms forwards" }}
+        >
+          <TerminalWindow />
+        </div>
+
         {/* Mobile badge */}
         <div
-          className="mt-6 flex flex-col gap-3 opacity-0"
+          className="mt-4 flex flex-col gap-3 opacity-0"
           style={{ animation: "fade-in-up 800ms ease-out 1300ms forwards" }}
         >
           <span
@@ -230,9 +246,9 @@ export function Hero() {
           </span>
         </div>
 
-        {/* Mobile stat cards */}
+        {/* Mobile stat cards — 3 across */}
         <div
-          className="mt-6 flex gap-3 opacity-0"
+          className="mt-4 grid grid-cols-3 gap-2 opacity-0"
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} />
