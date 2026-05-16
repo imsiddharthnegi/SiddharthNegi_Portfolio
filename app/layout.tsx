@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SmoothScroll } from '@/components/smooth-scroll'
 import { CustomCursor } from '@/components/custom-cursor'
-import { MobileOverlay } from '@/components/mobile-overlay'
+import MobileOverlay from '@/components/MobileOverlay'
 import './globals.css'
 
 const geist = Geist({
