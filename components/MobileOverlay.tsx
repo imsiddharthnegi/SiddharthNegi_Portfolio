@@ -255,8 +255,8 @@ export default function MobileOverlay() {
                 fontSize: '12px',
                 letterSpacing: '0.06em',
                 color: 'rgb(0,229,255)',
-                background: 'transparent',
-                border: '1px solid rgba(0,229,255,0.40)',
+                background: 'rgba(0,229,255,0.16)',
+                border: '1px solid rgba(0,229,255,0.50)',
                 borderRadius: '5px',
                 cursor: 'pointer',
               }}
