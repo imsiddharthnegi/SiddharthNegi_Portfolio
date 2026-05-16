@@ -50,7 +50,7 @@ function StatCard({
   const handleClick = () => {
     if (!scrollTo) return
     setIsActive(true)
-    setTimeout(() => setIsActive(false), 100)
+    setTimeout(() => setIsActive(false), 150)
     setTimeout(() => {
       const element = document.getElementById(scrollTo)
       element?.scrollIntoView({ behavior: "smooth" })
@@ -62,6 +62,13 @@ function StatCard({
       onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onMouseDown={() => handleClick()}
+      onMouseUp={() => {}}
+      onTouchStart={() => {
+        setHovered(true)
+        handleClick()
+      }}
+      onTouchEnd={() => setHovered(false)}
       className="relative flex flex-col items-center justify-center rounded-xl border border-white/[0.10] px-3 py-4 opacity-0 text-center transition-all duration-200"
       style={{
         background: "rgba(255,255,255,0.035)",
