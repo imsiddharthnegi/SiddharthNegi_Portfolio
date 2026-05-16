@@ -93,10 +93,9 @@ function StatCard({
         {icon}
       </span>
       <span
-        className="font-mono tabular-nums font-semibold text-white leading-none transition-all duration-200"
+        className="font-mono tabular-nums font-semibold text-white leading-none"
         style={{
           fontSize: "clamp(26px, 3.5vw, 32px)",
-          transform: hovered ? "translateY(-3px)" : "translateY(0)",
         }}
       >
         {value}{suffix}
@@ -108,15 +107,6 @@ function StatCard({
         }}
       >
         {label}
-      </span>
-      {/* Fade in label on hover */}
-      <span
-        className="font-mono text-[9px] uppercase tracking-[0.16em] text-cyan-400/70 transition-all duration-200 absolute bottom-3"
-        style={{
-          opacity: hovered ? 1 : 0,
-        }}
-      >
-        View →
       </span>
     </div>
   )
@@ -386,7 +376,7 @@ export function Hero() {
 
       {/* ══════════════════════════════════════════════════════════════
           BOTTOM-LEFT — name + role
-      ══════════════════════════════════════════════════════════════ */}
+      ═══════════════════════════════════════════════════════════��══ */}
       <div
         className="absolute bottom-12 left-5 z-20 flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
         style={{ animation: "fade-in-up 900ms ease-out 1500ms forwards" }}
