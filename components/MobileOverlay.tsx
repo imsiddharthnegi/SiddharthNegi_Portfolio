@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 
 export default function MobileOverlay() {
   const [show, setShow] = useState(false)
+  const [enterHover, setEnterHover] = useState(false)
+  const [resumeHover, setResumeHover] = useState(false)
 
   useEffect(() => {
     // Clear all old keys from every previous version
@@ -107,33 +109,46 @@ export default function MobileOverlay() {
       </div>
 
       {/* Enter Anyway button */}
-      <button onClick={handleEnter} style={{
-        width: '100%',
-        maxWidth: '400px',
-        padding: '16px',
-        marginBottom: '12px',
-        background: 'rgba(0,255,204,0.1)',
-        border: '1px solid rgba(0,255,204,0.4)',
-        color: '#00ffcc',
-        fontSize: '13px',
-        fontFamily: 'monospace',
-        letterSpacing: '0.05em',
-        cursor: 'pointer',
-        borderRadius: '4px',
-      }}>Enter Anyway →</button>
+      <button
+        onClick={handleEnter}
+        onMouseEnter={() => setEnterHover(true)}
+        onMouseLeave={() => setEnterHover(false)}
+        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)' }}
+        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
+        style={{
+          width: '100%',
+          maxWidth: '400px',
+          padding: '16px',
+          marginBottom: '12px',
+          background: enterHover ? 'rgba(0,255,204,0.2)' : 'rgba(0,255,204,0.1)',
+          border: `1px solid ${enterHover ? 'rgba(0,255,204,0.7)' : 'rgba(0,255,204,0.4)'}`,
+          boxShadow: enterHover ? '0 0 15px rgba(0,255,204,0.3)' : 'none',
+          color: '#00ffcc',
+          fontSize: '13px',
+          fontFamily: 'monospace',
+          letterSpacing: '0.05em',
+          cursor: 'pointer',
+          borderRadius: '4px',
+          transition: 'background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease',
+        }}
+      >Enter Anyway →</button>
 
       {/* View Resume button */}
       <a
         href="/siddharthnegi_resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
+        onMouseEnter={() => setResumeHover(true)}
+        onMouseLeave={() => setResumeHover(false)}
+        onMouseDown={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(0.97)' }}
+        onMouseUp={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1)' }}
         style={{
           width: '100%',
           maxWidth: '400px',
           padding: '16px',
-          background: 'transparent',
-          border: '1px solid rgba(0,255,204,0.2)',
-          color: 'rgba(0,255,204,0.6)',
+          background: resumeHover ? 'rgba(0,255,204,0.08)' : 'transparent',
+          border: `1px solid ${resumeHover ? 'rgba(0,255,204,0.4)' : 'rgba(0,255,204,0.2)'}`,
+          color: resumeHover ? 'rgba(0,255,204,0.9)' : 'rgba(0,255,204,0.6)',
           fontSize: '13px',
           fontFamily: 'monospace',
           letterSpacing: '0.05em',
@@ -143,6 +158,7 @@ export default function MobileOverlay() {
           display: 'block',
           borderRadius: '4px',
           boxSizing: 'border-box',
+          transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease',
         }}
       >View Resume →</a>
 
