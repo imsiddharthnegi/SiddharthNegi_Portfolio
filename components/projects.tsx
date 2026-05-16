@@ -1,55 +1,80 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Github, ExternalLink } from "lucide-react"
 
 type Project = {
   name: string
   description: string
   tech: string[]
   href: string
+  demoUrl?: string
+  githubUrl?: string
 }
 
 const PROJECTS: Project[] = [
   {
+    name: "WritePro",
+    description:
+      "Full-stack AI writing SaaS for professionals and content creators. Features a distraction-free editor with real-time Claude-powered suggestions, project management dashboard, subscription billing, and secure auth — built end to end with Next.js and Supabase.",
+    tech: ["NEXT.JS", "CLAUDE API", "SUPABASE", "PRISMA"],
+    href: "https://writepro-ai.vercel.app/",
+    demoUrl: "https://writepro-ai.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
+  },
+  {
     name: "LeadForge",
     description:
-      "AI-powered lead generation platform that scrapes, enriches, and scores prospects in real time using Gemini for intelligent qualification.",
-    tech: ["REACT", "GEMINI API", "VERCEL"],
-    href: "#",
+      "AI-powered lead generation platform that scrapes, enriches, and scores prospects in real time — cutting manual qualification time with Gemini-powered intelligence.",
+    tech: ["REACT", "CLAUDE API", "VERCEL", "REST APIS"],
+    href: "https://leadforgeproject.vercel.app/",
+    demoUrl: "https://leadforgeproject.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/LeadForge",
+  },
+  {
+    name: "StyleMatch",
+    description:
+      "AI-powered ecommerce recommendation engine with a personalized style quiz, AI-generated product explanations, and end-to-end Stripe checkout.",
+    tech: ["LOVABLE", "JAVASCRIPT", "STRIPE", "POSTGRESQL"],
+    href: "https://stylematchapp.lovable.app/",
+    demoUrl: "https://stylematchapp.lovable.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/StyleMatch",
   },
   {
     name: "UrbanPulse",
     description:
-      "Civic insights dashboard mapping real-time urban activity across cities — traffic, events, and public infrastructure on an interactive Leaflet canvas.",
-    tech: ["NEXT.JS", "MONGODB", "LEAFLET.JS"],
-    href: "#",
+      "Civic insights dashboard mapping real-time urban activity across cities — traffic, events, and public infrastructure on an interactive map interface.",
+    tech: ["NEXT.JS", "MONGODB", "LEAFLET.JS", "VERCEL"],
+    href: "https://projecturbanpulse.vercel.app/",
+    demoUrl: "https://projecturbanpulse.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/UrbanPulse",
   },
   {
     name: "DisasterShield",
     description:
-      "Emergency response companion aggregating live disaster feeds, shelter routing, and community alerts into a single resilient mobile-first interface.",
-    tech: ["REACT", "REST APIS", "TAILWIND"],
-    href: "#",
-  },
-  {
-    name: "CarbonTrace",
-    description:
-      "Personal carbon footprint tracker with Gemini-powered habit insights and beautiful visual breakdowns of weekly emissions across categories.",
-    tech: ["REACT", "CHART.JS", "GEMINI API"],
-    href: "#",
+      "Emergency response platform aggregating live disaster feeds, shelter routing, and community alerts into a resilient mobile-first interface.",
+    tech: ["REACT", "REST APIS", "TAILWIND", "FIREBASE"],
+    href: "https://disastershieldin.vercel.app/",
+    demoUrl: "https://disastershieldin.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/DisasterShield",
   },
   {
     name: "BrandForge",
     description:
-      "Brand identity generator that drafts logos, voice guidelines, and color systems from a single prompt — built for solo founders shipping fast.",
-    tech: ["REACT", "GEMINI API", "TAILWIND"],
-    href: "#",
+      "Brand identity generator that creates logo concepts, voice guidelines, and color systems from a single prompt — built for solo founders shipping fast.",
+    tech: ["FRAMER", "REACT", "TAILWIND CSS", "NODE.JS"],
+    href: "https://brandforgeproject.lovable.app/",
+    demoUrl: "https://brandforgeproject.lovable.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/brandforge",
   },
 ]
 
 function ProjectRow({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false)
+  const [demoHovered, setDemoHovered] = useState(false)
+  const [githubHovered, setGithubHovered] = useState(false)
+  const [arrowHovered, setArrowHovered] = useState(false)
+  const [arrowActive, setArrowActive] = useState(false)
   const isLast = index === PROJECTS.length - 1
 
   return (
@@ -79,18 +104,20 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         }}
       />
 
-      <a
-        href={project.href}
+      <div
         className="block w-full"
-        aria-label={`${project.name} — Live demo`}
+        style={{
+          paddingLeft: "clamp(24px, 8vw, 120px)",
+          paddingRight: "clamp(24px, 8vw, 120px)",
+          paddingTop: hovered ? "44px" : "32px",
+          paddingBottom: hovered ? "44px" : "32px",
+          transition: "all 500ms ease-out",
+        }}
       >
         <div
-          className="grid grid-cols-12 items-center gap-4 transition-all duration-500 ease-out"
+          className="grid grid-cols-12 items-center gap-4"
           style={{
-            paddingLeft: "clamp(24px, 8vw, 120px)",
-            paddingRight: "clamp(24px, 8vw, 120px)",
-            paddingTop: hovered ? "44px" : "32px",
-            paddingBottom: hovered ? "44px" : "32px",
+            transition: "all 500ms ease-out",
           }}
         >
           {/* Number */}
@@ -118,11 +145,11 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               {project.name}
             </h3>
 
-            {/* Expandable description */}
+            {/* Expandable description — desktop: hover to expand; mobile: always visible */}
             <div
-              className="overflow-hidden transition-all duration-500 ease-out"
+              className="overflow-hidden transition-all duration-500 ease-out mobile-description"
               style={{
-                maxHeight: hovered ? "120px" : "0px",
+                maxHeight: hovered ? "200px" : "0px",
                 opacity: hovered ? 1 : 0,
                 marginTop: hovered ? "12px" : "0px",
               }}
@@ -130,24 +157,102 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               <p className="max-w-xl text-balance text-sm leading-relaxed text-white/55">
                 {project.description}
               </p>
-              <div className="mt-3 flex items-center gap-2">
-                <span className="block h-px w-4 bg-cyan-400/60" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300/80">
-                  Live Demo
-                </span>
+
+              {/* Action Buttons */}
+              <div className="mt-4 flex flex-col gap-3 overflow-hidden sm:flex-row sm:gap-3 sm:flex-wrap sm:nowrap" style={{ display: 'flex', alignItems: 'center', flexWrap: 'nowrap', overflow: 'hidden' }}>
+                {/* Live Demo Button */}
+                <a
+                  href={project.demoUrl || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setDemoHovered(true)}
+                  onMouseLeave={() => setDemoHovered(false)}
+                  onClick={(e) => {
+                    if (!project.demoUrl || project.demoUrl === "#") {
+                      e.preventDefault()
+                    }
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-cyan-400/40 bg-cyan-500/10 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-cyan-300 transition-all duration-200 ease-out hover:border-cyan-400/70 hover:bg-cyan-500/20 hover:scale-102 hover:text-cyan-200 cursor-pointer"
+                  style={{
+                    height: "40px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    padding: "10px 16px",
+                    borderRadius: "6px",
+                    gap: "8px",
+                    backgroundColor: demoHovered ? "rgba(34, 211, 238, 0.15)" : "rgba(34, 211, 238, 0.05)",
+                    borderColor: demoHovered ? "rgba(34, 211, 238, 0.7)" : "rgba(34, 211, 238, 0.4)",
+                    color: demoHovered ? "rgb(165, 243, 252)" : "rgb(165, 243, 252)",
+                    transform: demoHovered ? "scale(1.02)" : "scale(1)",
+                    transformOrigin: "center",
+                    flex: '0 0 auto',
+                  }}
+                >
+                  LIVE DEMO
+                  <ExternalLink
+                    className="h-3 w-3 transition-transform duration-200"
+                    style={{
+                      transform: demoHovered ? "translateX(2px)" : "translateX(0)",
+                    }}
+                  />
+                </a>
+
+                {/* GitHub Button */}
+                <a
+                  href={project.githubUrl || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setGithubHovered(true)}
+                  onMouseLeave={() => setGithubHovered(false)}
+                  onClick={(e) => {
+                    if (!project.githubUrl || project.githubUrl === "#") {
+                      e.preventDefault()
+                    }
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-white/70 transition-all duration-200 ease-out hover:border-white/30 hover:bg-white/10 hover:scale-102 hover:text-white/90 cursor-pointer"
+                  style={{
+                    height: "40px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    padding: "10px 16px",
+                    borderRadius: "6px",
+                    gap: "8px",
+                    backgroundColor: githubHovered ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.03)",
+                    borderColor: githubHovered ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.15)",
+                    color: githubHovered ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",
+                    transform: githubHovered ? "scale(1.02)" : "scale(1)",
+                    transformOrigin: "center",
+                    flex: '0 0 auto',
+                  }}
+                >
+                  GITHUB
+                  <Github className="h-3 w-3" />
+                </a>
               </div>
             </div>
           </div>
 
           {/* Tech pills */}
-          <div className="col-span-12 mt-4 flex flex-wrap items-center gap-2 md:col-span-4 md:mt-0 md:justify-end">
+          <div className="col-span-12 mt-4 flex flex-wrap items-center gap-2.5 md:col-span-4 md:mt-0 md:justify-end">
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 transition-colors duration-500"
+                className="rounded transition-all duration-300"
                 style={{
-                  borderColor: hovered ? "rgba(0, 229, 255, 0.25)" : undefined,
-                  color: hovered ? "rgba(255, 255, 255, 0.75)" : undefined,
+                  padding: "8px",
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-mono), monospace",
+                  backgroundColor: "rgba(100, 116, 139, 0.1)",
+                  border: "1px solid rgba(100, 116, 139, 0.3)",
+                  borderRadius: "6px",
+                  color: "rgba(255, 255, 255, 0.7)",
+                  transform: hovered ? "scale(1.05)" : "scale(1)",
+                  backgroundColor: hovered ? "rgba(100, 116, 139, 0.2)" : "rgba(100, 116, 139, 0.1)",
+                  color: hovered ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",
+                  borderColor: hovered ? "rgba(100, 116, 139, 0.5)" : "rgba(100, 116, 139, 0.3)",
                 }}
               >
                 {t}
@@ -157,29 +262,47 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
           {/* Arrow */}
           <div className="col-span-12 mt-4 flex items-center justify-end md:col-span-1 md:mt-0">
-            <span
-              aria-hidden
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-500 ease-out"
+            <a
+              href={project.demoUrl || project.href || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setArrowHovered(true)}
+              onMouseLeave={() => setArrowHovered(false)}
+              onMouseDown={() => setArrowActive(true)}
+              onMouseUp={() => setArrowActive(false)}
+              onClick={(e) => {
+                if (!project.demoUrl && project.href === "#") {
+                  e.preventDefault()
+                }
+              }}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 ease-out hover:no-underline"
               style={{
-                borderColor: hovered
+                borderColor: arrowHovered
+                  ? "rgba(0, 229, 255, 1)"
+                  : hovered
                   ? "rgba(0, 229, 255, 0.5)"
                   : "rgba(255, 255, 255, 0.12)",
-                backgroundColor: hovered
+                backgroundColor: arrowHovered
+                  ? "rgba(0, 255, 204, 0.2)"
+                  : hovered
                   ? "rgba(0, 229, 255, 0.08)"
                   : "rgba(255, 255, 255, 0.02)",
-                transform: hovered ? "rotate(45deg)" : "rotate(0deg)",
+                transform: arrowActive ? "rotate(45deg) scale(0.95)" : hovered ? "rotate(45deg)" : "rotate(0deg)",
+                boxShadow: arrowHovered ? "0 0 15px rgba(0, 255, 204, 0.3)" : "none",
+                cursor: project.demoUrl && project.demoUrl !== "#" ? "pointer" : "default",
               }}
             >
               <ArrowUpRight
-                className="h-4 w-4 transition-colors duration-500"
+                className="h-4 w-4 transition-all duration-200"
                 style={{
-                  color: hovered ? "rgb(103, 232, 249)" : "rgba(255, 255, 255, 0.6)",
+                  color: arrowHovered ? "rgb(0, 255, 204)" : hovered ? "rgb(103, 232, 249)" : "rgba(255, 255, 255, 0.6)",
+                  transform: arrowHovered ? "translateX(4px)" : "translateX(0)",
                 }}
               />
-            </span>
+            </a>
           </div>
         </div>
-      </a>
+      </div>
     </div>
   )
 }
@@ -233,6 +356,37 @@ export function Projects() {
             Shipped.
           </span>
         </h2>
+
+        {/* Hover hint */}
+        <div
+          className="mt-8 mb-8 flex items-center justify-start gap-2"
+          style={{
+            fontSize: "11px",
+            fontFamily: "var(--font-mono), monospace",
+            letterSpacing: "0.1em",
+            color: "rgba(0, 229, 255, 0.5)",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              animation: "pulse 2s infinite",
+            }}
+          >
+            ●
+          </span>
+          <span>· Hover over each project to expand ·</span>
+          <style>{`
+            @keyframes pulse {
+              0%, 100% {
+                opacity: 0.3;
+              }
+              50% {
+                opacity: 1;
+              }
+            }
+          `}</style>
+        </div>
       </div>
 
       {/* Project rows */}
@@ -251,7 +405,7 @@ export function Projects() {
         }}
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
-          {String(PROJECTS.length).padStart(2, "0")} Projects · Hover to expand
+          {String(PROJECTS.length).padStart(2, "0")} Projects
         </span>
         <a
           href="#contact"

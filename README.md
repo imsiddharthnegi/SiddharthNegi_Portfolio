@@ -4,14 +4,13 @@
 > experience, and technical skills as a Full-Stack Engineer & SaaS Builder.
 
 ## 🔗 Live Site
-[siddharthnegi.vercel.app](https://siddharthnegi.vercel.app) 
-← replace with your actual URL once deployed
+
+https://siddharthnegi.vercel.app/
 
 ## ⚡ Built With
 - React.js
 - Tailwind CSS
 - Framer Motion
-- Lovable (AI-assisted development)
 - Vercel (deployment)
 
 ## 📌 Sections
@@ -25,17 +24,17 @@
 
 ## 🚀 Projects Featured
 | Project | Description | Live |
-|---|---|---|
 | LeadForge | AI B2B Lead Intelligence Platform | 
-| UrbanPulse | Civic Intelligence Platform | 
+| UrbanPulse | Civic Intelligence Platform |
 | DisasterShield | India Disaster Operations Center |
-| CarbonTrace | Corporate Carbon Intelligence | 
+| CarbonTrace | Corporate Carbon Intelligence |
 | BrandForge | AI Brand Identity Studio |
+| Style Match| AI-driven ecommerce platform |
 
 ## 📬 Contact
-- Email: imsiddarthnegi@gmail.com
+- Email: siddharthnegi.dev@gmail.com
 - LinkedIn: linkedin.com/in/imsiddarthnegi
-- WhatsApp: +91 7579156938
+- WhatsApp: +91 9389273455
 
 ---
 © 2026 Siddharth Negi · Crafted with precision

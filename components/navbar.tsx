@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "Arsenal", href: "#arsenal" },
   { label: "Journey", href: "#journey" },
+  { label: "Certs", href: "#certifications" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ]
@@ -113,18 +114,23 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="group hidden items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1.5 transition-colors hover:bg-green-500/15 sm:inline-flex"
+              className="group hidden items-center gap-2 rounded-full px-3 py-1.5 transition-all sm:inline-flex hover:scale-[1.03]"
+              style={{
+                background: "rgba(34,197,94,0.16)",
+                border: "1px solid rgba(34,197,94,0.40)",
+                boxShadow: "0 0 14px rgba(34,197,94,0.14)",
+              }}
+              aria-label="Open to opportunities — contact me"
             >
-              <span className="relative flex h-1.5 w-1.5 items-center justify-center">
+              <span className="relative flex h-2 w-2 items-center justify-center" aria-hidden>
                 <span
-                  aria-hidden
                   className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
                   style={{ animation: "ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite" }}
                 />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-green-200/90">
-                Available for work
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-green-300">
+                Open to opportunities
               </span>
             </a>
 
@@ -229,11 +235,11 @@ export function Navbar() {
               Direct line
             </span>
             <a
-              href="mailto:imsiddarthnegi@gmail.com"
+              href="mailto:siddharthnegi.dev@gmail.com"
               className="font-light tracking-tight text-white"
               style={{ fontSize: "clamp(16px, 4vw, 20px)" }}
             >
-              imsiddarthnegi@gmail.com
+              siddharthnegi.dev@gmail.com
             </a>
           </div>
         </div>

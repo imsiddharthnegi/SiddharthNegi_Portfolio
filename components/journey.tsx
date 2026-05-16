@@ -14,73 +14,85 @@ const ENTRIES: Entry[] = [
     years: "Jan — May 2026",
     role: "Full-Stack Developer Intern",
     company: "Tech Vista",
-    description: "Built responsive React.js components and reworked MongoDB schemas to cut API response times.",
+    description: "Engineered React.js component architecture and redesigned MongoDB schemas, reducing API response times by ~40% and improving page load performance across core product views.",
   },
   {
     years: "Jul — Dec 2025",
-    role: "Full Stack Developer",
+    role: "Web Developer",
     company: "LaunchED Global",
-    description: "Shipped 6+ features end-to-end working closely with designers and backend developers.",
+    description: "Owned 6+ features end-to-end in an ed-tech SaaS product — from scoping with designers to production deployment — moving at startup speed in a cross-functional team.",
   },
   {
     years: "Apr — Jun 2025",
     role: "Software Engineer Trainee",
     company: "Web Dev Open",
-    description: "Built 5+ RESTful API endpoints with clean MongoDB schemas and connected Gemini API for automated code feedback.",
+    description: "Designed 5+ RESTful endpoints with structured MongoDB schemas and integrated Gemini API to power an automated code-feedback pipeline for learners.",
   },
   {
     years: "Jan — Mar 2025",
     role: "Data Analyst Intern",
     company: "Blacksof",
-    description: "Automated data processing pipelines using Python cutting manual workload by 30% and queried large datasets with SQL.",
+    description: "Automated data processing pipelines in Python, cutting manual workload by 30%. Queried and analyzed large datasets with SQL to surface insights for business reporting.",
   },
 ]
 
 function JourneyRow({
   entry,
   index,
-  revealed,
   isLast,
 }: {
   entry: Entry
   index: number
-  revealed: boolean
   isLast: boolean
 }) {
   const [hovered, setHovered] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const cardElement = ref.current
+    if (!cardElement) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.unobserve(cardElement)
+          }
+        })
+      },
+      { threshold: 0.1 },
+    )
+
+    observer.observe(cardElement)
+    return () => observer.disconnect()
+  }, [index])
 
   return (
     <div
+      ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
       tabIndex={0}
       className={[
-        "group relative w-full border-t border-white/[0.08] outline-none",
+        "group relative w-full outline-none",
         isLast ? "border-b" : "",
       ].join(" ")}
       style={{
-        opacity: revealed ? 1 : 0,
-        transform: revealed ? "translateY(0)" : "translateY(16px)",
-        transition: "opacity 600ms ease-out, transform 600ms ease-out",
-        transitionDelay: `${index * 90}ms`,
-        backgroundImage: hovered
-          ? "linear-gradient(90deg, rgba(0, 229, 255, 0.04) 0%, rgba(79, 10, 235, 0.05) 60%, rgba(0, 229, 255, 0.02) 100%)"
-          : "none",
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
+        transitionDelay: `${index * 120}ms`,
+        borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+        borderLeft: hovered ? "2px solid rgba(0, 229, 255, 1)" : "2px solid transparent",
+        backgroundColor: hovered
+          ? "rgba(255, 255, 255, 0.03)"
+          : "transparent",
       }}
     >
-      {/* Cyan left edge accent on hover */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-0 top-0 h-full w-[2px] bg-cyan-400 transition-transform duration-500 ease-out"
-        style={{
-          transform: hovered ? "scaleY(1)" : "scaleY(0)",
-          transformOrigin: "top",
-          boxShadow: "0 0 24px rgba(0, 229, 255, 0.6)",
-        }}
-      />
-
       <div
         className="grid grid-cols-12 items-baseline gap-4 transition-all duration-500 ease-out"
         style={{
@@ -88,7 +100,7 @@ function JourneyRow({
           paddingBottom: hovered ? "32px" : "26px",
         }}
       >
-        {/* Years */}
+          {/* Years */}
         <div className="col-span-12 md:col-span-3">
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">
             {entry.years}
@@ -107,12 +119,13 @@ function JourneyRow({
 
         {/* Company */}
         <div className="col-span-12 md:col-span-2">
-          <span
-            className="font-light tracking-tight text-cyan-300"
+          <a
+            href="#"
+            className="font-light tracking-tight text-cyan-300 hover:text-cyan-100 hover:underline transition-all duration-150 ease-out cursor-pointer"
             style={{ fontSize: "clamp(15px, 1.3vw, 18px)" }}
           >
             {entry.company}
-          </span>
+          </a>
         </div>
 
         {/* Description */}
@@ -128,25 +141,6 @@ function JourneyRow({
 
 export function Journey() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const [revealed, setRevealed] = useState(false)
-
-  useEffect(() => {
-    const node = sectionRef.current
-    if (!node) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setRevealed(true)
-            observer.disconnect()
-          }
-        })
-      },
-      { threshold: 0.15 },
-    )
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <section
@@ -215,7 +209,6 @@ export function Journey() {
               key={e.company}
               entry={e}
               index={i}
-              revealed={revealed}
               isLast={i === ENTRIES.length - 1}
             />
           ))}

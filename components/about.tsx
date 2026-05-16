@@ -6,7 +6,7 @@ const STATS: { label: string; value: string }[] = [
   { label: "Based In", value: "Dehradun, India" },
   { label: "Focus", value: "Full-Stack SaaS" },
   { label: "Certs", value: "AWS · GCP" },
-  { label: "Shipped", value: "5 Live Products" },
+  { label: "Projects", value: "6 Live Products" },
 ]
 
 export function About() {
@@ -204,9 +204,9 @@ export function About() {
           {/* Paragraphs */}
           <div className="mt-12 grid max-w-xl gap-6">
             {[
-              "Four internships, five shipped products, and counting. I've worked across early-stage SaaS, ed-tech, and brand systems — owning features end-to-end and turning ambiguity into things real users press buttons on.",
-              "My stack stays sharp and intentional: Next.js, React.js, and Tailwind on the front; Node.js, MongoDB, and AWS on the back. AWS & GCP certified — I prefer infra I can reason about over magic.",
-              "Craft is non-negotiable. Pixel-precise UI, sub-100ms perceived performance, accessible by default. I sweat the spacing, the easing curves, and the empty states — because the difference is felt, not always seen.",
+              "Six shipped products, four internships, and a bias toward building things people actually use. I've worked across ed-tech SaaS, civic tech, and AI tooling — owning features from the first commit to production, and turning vague briefs into things real users press buttons on.",
+              "Full-stack by discipline, AI-native by choice. My stack: Next.js, React, and Tailwind on the front; Node.js, MongoDB, and AWS on the back. I layer in Gemini and Claude APIs where intelligence adds real value — not as a buzzword, but as a feature. AWS & GCP certified — I prefer infrastructure I can reason about.",
+              "Craft is non-negotiable. Pixel-precise UI, sub-100ms perceived performance, accessible by default. I sweat the spacing, the easing curves, and the empty states — because the gap between good and great is felt, not always seen.",
             ].map((text, i) => (
               <p
                 key={i}
@@ -224,27 +224,44 @@ export function About() {
 
           {/* Stats row */}
           <div
-            className="mt-14 flex flex-wrap items-start gap-x-10 gap-y-6 border-t border-white/[0.08] pt-8"
+            className="mt-14 grid grid-cols-4 gap-x-10 gap-y-6 border-t border-white/[0.08] pt-8"
             style={{
               opacity: revealed ? 1 : 0,
               transform: revealed ? "translateY(0)" : "translateY(12px)",
               transition: "opacity 700ms ease-out 1100ms, transform 700ms ease-out 1100ms",
             }}
           >
-            {STATS.map((s, i) => (
-              <div key={s.label} className="flex flex-col gap-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
-                  <span className="text-cyan-400/70">{String(i + 1).padStart(2, "0")}</span>{" "}
-                  {s.label}
-                </span>
-                <span
-                  className="font-light tracking-tight text-white"
-                  style={{ fontSize: "clamp(15px, 1.2vw, 17px)" }}
-                >
-                  {s.value}
-                </span>
-              </div>
-            ))}
+          {STATS.map((s, i) => (
+            <div
+              key={s.label}
+              className="flex flex-col gap-1.5 transition-all duration-150 ease-out"
+              style={{
+                padding: "12px",
+                borderLeft: "2px solid transparent",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLDivElement
+                el.style.borderLeftColor = "rgba(0, 229, 255, 1)"
+                el.style.backgroundColor = "rgba(255, 255, 255, 0.03)"
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLDivElement
+                el.style.borderLeftColor = "transparent"
+                el.style.backgroundColor = "transparent"
+              }}
+            >
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
+                <span className="text-cyan-400/70">{String(i + 1).padStart(2, "0")}</span>{" "}
+                {s.label}
+              </span>
+              <span
+                className="font-light tracking-tight text-white"
+                style={{ fontSize: "clamp(13px, 1.2vw, 17px)" }}
+              >
+                {s.value}
+              </span>
+            </div>
+          ))}
           </div>
         </div>
       </div>

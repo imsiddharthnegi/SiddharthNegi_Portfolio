@@ -4,33 +4,40 @@ import { useEffect, useRef, useState } from "react"
 
 type Category = {
   label: string
+  color: string
   skills: string[]
 }
 
 const CATEGORIES: Category[] = [
   {
     label: "Frontend",
-    skills: ["React.js", "Next.js", "Tailwind CSS", "JavaScript", "HTML5"],
+    color: "#00e5ff",
+    skills: ["React.js", "Next.js", "Tailwind CSS", "JavaScript"],
   },
   {
     label: "Backend",
-    skills: ["Node.js", "Express.js", "Python", "Django", "REST APIs"],
+    color: "#6366f1",
+    skills: ["Node.js", "Express.js", "Python", "Django"],
   },
   {
     label: "Database",
+    color: "#a855f7",
     skills: ["MongoDB", "PostgreSQL", "SQLite", "Airtable"],
   },
   {
     label: "Cloud",
-    skills: ["AWS", "GCP", "Docker", "Vercel", "CloudFormation"],
+    color: "#10b981",
+    skills: ["AWS", "GCP", "Docker", "Vercel"],
   },
   {
-    label: "AI & APIs",
-    skills: ["Gemini API", "OpenAI", "GitHub OAuth", "JWT"],
+    label: "API Integration",
+    color: "#ec4899",
+    skills: ["REST APIs", "Gemini API", "OpenAI", "Claude API"],
   },
   {
-    label: "No-Code · AI",
-    skills: ["Lovable", "Bolt.new", "Zapier", "Make", "Framer", "Prompt Engineering"],
+    label: "No-Code",
+    color: "#f59e0b",
+    skills: ["Lovable", "Zapier", "Cursor", "n8n"],
   },
 ]
 
@@ -42,7 +49,36 @@ const HIGHLIGHTED_SKILLS = new Set([
   "AWS",
   "REST APIs",
   "Gemini API",
+  "Lovable",
 ])
+
+// Icon map for different skills
+const SKILL_ICONS: Record<string, string> = {
+  "React.js": "⚛️",
+  "Next.js": "▲",
+  "Tailwind CSS": "🎨",
+  "JavaScript": "JS",
+  "Node.js": "🟢",
+  "Express.js": "⚡",
+  "Python": "🐍",
+  "Django": "🎯",
+  "MongoDB": "🍃",
+  "PostgreSQL": "🐘",
+  "SQLite": "💾",
+  "Airtable": "📊",
+  "AWS": "☁️",
+  "GCP": "🔵",
+  "Docker": "🐳",
+  "Vercel": "▲",
+  "REST APIs": "🔗",
+  "Gemini API": "✨",
+  "OpenAI": "🤖",
+  "Claude API": "🧠",
+  "Lovable": "💜",
+  "Zapier": "⚙️",
+  "Cursor": "💻",
+  "n8n": "🔄",
+}
 
 export function Arsenal() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -66,7 +102,6 @@ export function Arsenal() {
     return () => observer.disconnect()
   }, [])
 
-  // Build a flat global index for stagger across all skills
   let globalIndex = 0
 
   return (
@@ -79,7 +114,7 @@ export function Arsenal() {
     >
       {/* Section header */}
       <div
-        className="pt-24 pb-14 md:pt-32 md:pb-16"
+        className="pt-24 pb-16 md:pt-32 md:pb-20"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",
@@ -118,7 +153,7 @@ export function Arsenal() {
         </p>
       </div>
 
-      {/* Categorised list */}
+      {/* Grid-based categories */}
       <div
         className="pb-24 md:pb-32"
         style={{
@@ -126,65 +161,116 @@ export function Arsenal() {
           paddingRight: "clamp(24px, 8vw, 120px)",
         }}
       >
-        <ul className="flex flex-col">
-          {CATEGORIES.map((cat, rowIdx) => (
-            <li
-              key={cat.label}
-              className={[
-                "flex flex-col gap-2 border-t border-white/[0.06] py-5 md:flex-row md:items-baseline md:gap-8 md:py-6",
-                rowIdx === CATEGORIES.length - 1 ? "border-b" : "",
-              ].join(" ")}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
+          {CATEGORIES.map((category, catIdx) => (
+            <div
+              key={category.label}
+              className="flex flex-col gap-4 rounded-lg border border-white/[0.08] bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.04] hover:shadow-lg"
+              style={{
+                opacity: revealed ? 1 : 0,
+                transform: revealed ? "translateY(0)" : "translateY(12px)",
+                transition: "opacity 600ms ease-out, transform 600ms ease-out",
+                transitionDelay: `${catIdx * 50}ms`,
+              }}
             >
-              {/* Category label */}
-              <div
-                className="shrink-0"
-                style={{ width: "120px" }}
-              >
-                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-cyan-300/90">
-                  {cat.label}
+              {/* Category header with badge */}
+              <div className="flex items-center gap-3">
+                <div
+                  className="flex h-8 w-8 items-center justify-center rounded-lg font-semibold text-sm"
+                  style={{
+                    backgroundColor: `${category.color}20`,
+                    color: category.color,
+                  }}
+                >
+                  {category.label.charAt(0)}
+                </div>
+                <span
+                  className="font-mono text-xs font-semibold uppercase tracking-[0.15em]"
+                  style={{ color: category.color }}
+                >
+                  {category.label}
                 </span>
               </div>
 
-              {/* Skills */}
-              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-2 text-white/90">
-                {cat.skills.map((skill, i) => {
+              {/* Skills grid */}
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2">
+                {category.skills.map((skill, skillIdx) => {
                   const idx = globalIndex++
                   const isHighlighted = HIGHLIGHTED_SKILLS.has(skill)
+                  const icon = SKILL_ICONS[skill] || "•"
                   return (
-                    <span
+                    <div
                       key={skill}
-                      className="inline-flex items-baseline gap-2"
+                      className="group relative"
                       style={{
                         opacity: revealed ? 1 : 0,
-                        transform: revealed ? "translateY(0)" : "translateY(6px)",
+                        transform: revealed ? "translateY(0)" : "translateY(8px)",
                         transition: "opacity 500ms ease-out, transform 500ms ease-out",
-                        transitionDelay: `${idx * 30}ms`,
+                        transitionDelay: `${idx * 25 + 100}ms`,
                       }}
                     >
-                      <span
-                        className={[
-                          "text-[15px] font-light tracking-tight md:text-base",
-                          isHighlighted ? "text-white" : "text-white/50",
-                        ].join(" ")}
+                      <div
+                        className="flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 transition-all duration-150"
+                        style={{
+                          borderColor: isHighlighted
+                            ? `${category.color}40`
+                            : "rgba(255, 255, 255, 0.08)",
+                          backgroundColor: isHighlighted
+                            ? `${category.color}10`
+                            : "rgba(255, 255, 255, 0.03)",
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLDivElement
+                          el.style.borderColor = "rgba(0, 255, 204, 0.5)"
+                          el.style.backgroundColor = "rgba(0, 255, 204, 0.05)"
+                          el.style.boxShadow = "0 0 12px rgba(0, 255, 204, 0.2)"
+                        }}
+                        onMouseLeave={(e) => {
+                          const el = e.currentTarget as HTMLDivElement
+                          el.style.borderColor = isHighlighted
+                            ? `${category.color}40`
+                            : "rgba(255, 255, 255, 0.08)"
+                          el.style.backgroundColor = isHighlighted
+                            ? `${category.color}10`
+                            : "rgba(255, 255, 255, 0.03)"
+                          el.style.boxShadow = "none"
+                        }}
                       >
-                        {skill}
-                      </span>
-                      {i < cat.skills.length - 1 && (
+                        <span className="text-base">{icon}</span>
                         <span
-                          aria-hidden
-                          className="text-white/25"
-                          style={{ fontSize: "14px" }}
+                          className="text-xs font-medium tracking-tight transition-colors duration-150"
+                          style={{
+                            color: isHighlighted
+                              ? category.color
+                              : "rgba(255, 255, 255, 0.7)",
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLSpanElement).style.color = "#ffffff"
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLSpanElement).style.color = isHighlighted
+                              ? category.color
+                              : "rgba(255, 255, 255, 0.7)"
+                          }}
                         >
-                          ·
+                          {skill}
                         </span>
-                      )}
-                    </span>
+                      </div>
+
+                      {/* Hover glow effect */}
+                      <div
+                        className="absolute inset-0 -z-10 rounded-md opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-50"
+                        style={{
+                          background: `radial-gradient(circle, ${category.color}40 0%, transparent 70%)`,
+                        }}
+                      />
+                    </div>
                   )
                 })}
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   )
