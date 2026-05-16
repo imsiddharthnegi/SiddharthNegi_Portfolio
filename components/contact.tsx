@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react"
 const SOCIALS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/imsiddarthnegi" },
   { label: "GitHub", href: "https://github.com/imsiddarthnegi" },
-  { label: "WhatsApp", href: "https://wa.me/917579156938" },
+  { label: "WhatsApp", href: "https://wa.me/919389273455" },
 ]
 
 const EMAIL = "siddharthnegi.dev@gmail.com"
