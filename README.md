@@ -22,7 +22,7 @@ https://siddharthnegi.vercel.app/
 - **Contact** — Direct email, LinkedIn, GitHub, WhatsApp
 
 ## 🚀 Projects Featured
-| Project | Description | Live |
+| Project | Description |
 |---|---|---|
 | LeadForge | AI B2B Lead Intelligence Platform | 
 | UrbanPulse | Civic Intelligence Platform |
@@ -34,7 +34,7 @@ https://siddharthnegi.vercel.app/
 ## 📬 Contact
 - Email: siddharthnegi.dev@gmail.com
 - LinkedIn: linkedin.com/in/imsiddarthnegi
-- WhatsApp: +91 7579156938
+- WhatsApp: +91 9389273455
 
 ---
 © 2026 Siddharth Negi · Crafted with precision
