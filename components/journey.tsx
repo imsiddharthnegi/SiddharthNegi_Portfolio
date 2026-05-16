@@ -78,7 +78,7 @@ function JourneyRow({
       onBlur={() => setHovered(false)}
       tabIndex={0}
       className={[
-        "group relative w-full border-t border-white/[0.08] outline-none",
+        "group relative w-full outline-none",
         isLast ? "border-b" : "",
       ].join(" ")}
       style={{
@@ -86,9 +86,11 @@ function JourneyRow({
         transform: isVisible ? "translateY(0)" : "translateY(30px)",
         transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
         transitionDelay: `${index * 120}ms`,
-        backgroundImage: hovered
-          ? "linear-gradient(90deg, rgba(0, 229, 255, 0.04) 0%, rgba(79, 10, 235, 0.05) 60%, rgba(0, 229, 255, 0.02) 100%)"
-          : "none",
+        borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+        borderLeft: hovered ? "2px solid rgba(0, 229, 255, 1)" : "2px solid transparent",
+        backgroundColor: hovered
+          ? "rgba(255, 255, 255, 0.03)"
+          : "transparent",
       }}
     >
       <div
@@ -117,12 +119,13 @@ function JourneyRow({
 
         {/* Company */}
         <div className="col-span-12 md:col-span-2">
-          <span
-            className="font-light tracking-tight text-cyan-300"
+          <a
+            href="#"
+            className="font-light tracking-tight text-cyan-300 hover:text-cyan-100 hover:underline transition-all duration-150 ease-out cursor-pointer"
             style={{ fontSize: "clamp(15px, 1.3vw, 18px)" }}
           >
             {entry.company}
-          </span>
+          </a>
         </div>
 
         {/* Description */}

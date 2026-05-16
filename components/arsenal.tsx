@@ -210,7 +210,7 @@ export function Arsenal() {
                       }}
                     >
                       <div
-                        className="flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 transition-all duration-300 group-hover:scale-105 group-hover:border-white/[0.15] group-hover:bg-white/[0.08]"
+                        className="flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 transition-all duration-150"
                         style={{
                           borderColor: isHighlighted
                             ? `${category.color}40`
@@ -219,14 +219,38 @@ export function Arsenal() {
                             ? `${category.color}10`
                             : "rgba(255, 255, 255, 0.03)",
                         }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLDivElement
+                          el.style.borderColor = "rgba(0, 255, 204, 0.5)"
+                          el.style.backgroundColor = "rgba(0, 255, 204, 0.05)"
+                          el.style.boxShadow = "0 0 12px rgba(0, 255, 204, 0.2)"
+                        }}
+                        onMouseLeave={(e) => {
+                          const el = e.currentTarget as HTMLDivElement
+                          el.style.borderColor = isHighlighted
+                            ? `${category.color}40`
+                            : "rgba(255, 255, 255, 0.08)"
+                          el.style.backgroundColor = isHighlighted
+                            ? `${category.color}10`
+                            : "rgba(255, 255, 255, 0.03)"
+                          el.style.boxShadow = "none"
+                        }}
                       >
                         <span className="text-base">{icon}</span>
                         <span
-                          className="text-xs font-medium tracking-tight"
+                          className="text-xs font-medium tracking-tight transition-colors duration-150"
                           style={{
                             color: isHighlighted
                               ? category.color
                               : "rgba(255, 255, 255, 0.7)",
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLSpanElement).style.color = "#ffffff"
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLSpanElement).style.color = isHighlighted
+                              ? category.color
+                              : "rgba(255, 255, 255, 0.7)"
                           }}
                         >
                           {skill}

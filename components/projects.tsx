@@ -73,6 +73,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false)
   const [demoHovered, setDemoHovered] = useState(false)
   const [githubHovered, setGithubHovered] = useState(false)
+  const [arrowHovered, setArrowHovered] = useState(false)
+  const [arrowActive, setArrowActive] = useState(false)
   const isLast = index === PROJECTS.length - 1
 
   return (
@@ -157,7 +159,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               </p>
 
               {/* Action Buttons */}
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-3">
+              <div className="mt-4 flex flex-col gap-3 overflow-hidden sm:flex-row sm:gap-3 sm:flex-wrap sm:nowrap" style={{ display: 'flex', alignItems: 'center', flexWrap: 'nowrap', overflow: 'hidden' }}>
                 {/* Live Demo Button */}
                 <a
                   href={project.demoUrl || "#"}
@@ -170,7 +172,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                       e.preventDefault()
                     }
                   }}
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-cyan-400/40 bg-cyan-500/10 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-cyan-300 transition-all duration-200 ease-out hover:border-cyan-400/70 hover:bg-cyan-500/20 hover:scale-105 hover:text-cyan-200 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-cyan-400/40 bg-cyan-500/10 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-cyan-300 transition-all duration-200 ease-out hover:border-cyan-400/70 hover:bg-cyan-500/20 hover:scale-102 hover:text-cyan-200 cursor-pointer"
                   style={{
                     height: "40px",
                     fontSize: "12px",
@@ -181,7 +183,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                     backgroundColor: demoHovered ? "rgba(34, 211, 238, 0.15)" : "rgba(34, 211, 238, 0.05)",
                     borderColor: demoHovered ? "rgba(34, 211, 238, 0.7)" : "rgba(34, 211, 238, 0.4)",
                     color: demoHovered ? "rgb(165, 243, 252)" : "rgb(165, 243, 252)",
-                    transform: demoHovered ? "scale(1.05)" : "scale(1)",
+                    transform: demoHovered ? "scale(1.02)" : "scale(1)",
+                    transformOrigin: "center",
+                    flex: '0 0 auto',
                   }}
                 >
                   LIVE DEMO
@@ -205,7 +209,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                       e.preventDefault()
                     }
                   }}
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-white/70 transition-all duration-200 ease-out hover:border-white/30 hover:bg-white/10 hover:scale-105 hover:text-white/90 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wide text-white/70 transition-all duration-200 ease-out hover:border-white/30 hover:bg-white/10 hover:scale-102 hover:text-white/90 cursor-pointer"
                   style={{
                     height: "40px",
                     fontSize: "12px",
@@ -216,7 +220,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                     backgroundColor: githubHovered ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.03)",
                     borderColor: githubHovered ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.15)",
                     color: githubHovered ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",
-                    transform: githubHovered ? "scale(1.05)" : "scale(1)",
+                    transform: githubHovered ? "scale(1.02)" : "scale(1)",
+                    transformOrigin: "center",
+                    flex: '0 0 auto',
                   }}
                 >
                   GITHUB
@@ -260,27 +266,37 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               href={project.demoUrl || project.href || "#"}
               target="_blank"
               rel="noopener noreferrer"
+              onMouseEnter={() => setArrowHovered(true)}
+              onMouseLeave={() => setArrowHovered(false)}
+              onMouseDown={() => setArrowActive(true)}
+              onMouseUp={() => setArrowActive(false)}
               onClick={(e) => {
                 if (!project.demoUrl && project.href === "#") {
                   e.preventDefault()
                 }
               }}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-500 ease-out hover:no-underline"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 ease-out hover:no-underline"
               style={{
-                borderColor: hovered
+                borderColor: arrowHovered
+                  ? "rgba(0, 229, 255, 1)"
+                  : hovered
                   ? "rgba(0, 229, 255, 0.5)"
                   : "rgba(255, 255, 255, 0.12)",
-                backgroundColor: hovered
+                backgroundColor: arrowHovered
+                  ? "rgba(0, 255, 204, 0.2)"
+                  : hovered
                   ? "rgba(0, 229, 255, 0.08)"
                   : "rgba(255, 255, 255, 0.02)",
-                transform: hovered ? "rotate(45deg)" : "rotate(0deg)",
+                transform: arrowActive ? "rotate(45deg) scale(0.95)" : hovered ? "rotate(45deg)" : "rotate(0deg)",
+                boxShadow: arrowHovered ? "0 0 15px rgba(0, 255, 204, 0.3)" : "none",
                 cursor: project.demoUrl && project.demoUrl !== "#" ? "pointer" : "default",
               }}
             >
               <ArrowUpRight
-                className="h-4 w-4 transition-colors duration-500"
+                className="h-4 w-4 transition-all duration-200"
                 style={{
-                  color: hovered ? "rgb(103, 232, 249)" : "rgba(255, 255, 255, 0.6)",
+                  color: arrowHovered ? "rgb(0, 255, 204)" : hovered ? "rgb(103, 232, 249)" : "rgba(255, 255, 255, 0.6)",
+                  transform: arrowHovered ? "translateX(4px)" : "translateX(0)",
                 }}
               />
             </a>
@@ -340,6 +356,37 @@ export function Projects() {
             Shipped.
           </span>
         </h2>
+
+        {/* Hover hint */}
+        <div
+          className="mt-8 mb-8 flex items-center justify-start gap-2"
+          style={{
+            fontSize: "11px",
+            fontFamily: "var(--font-mono), monospace",
+            letterSpacing: "0.1em",
+            color: "rgba(0, 229, 255, 0.5)",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              animation: "pulse 2s infinite",
+            }}
+          >
+            ●
+          </span>
+          <span>· Hover over each project to expand ·</span>
+          <style>{`
+            @keyframes pulse {
+              0%, 100% {
+                opacity: 0.3;
+              }
+              50% {
+                opacity: 1;
+              }
+            }
+          `}</style>
+        </div>
       </div>
 
       {/* Project rows */}
@@ -358,7 +405,7 @@ export function Projects() {
         }}
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
-          {String(PROJECTS.length).padStart(2, "0")} Projects · Hover to expand
+          {String(PROJECTS.length).padStart(2, "0")} Projects
         </span>
         <a
           href="#contact"

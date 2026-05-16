@@ -33,6 +33,7 @@ function StatCard({
   icon,
   delay,
   animDelay,
+  scrollTo,
 }: {
   target: number
   suffix?: string
@@ -40,16 +41,38 @@ function StatCard({
   icon: string
   delay: number
   animDelay: number
+  scrollTo?: string
 }) {
+  const [hovered, setHovered] = useState(false)
+  const [isActive, setIsActive] = useState(false)
   const value = useCountUp(target, 1800, delay)
+
+  const handleClick = () => {
+    if (!scrollTo) return
+    setIsActive(true)
+    setTimeout(() => setIsActive(false), 100)
+    setTimeout(() => {
+      const element = document.getElementById(scrollTo)
+      element?.scrollIntoView({ behavior: "smooth" })
+    }, 50)
+  }
+
   return (
     <div
-      className="relative flex flex-col items-center justify-center rounded-xl border border-white/[0.10] px-3 py-4 opacity-0 text-center"
+      onClick={handleClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative flex flex-col items-center justify-center rounded-xl border border-white/[0.10] px-3 py-4 opacity-0 text-center transition-all duration-200"
       style={{
         background: "rgba(255,255,255,0.035)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        boxShadow: "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 8px 32px rgba(0,0,0,0.35)",
+        boxShadow: hovered
+          ? "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 8px 32px rgba(0,0,0,0.35), 0 0 20px rgba(0,255,204,0.2)"
+          : "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 8px 32px rgba(0,0,0,0.35)",
+        borderColor: hovered ? "rgba(0,255,204,0.6)" : "rgba(255,255,255,0.1)",
+        transform: isActive ? "scale(0.97)" : hovered ? "scale(1.05)" : "scale(1)",
+        cursor: scrollTo ? "pointer" : "default",
         animation: `fade-in-up 800ms cubic-bezier(0.2,0.65,0.2,1) ${animDelay}ms forwards`,
       }}
       aria-label={`${target}${suffix} ${label}`}
@@ -60,14 +83,29 @@ function StatCard({
         className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-full"
         style={{ background: "linear-gradient(90deg,transparent,rgba(0,229,255,0.25),transparent)" }}
       />
-      <span className="mb-1 text-lg leading-none" aria-hidden>{icon}</span>
+      <span
+        className="mb-1 text-lg leading-none transition-all duration-200"
+        style={{
+          transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        }}
+        aria-hidden
+      >
+        {icon}
+      </span>
       <span
         className="font-mono tabular-nums font-semibold text-white leading-none"
-        style={{ fontSize: "clamp(26px, 3.5vw, 32px)" }}
+        style={{
+          fontSize: "clamp(26px, 3.5vw, 32px)",
+        }}
       >
         {value}{suffix}
       </span>
-      <span className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40 leading-tight">
+      <span
+        className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40 leading-tight transition-all duration-200"
+        style={{
+          transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        }}
+      >
         {label}
       </span>
     </div>
@@ -251,9 +289,9 @@ export function Hero() {
           className="mt-4 grid grid-cols-3 gap-2 opacity-0"
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards" }}
         >
-          <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} />
-          <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} />
-          <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} />
+          <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} scrollTo="journey" />
+          <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} scrollTo="projects" />
+          <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} scrollTo="certifications" />
         </div>
       </div>
 
@@ -325,9 +363,9 @@ export function Hero() {
             style={{ animation: "fade-in 900ms ease-out 1000ms forwards" }}
             aria-hidden
           />
-          <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} />
-          <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} />
-          <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} />
+          <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} scrollTo="journey" />
+          <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} scrollTo="projects" />
+          <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} scrollTo="certifications" />
           <div
             className="mt-3 h-px w-full bg-white/10 opacity-0"
             style={{ animation: "fade-in 900ms ease-out 1900ms forwards" }}
@@ -338,7 +376,7 @@ export function Hero() {
 
       {/* ══════════════════════════════════════════════════════════════
           BOTTOM-LEFT — name + role
-      ══════════════════════════════════════════════════════════════ */}
+      ═══════════════════════════════════════════════════════════��══ */}
       <div
         className="absolute bottom-12 left-5 z-20 flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
         style={{ animation: "fade-in-up 900ms ease-out 1500ms forwards" }}
