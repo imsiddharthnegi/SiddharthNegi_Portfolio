@@ -100,7 +100,20 @@ function CertCard({ cert, index, revealed }: { cert: Cert; index: number; reveal
     href={cert.link}
     target="_blank"
     rel="noopener noreferrer"
-    className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-400/70 hover:text-cyan-300 transition-colors"
+    className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-400/70 transition-all duration-200 ease-out"
+    style={{
+      display: "inline-block",
+    }}
+    onMouseEnter={(e) => {
+      const el = e.currentTarget as HTMLAnchorElement
+      el.style.color = "rgba(0, 255, 204, 1)"
+      el.style.transform = "translateX(4px)"
+    }}
+    onMouseLeave={(e) => {
+      const el = e.currentTarget as HTMLAnchorElement
+      el.style.color = "rgba(0, 255, 204, 0.7)"
+      el.style.transform = "translateX(0)"
+    }}
   >
     View Certificate →
   </a>

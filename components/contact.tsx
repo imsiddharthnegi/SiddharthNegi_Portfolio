@@ -10,74 +10,10 @@ const SOCIALS = [
 
 const EMAIL = "siddharthnegi.dev@gmail.com"
 
-function TravelingLink({
-  children,
-  href,
-  external,
-  className,
-  size = "lg",
-  isEmail = false,
-}: {
-  children: React.ReactNode
-  href: string
-  external?: boolean
-  className?: string
-  size?: "lg" | "sm"
-  isEmail?: boolean
-}) {
-  return (
-    <a
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
-      className={[
-        "group relative inline-block transition-all duration-300",
-        isEmail ? "hover:scale-105" : "hover:scale-102",
-        className ?? "",
-      ].join(" ")}
-    >
-      <span className="relative inline-block">
-        {children}
-        {/* Static base underline (very faint) */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-0 right-0 bg-white/15"
-          style={{ bottom: size === "lg" ? "-6px" : "-3px", height: "1px" }}
-        />
-        {/* Traveling line */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-0 block bg-cyan-400 transition-[width,transform] duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:w-full"
-          style={{
-            bottom: size === "lg" ? "-6px" : "-3px",
-            height: "1px",
-            width: "0%",
-            boxShadow: isEmail
-              ? "0 0 20px rgba(0, 229, 255, 0.8), 0 0 40px rgba(0, 229, 255, 0.4)"
-              : "0 0 12px rgba(0, 229, 255, 0.6)",
-          }}
-        />
-      </span>
-      {/* Email glow effect on hover */}
-      {isEmail && (
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(0, 229, 255, 0.15) 0%, rgba(0, 229, 255, 0) 70%)",
-            filter: "blur(8px)",
-            inset: "-12px",
-          }}
-        />
-      )}
-    </a>
-  )
-}
-
 export function Contact() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const [revealed, setRevealed] = useState(false)
+  const [emailCopied, setEmailCopied] = useState(false)
 
   useEffect(() => {
     const node = sectionRef.current
@@ -194,17 +130,59 @@ export function Contact() {
             <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
               Email · Direct line
             </span>
-            <TravelingLink href={`mailto:${EMAIL}`} size="lg" isEmail>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(EMAIL)
+                setEmailCopied(true)
+                setTimeout(() => setEmailCopied(false), 2000)
+              }}
+              className="group relative inline-block text-left transition-all duration-200"
+              style={{
+                cursor: "pointer",
+              }}
+            >
               <span
-                className="font-light tracking-[-0.02em] text-white hover:text-cyan-300 transition-colors duration-300"
+                className="font-light tracking-[-0.02em] transition-all duration-200"
                 style={{
                   fontSize: "clamp(22px, 2.8vw, 40px)",
                   fontWeight: 500,
+                  color: emailCopied ? "rgba(0, 255, 204, 1)" : "rgba(255, 255, 255, 1)",
+                  textShadow: emailCopied
+                    ? "0 0 8px rgba(0, 255, 204, 0.4)"
+                    : "none",
                 }}
               >
-                {EMAIL}
+                {emailCopied ? "Copied!" : EMAIL}
               </span>
-            </TravelingLink>
+              {/* Underline */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute left-0 right-0 bg-cyan-400"
+                style={{
+                  bottom: "-6px",
+                  height: "1px",
+                  opacity: emailCopied ? 1 : 0,
+                  transition: "opacity 200ms ease",
+                }}
+              />
+              {/* Glow effect on hover */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-200"
+                style={{
+                  background:
+                    "radial-gradient(circle at center, rgba(0, 229, 255, 0.15) 0%, rgba(0, 229, 255, 0) 70%)",
+                  filter: "blur(8px)",
+                  inset: "-12px",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLSpanElement).style.opacity = "1"
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLSpanElement).style.opacity = "0"
+                }}
+              />
+            </button>
           </div>
 
           <div
@@ -220,14 +198,38 @@ export function Contact() {
             </span>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3 lg:justify-end">
               {SOCIALS.map((s) => (
-                <TravelingLink key={s.label} href={s.href} external size="sm">
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative inline-block transition-all duration-150 ease-out"
+                  style={{
+                    textDecoration: "none",
+                  }}
+                >
                   <span
-                    className="font-light tracking-tight text-white/85 transition-colors duration-300 ease-out hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.6)] underline-offset-2"
-                    style={{ fontSize: "clamp(15px, 1.2vw, 17px)" }}
+                    className="font-light tracking-tight transition-all duration-150"
+                    style={{
+                      fontSize: "clamp(15px, 1.2vw, 17px)",
+                      color: "rgba(255, 255, 255, 0.85)",
+                    }}
+                    onMouseEnter={(e) => {
+                      const el = e.currentTarget as HTMLSpanElement
+                      el.style.color = "rgba(255, 255, 255, 1)"
+                      el.style.textDecoration = "underline"
+                      el.style.textShadow = "0 0 8px rgba(0, 229, 255, 0.4)"
+                    }}
+                    onMouseLeave={(e) => {
+                      const el = e.currentTarget as HTMLSpanElement
+                      el.style.color = "rgba(255, 255, 255, 0.85)"
+                      el.style.textDecoration = "none"
+                      el.style.textShadow = "none"
+                    }}
                   >
                     {s.label}
                   </span>
-                </TravelingLink>
+                </a>
               ))}
             </div>
           </div>
