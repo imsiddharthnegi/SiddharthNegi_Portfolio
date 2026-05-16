@@ -356,6 +356,37 @@ export function Projects() {
             Shipped.
           </span>
         </h2>
+
+        {/* Hover hint */}
+        <div
+          className="mt-8 mb-8 flex items-center justify-start gap-2"
+          style={{
+            fontSize: "11px",
+            fontFamily: "var(--font-mono), monospace",
+            letterSpacing: "0.1em",
+            color: "rgba(0, 229, 255, 0.5)",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              animation: "pulse 2s infinite",
+            }}
+          >
+            ●
+          </span>
+          <span>· Hover over each project to expand ·</span>
+          <style>{`
+            @keyframes pulse {
+              0%, 100% {
+                opacity: 0.3;
+              }
+              50% {
+                opacity: 1;
+              }
+            }
+          `}</style>
+        </div>
       </div>
 
       {/* Project rows */}
@@ -374,7 +405,7 @@ export function Projects() {
         }}
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
-          {String(PROJECTS.length).padStart(2, "0")} Projects · Hover to expand
+          {String(PROJECTS.length).padStart(2, "0")} Projects
         </span>
         <a
           href="#contact"
