@@ -22,13 +22,18 @@ https://siddharthnegi.vercel.app/
 - **Contact** — Direct email, LinkedIn, GitHub, WhatsApp
 
 ## 🚀 Projects Featured
-| Project | Description |
-|---|---|---|
+| Project | Description | 
+
 | LeadForge | AI B2B Lead Intelligence Platform | 
+
 | UrbanPulse | Civic Intelligence Platform |
+
 | DisasterShield | India Disaster Operations Center |
+
 | CarbonTrace | Corporate Carbon Intelligence |
+
 | BrandForge | AI Brand Identity Studio |
+
 |Style Match| AI-driven ecommerce platform |
 
 ## 📬 Contact
