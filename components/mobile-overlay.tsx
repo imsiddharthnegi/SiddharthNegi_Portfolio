@@ -42,26 +42,27 @@ const PARTICLES = [
 ]
 
 export function MobileOverlay() {
-  const [visible, setVisible] = useState(false)
+  // Initialize visible synchronously on first render — check width + storage together
+  // to avoid a flash of the underlying page on mobile
+  const [visible, setVisible] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false
+    if (window.innerWidth >= 768) return false
+    return sessionStorage.getItem("mobile_overlay_seen_v2") !== "true"
+  })
   const [fadeOut, setFadeOut] = useState(false)
   const isMounted = useRef(false)
 
   useEffect(() => {
     isMounted.current = true
-
-    // Only show on mobile
-    if (window.innerWidth >= 768) return
-
-    // sessionStorage flag — don't show again this session
-    const dismissed = sessionStorage.getItem("mobile-splash-dismissed")
-    if (dismissed === "true") return
-
+    // Re-check on mount in case SSR returned false
+    if (window.innerWidth >= 768) { setVisible(false); return }
+    if (sessionStorage.getItem("mobile_overlay_seen_v2") === "true") { setVisible(false); return }
     setVisible(true)
   }, [])
 
   const handleDismiss = () => {
     setFadeOut(true)
-    sessionStorage.setItem("mobile-splash-dismissed", "true")
+    sessionStorage.setItem("mobile_overlay_seen_v2", "true")
     setTimeout(() => {
       if (isMounted.current) setVisible(false)
     }, 320)
