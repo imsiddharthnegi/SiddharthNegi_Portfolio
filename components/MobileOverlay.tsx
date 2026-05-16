@@ -63,7 +63,7 @@ export default function MobileOverlay() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '32px',
+          padding: '24px 32px 40px',
           overflowY: 'auto',
           animation: 'mob-fade-in 400ms ease forwards',
           opacity: fadeOut ? 0 : undefined,
@@ -77,7 +77,7 @@ export default function MobileOverlay() {
             position: 'absolute',
             inset: 0,
             background:
-              'radial-gradient(ellipse 70% 55% at 50% 55%, rgba(0,229,255,0.07) 0%, transparent 75%)',
+              'radial-gradient(ellipse 70% 55% at 50% 55%, rgba(0,229,255,0.13) 0%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -149,8 +149,8 @@ export default function MobileOverlay() {
               justifyContent: 'center',
               borderRadius: '6px',
               background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(0,229,255,0.40)',
-              boxShadow: '0 0 22px rgba(0,229,255,0.18)',
+              border: '1px solid rgba(0,229,255,0.55)',
+              boxShadow: '0 0 28px rgba(0,229,255,0.25), 0 0 8px rgba(0,229,255,0.12) inset',
               marginBottom: '28px',
               animation: 'mob-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 100ms both',
             }}
@@ -181,7 +181,7 @@ export default function MobileOverlay() {
               animation: 'mob-item-up 600ms cubic-bezier(0.2,0.7,0.2,1) 200ms both',
             }}
           >
-            Crafted for Desktop
+            Optimized for Desktop
           </h1>
 
           {/* Subtext */}
@@ -223,7 +223,7 @@ export default function MobileOverlay() {
                   background: 'rgba(0,229,255,0.07)',
                   border: '1px solid rgba(0,229,255,0.22)',
                   borderRadius: '6px',
-                  padding: '4px 8px',
+                  padding: '6px 12px',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -261,7 +261,7 @@ export default function MobileOverlay() {
                 cursor: 'pointer',
               }}
             >
-              Continue anyway →
+              Enter Anyway →
             </button>
 
             {/* Secondary: View Resume */}
@@ -305,7 +305,7 @@ export default function MobileOverlay() {
               fontSize: '10px',
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.22)',
+              color: 'rgba(255,255,255,0.50)',
             }}
           >
             Siddharth Negi · Full-Stack Developer
