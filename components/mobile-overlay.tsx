@@ -42,38 +42,41 @@ const PARTICLES = [
 ]
 
 export function MobileOverlay() {
-  const [visible, setVisible] = useState(false)
+  const [showOverlay, setShowOverlay] = useState(false)
   const [fadeOut, setFadeOut] = useState(false)
   const isMounted = useRef(false)
 
   useEffect(() => {
     isMounted.current = true
 
-    // Clear any old flags from previous versions
-    sessionStorage.removeItem("mobile-splash-dismissed")
-    sessionStorage.removeItem("mobile_overlay_seen_v2")
-
-    // Detect mobile by width OR user agent (covers all real devices)
     const isMobile =
       window.innerWidth < 768 ||
       /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
-    const hasSeen = sessionStorage.getItem("overlay_v3")
+    // Clear all old flags from previous versions
+    sessionStorage.removeItem("overlay_v1")
+    sessionStorage.removeItem("overlay_v2")
+    sessionStorage.removeItem("overlay_v3")
+    sessionStorage.removeItem("mobile_overlay_seen")
+    sessionStorage.removeItem("mobile_overlay_seen_v2")
+    sessionStorage.removeItem("mobile-splash-dismissed")
+
+    const hasSeen = sessionStorage.getItem("overlay_v4")
 
     if (isMobile && !hasSeen) {
-      setVisible(true)
+      setShowOverlay(true)
     }
   }, [])
 
-  const handleDismiss = () => {
+  const handleEnter = () => {
+    sessionStorage.setItem("overlay_v4", "true")
     setFadeOut(true)
-    sessionStorage.setItem("overlay_v3", "true")
     setTimeout(() => {
-      if (isMounted.current) setVisible(false)
+      if (isMounted.current) setShowOverlay(false)
     }, 300)
   }
 
-  if (!visible) return null
+  if (!showOverlay) return null
 
   return (
     <>
@@ -255,7 +258,7 @@ export function MobileOverlay() {
           >
             {/* Primary: Enter Anyway */}
             <button
-              onClick={handleDismiss}
+              onClick={handleEnter}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
