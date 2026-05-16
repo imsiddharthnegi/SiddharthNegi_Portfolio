@@ -48,6 +48,30 @@ export default function MobileOverlay() {
           0%   { transform: translateY(0px)   scale(1);   opacity: 0.18; }
           100% { transform: translateY(-18px) scale(1.3); opacity: 0.06; }
         }
+        .mob-btn-primary {
+          transition: background 200ms ease, box-shadow 200ms ease, border-color 200ms ease, transform 100ms ease;
+        }
+        .mob-btn-primary:hover {
+          background: rgba(0,229,255,0.22) !important;
+          box-shadow: 0 0 18px rgba(0,229,255,0.30), 0 0 6px rgba(0,229,255,0.15) inset;
+          border-color: rgba(0,229,255,0.75) !important;
+        }
+        .mob-btn-primary:active {
+          transform: scale(0.98);
+          background: rgba(0,229,255,0.28) !important;
+        }
+        .mob-btn-secondary {
+          transition: background 200ms ease, box-shadow 200ms ease, border-color 200ms ease, color 200ms ease, transform 100ms ease;
+        }
+        .mob-btn-secondary:hover {
+          background: rgba(0,229,255,0.08) !important;
+          box-shadow: 0 0 12px rgba(0,229,255,0.18);
+          border-color: rgba(0,229,255,0.65) !important;
+          color: rgba(0,229,255,0.85) !important;
+        }
+        .mob-btn-secondary:active {
+          transform: scale(0.98);
+        }
       `}</style>
 
       <div
@@ -245,6 +269,7 @@ export default function MobileOverlay() {
             {/* Primary: Continue anyway */}
             <button
               onClick={dismiss}
+              className="mob-btn-primary"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -269,6 +294,7 @@ export default function MobileOverlay() {
               href="/siddharthnegi_resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              className="mob-btn-secondary"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
