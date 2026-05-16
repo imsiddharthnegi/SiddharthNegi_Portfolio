@@ -113,6 +113,8 @@ export default function MobileOverlay() {
         onClick={handleEnter}
         onMouseEnter={() => setEnterHover(true)}
         onMouseLeave={() => setEnterHover(false)}
+        onTouchStart={() => { setEnterHover(true); }}
+        onTouchEnd={() => { setEnterHover(false); }}
         onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)' }}
         onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
         style={{
@@ -140,6 +142,8 @@ export default function MobileOverlay() {
         rel="noopener noreferrer"
         onMouseEnter={() => setResumeHover(true)}
         onMouseLeave={() => setResumeHover(false)}
+        onTouchStart={() => { setResumeHover(true); }}
+        onTouchEnd={() => { setResumeHover(false); }}
         onMouseDown={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(0.97)' }}
         onMouseUp={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1)' }}
         style={{
