@@ -69,7 +69,7 @@ function StatCard({
         handleClick()
       }}
       onTouchEnd={() => setHovered(false)}
-      className="relative flex flex-col items-center justify-center rounded-xl border px-3 py-4 opacity-0 text-center transition-all"
+      className="relative flex flex-col items-center justify-center rounded-xl border px-2 py-3 opacity-0 text-center transition-all"
       style={{
         background: hovered
           ? "rgba(255,255,255,0.05)"
@@ -119,15 +119,16 @@ function StatCard({
       <span
         className="font-mono tabular-nums font-semibold text-white leading-none transition-colors duration-200"
         style={{
-          fontSize: "clamp(26px, 3.5vw, 32px)",
+          fontSize: "clamp(24px, 4.5vw, 32px)",
           color: hovered ? "rgba(255,255,255,1)" : "rgba(255,255,255,1)",
         }}
       >
         {value}{suffix}
       </span>
       <span
-        className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] leading-tight transition-all duration-200"
+        className="mt-1.5 font-mono uppercase tracking-[0.18em] leading-tight transition-all duration-200"
         style={{
+          fontSize: "clamp(8px, 1.5vw, 10px)",
           color: hovered ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.5)",
           transform: hovered ? "translateY(-3px)" : "translateY(0)",
         }}
@@ -204,9 +205,7 @@ export function Hero() {
 
 
 
-      {/* ══════════════════════════════════════════════════════════════
-          TOP-RIGHT: location
-      ══════════════════════════════════════════════════════════════ */}
+      {/* TOP-RIGHT: location */}
       <div
         className="absolute right-5 top-[72px] z-20 hidden items-center gap-4 opacity-0 md:flex md:right-12"
         style={{ animation: "fade-in-up 900ms ease-out 500ms forwards" }}
@@ -222,24 +221,25 @@ export function Hero() {
       <div
         className="relative z-20 flex h-full flex-col md:hidden"
         style={{
-          paddingLeft: "clamp(20px, 6vw, 40px)",
-          paddingRight: "clamp(20px, 6vw, 40px)",
-          paddingTop: "88px",
-          paddingBottom: "80px",
+          paddingLeft: "16px",
+          paddingRight: "16px",
+          paddingTop: "0",
+          paddingBottom: "0",
           overflowX: "hidden",
           overflowY: "auto",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <h1
-          className="text-pretty leading-[0.9] tracking-[-0.04em]"
+          className="text-pretty leading-[0.9] tracking-[-0.04em] w-full text-center"
           style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
         >
           <span
             className="block font-light text-white opacity-0"
             style={{
               fontWeight: 300,
-              fontSize: "clamp(42px, 14vw, 72px)",
+              fontSize: "13vw",
               animation: "slide-from-left 1100ms cubic-bezier(0.2,0.7,0.2,1) 200ms forwards",
             }}
           >
@@ -249,7 +249,7 @@ export function Hero() {
             className="block italic opacity-0"
             style={{
               fontWeight: 800,
-              fontSize: "clamp(42px, 14vw, 72px)",
+              fontSize: "13vw",
               color: "#ffffff",
               clipPath: "inset(100% 0 0 0)",
               animation: "clip-reveal-up 1100ms cubic-bezier(0.65,0,0.2,1) 600ms forwards, fade-in 600ms ease-out 600ms forwards",
@@ -262,7 +262,7 @@ export function Hero() {
             className="block opacity-0"
             style={{
               fontWeight: 900,
-              fontSize: "clamp(42px, 14vw, 72px)",
+              fontSize: "13vw",
               color: "#ffffff",
               textShadow: "0 0 22px rgba(0,229,255,0.18), 0 0 60px rgba(0,229,255,0.08)",
               animation: "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
@@ -274,15 +274,18 @@ export function Hero() {
 
         {/* Mobile terminal — full width */}
         <div
-          className="mt-5 opacity-0 w-full"
-          style={{ animation: "fade-in-up 800ms ease-out 1200ms forwards" }}
+          className="mt-6 opacity-0 w-full"
+          style={{ 
+            animation: "fade-in-up 800ms ease-out 1200ms forwards",
+            fontSize: "11px",
+          }}
         >
           <TerminalWindow />
         </div>
 
         {/* Mobile badge */}
         <div
-          className="mt-4 flex flex-col gap-3 opacity-0"
+          className="mt-5 flex flex-col gap-3 opacity-0 hidden"
           style={{ animation: "fade-in-up 800ms ease-out 1300ms forwards" }}
         >
           <span
@@ -312,12 +315,27 @@ export function Hero() {
 
         {/* Mobile stat cards — 3 across */}
         <div
-          className="mt-4 grid grid-cols-3 gap-2 opacity-0"
+          className="mt-8 grid grid-cols-3 gap-2 opacity-0 w-full"
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} scrollTo="journey" />
           <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} scrollTo="projects" />
           <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} scrollTo="certifications" />
+        </div>
+
+        {/* Mobile name and subtitle at bottom */}
+        <div
+          className="mt-10 flex flex-col gap-1 opacity-0 text-center w-full"
+          style={{ animation: "fade-in-up 800ms ease-out 1550ms forwards" }}
+        >
+          <div className="flex items-center gap-2 justify-center">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/80">
+              Siddharth Negi
+            </span>
+          </div>
+          <span className="font-mono text-[10px] tracking-[0.16em] text-white/35">
+            Full-Stack Developer · AI-Native SaaS Builder
+          </span>
         </div>
       </div>
 
@@ -401,10 +419,10 @@ export function Hero() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
-          BOTTOM-LEFT — name + role
-      ═══════════════════════════════════════════════════════════��══ */}
+          BOTTOM-LEFT — name + role (DESKTOP ONLY)
+      ══════════════════════════════════════════════════════════════ */}
       <div
-        className="absolute bottom-12 left-5 z-20 flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
+        className="absolute bottom-12 left-5 z-20 hidden md:flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
         style={{ animation: "fade-in-up 900ms ease-out 1500ms forwards" }}
       >
         <div className="flex items-center gap-3">
