@@ -233,11 +233,11 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           </div>
 
           {/* Tech pills */}
-          <div className="col-span-12 mt-4 flex flex-wrap items-center gap-2.5 md:col-span-4 md:mt-0 md:justify-end">
-            {project.tech.map((t) => (
+          <div className="col-span-12 mt-4 flex flex-nowrap items-center gap-2.5 overflow-hidden md:col-span-4 md:mt-0 md:justify-end md:flex-wrap">
+            {project.tech.map((t, idx) => (
               <span
                 key={t}
-                className="rounded transition-all duration-300"
+                className="rounded transition-all duration-300 hidden md:inline-block"
                 style={{
                   padding: "8px",
                   fontSize: "11px",
@@ -258,10 +258,36 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                 {t}
               </span>
             ))}
+            {/* Mobile tech tags - first 4 only, no wrap */}
+            {project.tech.slice(0, 4).map((t) => (
+              <span
+                key={`mobile-${t}`}
+                className="rounded transition-all duration-300 md:hidden"
+                style={{
+                  padding: "4px 8px",
+                  fontSize: "9px",
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-mono), monospace",
+                  backgroundColor: "rgba(100, 116, 139, 0.1)",
+                  border: "1px solid rgba(100, 116, 139, 0.3)",
+                  borderRadius: "6px",
+                  color: "rgba(255, 255, 255, 0.7)",
+                  transform: hovered ? "scale(1.05)" : "scale(1)",
+                  backgroundColor: hovered ? "rgba(100, 116, 139, 0.2)" : "rgba(100, 116, 139, 0.1)",
+                  color: hovered ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",
+                  borderColor: hovered ? "rgba(100, 116, 139, 0.5)" : "rgba(100, 116, 139, 0.3)",
+                  flex: "0 0 auto",
+                }}
+              >
+                {t}
+              </span>
+            ))}
           </div>
 
-          {/* Arrow */}
-          <div className="col-span-12 mt-4 flex items-center justify-end md:col-span-1 md:mt-0">
+          {/* Arrow - hidden on mobile */}
+          <div className="col-span-12 hidden mt-4 items-center justify-end md:col-span-1 md:mt-0 md:flex">
             <a
               href={project.demoUrl || project.href || "#"}
               target="_blank"
