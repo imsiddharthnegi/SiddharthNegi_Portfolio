@@ -42,7 +42,7 @@ export default function MobileOverlay() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '32px',
+      padding: '24px',
       fontFamily: 'inherit',
     }}>
       {/* Top cyan accent line */}
@@ -51,6 +51,14 @@ export default function MobileOverlay() {
         top: 0, left: 0, right: 0,
         height: '2px',
         background: 'linear-gradient(90deg, transparent 0%, rgba(0,255,204,0.8) 30%, rgba(0,255,204,1) 50%, rgba(0,255,204,0.8) 70%, transparent 100%)',
+      }} />
+
+      {/* Radial glow background behind content */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'radial-gradient(ellipse at center, rgba(0,255,204,0.08) 0%, transparent 60%)',
+        pointerEvents: 'none',
       }} />
 
       {/* SN Monogram */}
@@ -63,6 +71,8 @@ export default function MobileOverlay() {
         fontWeight: 'bold',
         color: '#ffffff',
         borderRadius: '4px',
+        position: 'relative',
+        zIndex: 1,
       }}>SN</div>
 
       {/* Heading */}
@@ -74,6 +84,8 @@ export default function MobileOverlay() {
         marginBottom: '16px',
         lineHeight: 1.1,
         letterSpacing: '-0.03em',
+        position: 'relative',
+        zIndex: 1,
       }}>Optimized for Desktop</h1>
 
       {/* Subtext */}
@@ -84,6 +96,8 @@ export default function MobileOverlay() {
         maxWidth: '280px',
         marginBottom: '28px',
         lineHeight: 1.6,
+        position: 'relative',
+        zIndex: 1,
       }}>
         This portfolio is designed for a full desktop experience. For the best view, open on a larger screen.
       </p>
@@ -92,9 +106,11 @@ export default function MobileOverlay() {
       <div style={{
         display: 'flex',
         gap: '10px',
-        marginBottom: '32px',
+        marginBottom: '40px',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        position: 'relative',
+        zIndex: 1,
       }}>
         {['6 PROJECTS', '4 INTERNSHIPS', '4 CERTS'].map((stat) => (
           <span key={stat} style={{
@@ -122,9 +138,9 @@ export default function MobileOverlay() {
           maxWidth: '400px',
           padding: '16px',
           marginBottom: '12px',
-          background: enterHover ? 'rgba(0,255,204,0.2)' : 'rgba(0,255,204,0.1)',
-          border: `1px solid ${enterHover ? 'rgba(0,255,204,0.7)' : 'rgba(0,255,204,0.4)'}`,
-          boxShadow: enterHover ? '0 0 15px rgba(0,255,204,0.3)' : 'none',
+          background: enterHover ? 'rgba(0,255,204,0.15)' : 'rgba(0,255,204,0.15)',
+          border: `2px solid rgba(0,255,204,1)`,
+          boxShadow: enterHover ? '0 0 20px rgba(0,255,204,0.4)' : '0 0 12px rgba(0,255,204,0.2)',
           color: '#00ffcc',
           fontSize: '13px',
           fontFamily: 'monospace',
@@ -132,6 +148,8 @@ export default function MobileOverlay() {
           cursor: 'pointer',
           borderRadius: '4px',
           transition: 'background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease',
+          position: 'relative',
+          zIndex: 1,
         }}
       >Enter Anyway →</button>
 
@@ -163,6 +181,8 @@ export default function MobileOverlay() {
           borderRadius: '4px',
           boxSizing: 'border-box',
           transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease',
+          position: 'relative',
+          zIndex: 1,
         }}
       >View Resume →</a>
 
@@ -174,6 +194,7 @@ export default function MobileOverlay() {
         color: 'rgba(255,255,255,0.35)',
         letterSpacing: '0.1em',
         textTransform: 'uppercase',
+        zIndex: 1,
       }}>Siddharth Negi · Full-Stack Developer</p>
     </div>
   )
