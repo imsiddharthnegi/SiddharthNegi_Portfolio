@@ -87,6 +87,7 @@ export function TerminalWindow() {
       style={{
         maxWidth: "clamp(260px, 26vw, 360px)",
         animation: "fade-in-up 900ms cubic-bezier(0.2,0.65,0.2,1) 900ms forwards",
+        boxSizing: "border-box",
       }}
     >
       {/* Terminal chrome */}
@@ -160,17 +161,17 @@ export function TerminalWindow() {
         </div>
       </div>
 
-      {/* View Resume button — left-aligned under terminal, always visible */}
+      {/* View Resume button — centered under terminal, always visible */}
       <a
         href="/siddharthnegi_resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
         style={{
-          display: "inline-flex",
-          alignItems: "center",
+          display: "block",
           marginTop: "14px",
           padding: "6px 14px",
           width: "100%",
+          boxSizing: "border-box",
           fontFamily: "'Fira Code', 'JetBrains Mono', 'Courier New', monospace",
           fontSize: "12px",
           letterSpacing: "0.06em",
@@ -181,6 +182,7 @@ export function TerminalWindow() {
           cursor: "pointer",
           textDecoration: "none",
           transition: "background 200ms ease, box-shadow 200ms ease, border-color 200ms ease",
+          textAlign: "center",
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget

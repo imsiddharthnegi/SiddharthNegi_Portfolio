@@ -272,9 +272,9 @@ export function Hero() {
           </span>
         </h1>
 
-        {/* Mobile terminal — full width */}
+        {/* Mobile terminal — centered with max-width constraint */}
         <div
-          className="mt-6 opacity-0 w-full"
+          className="mt-6 opacity-0 flex justify-center w-full"
           style={{ 
             animation: "fade-in-up 800ms ease-out 1200ms forwards",
             fontSize: "11px",
@@ -313,20 +313,20 @@ export function Hero() {
           </span>
         </div>
 
-        {/* Mobile stat cards — 3 across */}
+        {/* Mobile stat cards — 3 across, centered */}
         <div
-          className="mt-8 grid grid-cols-3 gap-2 opacity-0 w-full"
-          style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards" }}
+          className="mt-8 grid grid-cols-3 gap-2 opacity-0 w-full justify-center"
+          style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} scrollTo="journey" />
           <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} scrollTo="projects" />
           <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} scrollTo="certifications" />
         </div>
 
-        {/* Mobile name and subtitle at bottom */}
+        {/* Mobile name and subtitle at bottom — centered */}
         <div
-          className="mt-10 flex flex-col gap-1 opacity-0 text-center w-full"
-          style={{ animation: "fade-in-up 800ms ease-out 1550ms forwards" }}
+          className="mt-10 flex flex-col gap-1 opacity-0 text-center w-full justify-center"
+          style={{ animation: "fade-in-up 800ms ease-out 1550ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto" }}
         >
           <div className="flex items-center gap-2 justify-center">
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/80">
