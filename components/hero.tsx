@@ -69,21 +69,38 @@ function StatCard({
         handleClick()
       }}
       onTouchEnd={() => setHovered(false)}
-      className="relative flex flex-col items-center justify-center rounded-xl border border-white/[0.10] px-3 py-4 opacity-0 text-center transition-all duration-200"
+      className="relative flex flex-col items-center justify-center rounded-xl border px-3 py-4 opacity-0 text-center transition-all"
       style={{
-        background: "rgba(255,255,255,0.035)",
+        background: hovered
+          ? "rgba(255,255,255,0.05)"
+          : "rgba(255,255,255,0.035)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         boxShadow: hovered
-          ? "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 8px 32px rgba(0,0,0,0.35), 0 0 20px rgba(0,255,204,0.2)"
-          : "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 8px 32px rgba(0,0,0,0.35)",
-        borderColor: hovered ? "rgba(0,255,204,0.6)" : "rgba(255,255,255,0.1)",
+          ? "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 8px 32px rgba(0,0,0,0.35), 0 0 25px rgba(0,255,204,0.15)"
+          : "0 1px 0 0 rgba(255,255,255,0.06) inset, 0 8px 32px rgba(0,0,0,0.35), radial-gradient(ellipse at center, rgba(0,255,204,0.03) 0%, transparent 70%)",
+        borderWidth: hovered ? "1px" : "1px",
+        borderColor: hovered ? "rgba(0,255,204,0.5)" : "rgba(255,255,255,0.1)",
+        borderBottomColor: hovered ? "rgba(0,255,204,0.5)" : "rgba(0,255,204,0.2)",
+        borderBottomWidth: "2px",
         transform: isActive ? "scale(0.97)" : hovered ? "scale(1.05)" : "scale(1)",
         cursor: scrollTo ? "pointer" : "default",
         animation: `fade-in-up 800ms cubic-bezier(0.2,0.65,0.2,1) ${animDelay}ms forwards`,
+        transitionDuration: "200ms",
+        transitionTimingFunction: "ease",
       }}
       aria-label={`${target}${suffix} ${label}`}
     >
+      {/* Radial glow background - subtle at default */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200"
+        style={{
+          background: "radial-gradient(ellipse at center, rgba(0,255,204,0.08) 0%, transparent 70%)",
+          opacity: hovered ? 0.3 : 0.05,
+        }}
+      />
+
       {/* subtle glow on top edge */}
       <span
         aria-hidden
@@ -100,16 +117,18 @@ function StatCard({
         {icon}
       </span>
       <span
-        className="font-mono tabular-nums font-semibold text-white leading-none"
+        className="font-mono tabular-nums font-semibold text-white leading-none transition-colors duration-200"
         style={{
           fontSize: "clamp(26px, 3.5vw, 32px)",
+          color: hovered ? "rgba(255,255,255,1)" : "rgba(255,255,255,1)",
         }}
       >
         {value}{suffix}
       </span>
       <span
-        className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40 leading-tight transition-all duration-200"
+        className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] leading-tight transition-all duration-200"
         style={{
+          color: hovered ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.5)",
           transform: hovered ? "translateY(-3px)" : "translateY(0)",
         }}
       >
