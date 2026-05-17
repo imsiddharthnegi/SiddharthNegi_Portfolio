@@ -233,7 +233,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           </div>
 
           {/* Tech pills */}
-          <div className="col-span-12 mt-4 flex flex-nowrap items-center gap-2.5 overflow-hidden md:col-span-4 md:mt-0 md:justify-end md:flex-wrap">
+          <div className="col-span-12 mt-4 flex flex-nowrap items-center justify-center gap-2.5 overflow-hidden md:col-span-4 md:mt-0 md:justify-end md:flex-wrap">
             {project.tech.map((t, idx) => (
               <span
                 key={t}
