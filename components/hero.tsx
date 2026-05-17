@@ -223,7 +223,7 @@ export function Hero() {
         style={{
           paddingLeft: "16px",
           paddingRight: "16px",
-          paddingTop: "0",
+          paddingTop: "16px",
           paddingBottom: "0",
           overflowX: "hidden",
           overflowY: "auto",
@@ -316,7 +316,7 @@ export function Hero() {
         {/* Mobile stat cards — 3 across, centered */}
         <div
           className="mt-8 grid grid-cols-3 gap-2 opacity-0 w-full justify-center"
-          style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto" }}
+          style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto", marginTop: "32px" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} scrollTo="journey" />
           <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} scrollTo="projects" />
@@ -325,16 +325,14 @@ export function Hero() {
 
         {/* Mobile name and subtitle at bottom — centered */}
         <div
-          className="mt-10 flex flex-col gap-1 opacity-0 text-center w-full justify-center"
-          style={{ animation: "fade-in-up 800ms ease-out 1550ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto" }}
+          className="mt-4 flex flex-col gap-0 opacity-0 text-center w-full justify-center md:hidden"
+          style={{ animation: "fade-in-up 800ms ease-out 1550ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto", marginTop: "16px" }}
         >
-          <div className="flex items-center gap-2 justify-center">
-            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/80">
-              Siddharth Negi
-            </span>
-          </div>
-          <span className="font-mono text-[10px] tracking-[0.16em] text-white/35">
-            Full-Stack Developer · AI-Native SaaS Builder
+          <span className="font-mono text-base uppercase tracking-[0.22em] text-white/80">
+            Siddharth Negi
+          </span>
+          <span className="font-mono text-xs tracking-[0.16em] text-white/35" style={{ fontSize: "12px" }}>
+            Full-Stack Developer
           </span>
         </div>
       </div>
