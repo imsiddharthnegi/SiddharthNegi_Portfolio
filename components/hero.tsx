@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { TerminalWindow } from "./terminal-window"
+import { HeroParticles } from "./hero-particles"
 
 /* ─── Count-up hook ──────────────────────────────────────────────── */
 function useCountUp(target: number, durationMs = 1600, delayMs = 0) {
@@ -161,6 +162,8 @@ export function Hero() {
       aria-label="Hero"
       id="top"
     >
+      {/* ── Three.js Particle Animation (Desktop only) ── */}
+      <HeroParticles />
       {/* ── Drifting violet radial blob ── */}
       <div
         aria-hidden
