@@ -40,6 +40,26 @@ export function HeroParticles() {
     containerRef.current.appendChild(renderer.domElement)
     rendererRef.current = renderer
 
+    // ─── Create circular sprite texture ────────────────────
+    const createCircleTexture = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = 16
+      canvas.height = 16
+      const ctx = canvas.getContext('2d')!
+      
+      // Draw radial gradient circle (white center fading to transparent)
+      const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8)
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
+      
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, 16, 16)
+      
+      return new THREE.CanvasTexture(canvas)
+    }
+    
+    const circleTexture = createCircleTexture()
+
     // ─── Create three-tier starfield ──────────────────────────
 
     // Tier 1: 60 tiny white stars (no twinkle)
@@ -61,10 +81,12 @@ export function HeroParticles() {
 
     const tier1Material = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.02,
+      size: 0.015,
       sizeAttenuation: true,
       transparent: true,
       vertexColors: false,
+      map: circleTexture,
+      alphaTest: 0.01,
     })
 
     const tier1 = new THREE.Points(tier1Geometry, tier1Material)
@@ -83,7 +105,7 @@ export function HeroParticles() {
       tier2Positions[i * 3 + 1] = (Math.random() - 0.5) * 10
       tier2Positions[i * 3 + 2] = (Math.random() - 0.5) * 10
 
-      tier2Opacities[i] = Math.random() * 0.04 + 0.1
+      tier2Opacities[i] = Math.random() * 0.04 + 0.08
       tier2Offsets[i] = Math.random() * Math.PI * 2
       tier2Speeds[i] = Math.random() * 0.4 + 0.2
     }
@@ -93,10 +115,12 @@ export function HeroParticles() {
 
     const tier2Material = new THREE.PointsMaterial({
       color: 0xe8f4f8,
-      size: 0.04,
+      size: 0.03,
       sizeAttenuation: true,
       transparent: true,
       vertexColors: false,
+      map: circleTexture,
+      alphaTest: 0.01,
     })
 
     const tier2 = new THREE.Points(tier2Geometry, tier2Material)
@@ -115,7 +139,7 @@ export function HeroParticles() {
       tier3Positions[i * 3 + 1] = (Math.random() - 0.5) * 10
       tier3Positions[i * 3 + 2] = (Math.random() - 0.5) * 10
 
-      tier3Opacities[i] = Math.random() * 0.06 + 0.12
+      tier3Opacities[i] = Math.random() * 0.05 + 0.1
       tier3Offsets[i] = Math.random() * Math.PI * 2
       tier3Speeds[i] = Math.random() * 0.2 + 0.1
     }
@@ -124,11 +148,13 @@ export function HeroParticles() {
     tier3Geometry.setAttribute('opacity', new THREE.BufferAttribute(tier3Opacities, 1))
 
     const tier3Material = new THREE.PointsMaterial({
-      color: 0x00ffcc,
-      size: 0.07,
+      color: 0xccf5ff,
+      size: 0.05,
       sizeAttenuation: true,
       transparent: true,
       vertexColors: false,
+      map: circleTexture,
+      alphaTest: 0.01,
     })
 
     const tier3 = new THREE.Points(tier3Geometry, tier3Material)
@@ -171,7 +197,7 @@ export function HeroParticles() {
       const tier2OpacityArray = tier2Geometry.attributes.opacity.array as Float32Array
       for (let i = 0; i < tier2Count; i++) {
         const twinkle = Math.sin(timeRef.current * tier2Speeds[i] + tier2Offsets[i]) * 0.5 + 0.5
-        tier2OpacityArray[i] = (Math.random() * 0.04 + 0.1) * twinkle
+        tier2OpacityArray[i] = (Math.random() * 0.04 + 0.08) * twinkle
       }
       tier2Geometry.attributes.opacity.needsUpdate = true
       tier2Material.opacity = 1
@@ -180,7 +206,7 @@ export function HeroParticles() {
       const tier3OpacityArray = tier3Geometry.attributes.opacity.array as Float32Array
       for (let i = 0; i < tier3Count; i++) {
         const twinkle = Math.sin(timeRef.current * tier3Speeds[i] + tier3Offsets[i]) * 0.5 + 0.5
-        tier3OpacityArray[i] = (Math.random() * 0.06 + 0.12) * twinkle
+        tier3OpacityArray[i] = (Math.random() * 0.05 + 0.1) * twinkle
       }
       tier3Geometry.attributes.opacity.needsUpdate = true
       tier3Material.opacity = 1
