@@ -35,6 +35,19 @@ export default function HeroParticles() {
           50% { opacity: 0.1; }
           100% { opacity: 0.5; }
         }
+        @keyframes spacePan {
+          0%   { transform: translate(0px, 0px) }
+          25%  { transform: translate(-8px, -5px) }
+          50%  { transform: translate(-15px, 0px) }
+          75%  { transform: translate(-8px, 5px) }
+          100% { transform: translate(0px, 0px) }
+        }
+        @keyframes shootingStar {
+          0%   { left: -10%; top: 15%; opacity: 0; }
+          2%   { opacity: 1; }
+          8%   { left: 60%; top: 35%; opacity: 0; }
+          100% { left: 60%; top: 35%; opacity: 0; }
+        }
       `}</style>
       <div
         className="hidden md:block"
@@ -46,6 +59,7 @@ export default function HeroParticles() {
           zIndex: 0,
           pointerEvents: 'none',
           overflow: 'hidden',
+          animation: 'spacePan 120s ease-in-out infinite',
         }}
       >
         {/* Tier 1: 700 white stars, 1px */}
@@ -104,6 +118,35 @@ export default function HeroParticles() {
             }}
           />
         </div>
+
+        {/* Shooting Star 1 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '20%',
+            left: '-10%',
+            width: '180px',
+            height: '1px',
+            background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%)',
+            transform: 'rotate(-15deg)',
+            animation: 'shootingStar 10s ease-in-out infinite',
+          }}
+        />
+
+        {/* Shooting Star 2 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '55%',
+            left: '-10%',
+            width: '180px',
+            height: '1px',
+            background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%)',
+            transform: 'rotate(-15deg)',
+            animation: 'shootingStar 10s ease-in-out infinite',
+            animationDelay: '6s',
+          }}
+        />
       </div>
     </>
   )
