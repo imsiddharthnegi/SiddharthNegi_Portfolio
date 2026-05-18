@@ -8,9 +8,9 @@ export function HeroParticles() {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
   const sceneRef = useRef<THREE.Scene | null>(null)
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
-  const particlesRef = useRef<THREE.Points | null>(null)
-  const opacityTargetsRef = useRef<Float32Array | null>(null)
-  const rotationRef = useRef({ y: 0 })
+  const twinkleOffsetsRef = useRef<Float32Array | null>(null)
+  const twinkleSpeedsRef = useRef<Float32Array | null>(null)
+  const timeRef = useRef(0)
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -31,64 +31,118 @@ export function HeroParticles() {
     // ─── Renderer setup (transparent background) ─────────────
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: false,
       powerPreference: 'high-performance',
     })
     renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setClearColor(0x000000, 0)
     containerRef.current.appendChild(renderer.domElement)
     rendererRef.current = renderer
 
-    // ─── Particle geometry and material ──────────────────────
-    const particleCount = 135 // 120-150 range
-    const geometry = new THREE.BufferGeometry()
+    // ─── Create three-tier starfield ──────────────────────────
 
-    // Position particles in a sphere-like cloud
-    const positions = new Float32Array(particleCount * 3)
-    const velocities = new Float32Array(particleCount * 3)
-    const opacities = new Float32Array(particleCount)
-    const opacityTargets = new Float32Array(particleCount)
+    // Tier 1: 60 tiny white stars (no twinkle)
+    const tier1Count = 60
+    const tier1Geometry = new THREE.BufferGeometry()
+    const tier1Positions = new Float32Array(tier1Count * 3)
+    const tier1Opacities = new Float32Array(tier1Count)
 
-    for (let i = 0; i < particleCount; i++) {
-      // Random position within a sphere
-      const theta = Math.random() * Math.PI * 2
-      const phi = Math.random() * Math.PI
-      const radius = Math.random() * 3 + 0.5
+    for (let i = 0; i < tier1Count; i++) {
+      tier1Positions[i * 3] = (Math.random() - 0.5) * 10
+      tier1Positions[i * 3 + 1] = (Math.random() - 0.5) * 10
+      tier1Positions[i * 3 + 2] = (Math.random() - 0.5) * 10
 
-      positions[i * 3] = Math.sin(phi) * Math.cos(theta) * radius
-      positions[i * 3 + 1] = Math.cos(phi) * radius
-      positions[i * 3 + 2] = Math.sin(phi) * Math.sin(theta) * radius
-
-      // Very slow random velocity
-      velocities[i * 3] = (Math.random() - 0.5) * 0.08
-      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.08
-      velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.08
-
-      // Starting opacity and random target
-      opacities[i] = Math.random() * 0.2 + 0.05
-      opacityTargets[i] = Math.random() * 0.25 + 0.05
+      tier1Opacities[i] = Math.random() * 0.03 + 0.06
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    geometry.setAttribute(
-      'opacity',
-      new THREE.BufferAttribute(opacities, 1),
-    )
+    tier1Geometry.setAttribute('position', new THREE.BufferAttribute(tier1Positions, 3))
+    tier1Geometry.setAttribute('opacity', new THREE.BufferAttribute(tier1Opacities, 1))
 
-    const material = new THREE.PointsMaterial({
-      color: 0x00ffcc,
-      size: 0.08,
+    const tier1Material = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.02,
       sizeAttenuation: true,
       transparent: true,
-      opacity: 0.18,
       vertexColors: false,
     })
 
-    const particles = new THREE.Points(geometry, material)
-    scene.add(particles)
-    particlesRef.current = particles
-    opacityTargetsRef.current = opacityTargets
+    const tier1 = new THREE.Points(tier1Geometry, tier1Material)
+    scene.add(tier1)
+
+    // Tier 2: 40 medium off-white stars (slow twinkle, speed 0.2-0.6)
+    const tier2Count = 40
+    const tier2Geometry = new THREE.BufferGeometry()
+    const tier2Positions = new Float32Array(tier2Count * 3)
+    const tier2Opacities = new Float32Array(tier2Count)
+    const tier2Offsets = new Float32Array(tier2Count)
+    const tier2Speeds = new Float32Array(tier2Count)
+
+    for (let i = 0; i < tier2Count; i++) {
+      tier2Positions[i * 3] = (Math.random() - 0.5) * 10
+      tier2Positions[i * 3 + 1] = (Math.random() - 0.5) * 10
+      tier2Positions[i * 3 + 2] = (Math.random() - 0.5) * 10
+
+      tier2Opacities[i] = Math.random() * 0.04 + 0.1
+      tier2Offsets[i] = Math.random() * Math.PI * 2
+      tier2Speeds[i] = Math.random() * 0.4 + 0.2
+    }
+
+    tier2Geometry.setAttribute('position', new THREE.BufferAttribute(tier2Positions, 3))
+    tier2Geometry.setAttribute('opacity', new THREE.BufferAttribute(tier2Opacities, 1))
+
+    const tier2Material = new THREE.PointsMaterial({
+      color: 0xe8f4f8,
+      size: 0.04,
+      sizeAttenuation: true,
+      transparent: true,
+      vertexColors: false,
+    })
+
+    const tier2 = new THREE.Points(tier2Geometry, tier2Material)
+    scene.add(tier2)
+
+    // Tier 3: 20 larger cyan stars (slower deeper twinkle, speed 0.1-0.3)
+    const tier3Count = 20
+    const tier3Geometry = new THREE.BufferGeometry()
+    const tier3Positions = new Float32Array(tier3Count * 3)
+    const tier3Opacities = new Float32Array(tier3Count)
+    const tier3Offsets = new Float32Array(tier3Count)
+    const tier3Speeds = new Float32Array(tier3Count)
+
+    for (let i = 0; i < tier3Count; i++) {
+      tier3Positions[i * 3] = (Math.random() - 0.5) * 10
+      tier3Positions[i * 3 + 1] = (Math.random() - 0.5) * 10
+      tier3Positions[i * 3 + 2] = (Math.random() - 0.5) * 10
+
+      tier3Opacities[i] = Math.random() * 0.06 + 0.12
+      tier3Offsets[i] = Math.random() * Math.PI * 2
+      tier3Speeds[i] = Math.random() * 0.2 + 0.1
+    }
+
+    tier3Geometry.setAttribute('position', new THREE.BufferAttribute(tier3Positions, 3))
+    tier3Geometry.setAttribute('opacity', new THREE.BufferAttribute(tier3Opacities, 1))
+
+    const tier3Material = new THREE.PointsMaterial({
+      color: 0x00ffcc,
+      size: 0.07,
+      sizeAttenuation: true,
+      transparent: true,
+      vertexColors: false,
+    })
+
+    const tier3 = new THREE.Points(tier3Geometry, tier3Material)
+    scene.add(tier3)
+
+    // Store twinkle data for animation
+    twinkleOffsetsRef.current = new Float32Array([
+      ...tier2Offsets,
+      ...tier3Offsets,
+    ])
+    twinkleSpeedsRef.current = new Float32Array([
+      ...tier2Speeds,
+      ...tier3Speeds,
+    ])
 
     // ─── Handle window resize ──────────────────────────────
     const handleResize = () => {
@@ -108,42 +162,28 @@ export function HeroParticles() {
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate)
 
-      // Slowly rotate the entire particle field on Y axis
-      rotationRef.current.y += 0.00008 // One full rotation every ~30-40 seconds
-      particles.rotation.y = rotationRef.current.y
+      timeRef.current += 1 / 60 // Increment time by frame delta
 
-      // Update particle positions (slow drift)
-      const positionArray = geometry.attributes.position.array as Float32Array
-      const velocityArray = velocities
+      // Update Tier 1 opacity (static, no twinkle)
+      tier1Material.opacity = 1
 
-      for (let i = 0; i < particleCount; i++) {
-        positionArray[i * 3] += velocityArray[i * 3]
-        positionArray[i * 3 + 1] += velocityArray[i * 3 + 1]
-        positionArray[i * 3 + 2] += velocityArray[i * 3 + 2]
-
-        // Wrap particles around to create continuous effect
-        if (Math.abs(positionArray[i * 3]) > 5)
-          velocityArray[i * 3] *= -1
-        if (Math.abs(positionArray[i * 3 + 1]) > 5)
-          velocityArray[i * 3 + 1] *= -1
-        if (Math.abs(positionArray[i * 3 + 2]) > 5)
-          velocityArray[i * 3 + 2] *= -1
+      // Update Tier 2 opacity (twinkle with sine wave)
+      const tier2OpacityArray = tier2Geometry.attributes.opacity.array as Float32Array
+      for (let i = 0; i < tier2Count; i++) {
+        const twinkle = Math.sin(timeRef.current * tier2Speeds[i] + tier2Offsets[i]) * 0.5 + 0.5
+        tier2OpacityArray[i] = (Math.random() * 0.04 + 0.1) * twinkle
       }
-      geometry.attributes.position.needsUpdate = true
+      tier2Geometry.attributes.opacity.needsUpdate = true
+      tier2Material.opacity = 1
 
-      // Pulse opacity effect
-      const opacityArray = geometry.attributes.opacity.array as Float32Array
-      const targets = opacityTargetsRef.current!
-
-      for (let i = 0; i < particleCount; i++) {
-        opacityArray[i] += (targets[i] - opacityArray[i]) * 0.02
-
-        // Randomly switch target opacity
-        if (Math.random() < 0.001) {
-          targets[i] = Math.random() * 0.25 + 0.05
-        }
+      // Update Tier 3 opacity (slower deeper twinkle)
+      const tier3OpacityArray = tier3Geometry.attributes.opacity.array as Float32Array
+      for (let i = 0; i < tier3Count; i++) {
+        const twinkle = Math.sin(timeRef.current * tier3Speeds[i] + tier3Offsets[i]) * 0.5 + 0.5
+        tier3OpacityArray[i] = (Math.random() * 0.06 + 0.12) * twinkle
       }
-      geometry.attributes.opacity.needsUpdate = true
+      tier3Geometry.attributes.opacity.needsUpdate = true
+      tier3Material.opacity = 1
 
       renderer.render(scene, camera)
     }
@@ -155,8 +195,12 @@ export function HeroParticles() {
       window.removeEventListener('resize', handleResize)
       cancelAnimationFrame(animationFrameId)
 
-      geometry.dispose()
-      material.dispose()
+      tier1Geometry.dispose()
+      tier1Material.dispose()
+      tier2Geometry.dispose()
+      tier2Material.dispose()
+      tier3Geometry.dispose()
+      tier3Material.dispose()
       renderer.dispose()
 
       if (containerRef.current && renderer.domElement.parentNode === containerRef.current) {
