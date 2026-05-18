@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { TerminalWindow } from "./terminal-window"
-import { HeroParticles } from "./hero-particles"
+import HeroParticles from "./HeroParticles"
 
 /* ─── Count-up hook ──────────────────────────────────────────────── */
 function useCountUp(target: number, durationMs = 1600, delayMs = 0) {
