@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { TerminalWindow } from "./terminal-window"
+import HeroParticles from '@/components/HeroParticles'
 
 /* ─── Count-up hook ──────────────────────────────────────────────── */
 function useCountUp(target: number, durationMs = 1600, delayMs = 0) {
@@ -161,6 +162,8 @@ export function Hero() {
       aria-label="Hero"
       id="top"
     >
+      <HeroParticles />
+
       {/* ── Drifting violet radial blob ── */}
       <div
         aria-hidden
@@ -219,7 +222,7 @@ export function Hero() {
           MOBILE — typography + terminal + badge + stat cards stacked
       ══════════════════════════════════════════════════════════════ */}
       <div
-        className="relative z-20 flex h-full flex-col md:hidden"
+        className="relative z-10 flex h-full flex-col md:hidden"
         style={{
           paddingLeft: "16px",
           paddingRight: "16px",
@@ -342,7 +345,7 @@ export function Hero() {
           Hidden on mobile; only visible md and above.
       ══════════════════════════════════════════════════════════════ */}
       <div
-        className="relative z-20 hidden h-full items-center md:flex"
+        className="relative z-10 hidden h-full items-center md:flex"
         style={{
           paddingLeft: "clamp(20px, 8vw, 120px)",
           paddingRight: "clamp(20px, 5vw, 80px)",
@@ -420,7 +423,7 @@ export function Hero() {
           BOTTOM-LEFT — name + role (DESKTOP ONLY)
       ══════════════════════════════════════════════════════════════ */}
       <div
-        className="absolute bottom-12 left-5 z-20 hidden md:flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
+        className="absolute bottom-12 left-5 z-10 hidden md:flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
         style={{ animation: "fade-in-up 900ms ease-out 1500ms forwards" }}
       >
         <div className="flex items-center gap-3">
@@ -438,7 +441,7 @@ export function Hero() {
           BOTTOM-RIGHT — scroll indicator (desktop)
       ══════════════════════════════════════════════════════════════ */}
       <div
-        className="absolute bottom-12 right-12 z-20 hidden items-end gap-4 opacity-0 md:flex"
+        className="absolute bottom-12 right-12 z-10 hidden items-end gap-4 opacity-0 md:flex"
         style={{ animation: "fade-in 1000ms ease-out 1700ms forwards" }}
         aria-hidden
       >
