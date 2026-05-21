@@ -23,28 +23,35 @@ export default function OmnitrixPage() {
   if (!mounted) return null
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden" style={{ backgroundColor: '#0a0a0a' }}>
-      {/* Subtle grid pattern background */}
+    <div className="relative w-full min-h-screen overflow-hidden" style={{ backgroundColor: '#000000' }}>
+      {/* Dark green radial gradient background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(0, 50, 0, 0.3), #000000)',
+        }}
+      />
+
+      {/* Green grid pattern background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(0deg, transparent 24%, rgba(0, 255, 0, 0.05) 25%, rgba(0, 255, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 0, 0.05) 75%, rgba(0, 255, 0, 0.05) 76%, transparent 77%, transparent),
-            linear-gradient(90deg, transparent 24%, rgba(0, 255, 0, 0.05) 25%, rgba(0, 255, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 0, 0.05) 75%, rgba(0, 255, 0, 0.05) 76%, transparent 77%, transparent)
+            linear-gradient(0deg, transparent 24%, rgba(0, 255, 0, 0.08) 25%, rgba(0, 255, 0, 0.08) 26%, transparent 27%, transparent 74%, rgba(0, 255, 0, 0.08) 75%, rgba(0, 255, 0, 0.08) 76%, transparent 77%, transparent),
+            linear-gradient(90deg, transparent 24%, rgba(0, 255, 0, 0.08) 25%, rgba(0, 255, 0, 0.08) 26%, transparent 27%, transparent 74%, rgba(0, 255, 0, 0.08) 75%, rgba(0, 255, 0, 0.08) 76%, transparent 77%, transparent)
           `,
-          backgroundSize: '50px 50px',
-          opacity: 0.3,
+          backgroundSize: '40px 40px',
         }}
       />
 
       {/* Pulsing radar dot - top left */}
       <div className="absolute top-8 left-8 z-20">
         <div
-          className="w-3 h-3 rounded-full"
+          className="w-4 h-4 rounded-full"
           style={{
             backgroundColor: '#00ff00',
-            boxShadow: '0 0 10px #00ff00, 0 0 20px rgba(0, 255, 0, 0.5)',
-            animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            boxShadow: '0 0 15px #00ff00, 0 0 30px rgba(0, 255, 0, 0.7), 0 0 50px rgba(0, 255, 0, 0.4)',
+            animation: 'pulse-dot 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           }}
         />
       </div>
@@ -56,8 +63,8 @@ export default function OmnitrixPage() {
           backgroundImage: `
             repeating-linear-gradient(
               0deg,
-              rgba(0, 255, 0, 0.03) 0px,
-              rgba(0, 255, 0, 0.03) 1px,
+              rgba(0, 255, 0, 0.04) 0px,
+              rgba(0, 255, 0, 0.04) 1px,
               transparent 1px,
               transparent 2px
             )
@@ -70,62 +77,113 @@ export default function OmnitrixPage() {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12">
         {/* Heading */}
         <h1
-          className="text-center mb-16 font-mono font-bold text-4xl md:text-6xl"
+          className="text-center mb-8 font-mono font-bold text-5xl md:text-7xl"
           style={{
             color: '#00ff00',
-            textShadow: '0 0 20px #00ff00, 0 0 40px rgba(0, 255, 0, 0.5)',
-            letterSpacing: '0.05em',
+            textShadow: '0 0 30px #00ff00, 0 0 60px rgba(0, 255, 0, 0.6), 0 0 100px rgba(0, 255, 0, 0.3)',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
           }}
         >
           OMNITRIX ACTIVATED
         </h1>
 
+        {/* Blinking selecting alien text */}
+        <div
+          className="mb-12 font-mono text-lg md:text-xl"
+          style={{
+            color: '#00ff00',
+            textShadow: '0 0 15px rgba(0, 255, 0, 0.7)',
+            animation: 'blink-text 1.6s steps(1, start) infinite',
+            letterSpacing: '0.05em',
+          }}
+        >
+          SELECTING ALIEN...
+        </div>
+
         {/* Omnitrix symbol container */}
-        <div className="mb-16 flex items-center justify-center">
-          <div
-            className="relative w-40 h-40 md:w-56 md:h-56 rounded-full flex items-center justify-center"
-            style={{
-              border: '3px solid #00ff00',
-              boxShadow: '0 0 30px #00ff00, 0 0 60px rgba(0, 255, 0, 0.3), inset 0 0 30px rgba(0, 255, 0, 0.1)',
-              animation: 'omnitrix-pulse 3s ease-in-out infinite',
-            }}
+        <div className="mb-20 flex items-center justify-center">
+          <svg
+            width="220"
+            height="220"
+            viewBox="0 0 220 220"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ filter: 'drop-shadow(0 0 40px #00ff00) drop-shadow(0 0 80px rgba(0,255,0,0.5)) drop-shadow(0 0 120px rgba(0,255,0,0.2))' }}
           >
-            {/* Inner circle */}
-            <div
-              className="absolute inset-4 rounded-full"
-              style={{
-                border: '2px solid rgba(0, 255, 0, 0.5)',
-                background: 'radial-gradient(circle at center, rgba(0, 255, 0, 0.1), transparent)',
-              }}
+            <defs>
+              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <style>{`
+                @keyframes symbol-pulse {
+                  0%, 100% {
+                    filter: drop-shadow(0 0 40px #00ff00) drop-shadow(0 0 80px rgba(0,255,0,0.5)) drop-shadow(0 0 120px rgba(0,255,0,0.2));
+                  }
+                  50% {
+                    filter: drop-shadow(0 0 60px #00ff00) drop-shadow(0 0 120px rgba(0,255,0,0.7)) drop-shadow(0 0 180px rgba(0,255,0,0.4));
+                  }
+                }
+                @keyframes svg-pulse {
+                  0%, 100% {
+                    opacity: 1;
+                  }
+                  50% {
+                    opacity: 0.95;
+                  }
+                }
+              `}</style>
+            </defs>
+
+            {/* Outermost dark ring */}
+            <circle cx="110" cy="110" r="105" fill="none" stroke="#001a00" strokeWidth="8" opacity="0.6" />
+
+            {/* Outer black circle with subtle green border */}
+            <circle cx="110" cy="110" r="100" fill="#0a0a0a" stroke="#00ff00" strokeWidth="2" opacity="0.8" />
+
+            {/* Middle dark circle */}
+            <circle cx="110" cy="110" r="90" fill="none" stroke="#001100" strokeWidth="1" opacity="0.5" />
+
+            {/* Gradient radial background for center */}
+            <defs>
+              <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#001a00" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#000000" stopOpacity="0.8" />
+              </radialGradient>
+            </defs>
+            <circle cx="110" cy="110" r="85" fill="url(#centerGrad)" />
+
+            {/* Top triangle (part of hourglass/bowtie) */}
+            <polygon
+              points="110,40 160,85 60,85"
+              fill="#00ff00"
+              stroke="#00ff00"
+              strokeWidth="1.5"
+              filter="url(#glow)"
             />
 
-            {/* Hourglass/alien symbol */}
-            <svg
-              width="120"
-              height="120"
-              viewBox="0 0 120 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="relative z-10"
-            >
-              {/* Top triangle */}
-              <path
-                d="M 20 20 L 100 20 L 60 60 Z"
-                stroke="#00ff00"
-                strokeWidth="2"
-                fill="rgba(0, 255, 0, 0.1)"
-              />
-              {/* Bottom triangle */}
-              <path
-                d="M 60 60 L 20 100 L 100 100 Z"
-                stroke="#00ff00"
-                strokeWidth="2"
-                fill="rgba(0, 255, 0, 0.1)"
-              />
-              {/* Center line */}
-              <line x1="60" y1="20" x2="60" y2="100" stroke="#00ff00" strokeWidth="1" opacity="0.5" />
-            </svg>
-          </div>
+            {/* Bottom triangle (part of hourglass/bowtie) */}
+            <polygon
+              points="60,135 160,135 110,180"
+              fill="#00ff00"
+              stroke="#00ff00"
+              strokeWidth="1.5"
+              filter="url(#glow)"
+            />
+
+            {/* Center connecting point - small circle */}
+            <circle cx="110" cy="110" r="3" fill="#00ff00" filter="url(#glow)" />
+
+            {/* Vertical center line */}
+            <line x1="110" y1="40" x2="110" y2="180" stroke="rgba(0, 255, 0, 0.4)" strokeWidth="1" opacity="0.6" />
+
+            {/* Horizontal accent lines */}
+            <line x1="60" y1="110" x2="160" y2="110" stroke="rgba(0, 255, 0, 0.3)" strokeWidth="0.5" opacity="0.4" />
+          </svg>
         </div>
 
         {/* Alien cards grid */}
@@ -133,24 +191,25 @@ export default function OmnitrixPage() {
           {aliens.map((alien, idx) => (
             <div
               key={idx}
-              className="group relative p-6 rounded-lg transition-all duration-300 hover:shadow-lg"
+              className="group relative p-6 rounded-lg transition-all duration-300 cursor-pointer"
               style={{
-                backgroundColor: 'rgba(0, 20, 10, 0.6)',
+                backgroundColor: '#050f05',
                 border: '2px solid rgba(0, 255, 0, 0.4)',
                 backdropFilter: 'blur(10px)',
-                cursor: 'pointer',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = '#00ff00'
-                e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 0, 0.4)'
+                e.currentTarget.style.backgroundColor = '#0a1a0a'
+                e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 0, 0.4)'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(0, 255, 0, 0.4)'
+                e.currentTarget.style.backgroundColor = '#050f05'
                 e.currentTarget.style.boxShadow = 'none'
               }}
             >
               <h2
-                className="text-2xl md:text-3xl font-mono font-bold mb-2"
+                className="text-2xl font-mono font-bold mb-3"
                 style={{
                   color: '#00ff00',
                   textShadow: '0 0 10px rgba(0, 255, 0, 0.5)',
@@ -159,8 +218,8 @@ export default function OmnitrixPage() {
                 {alien.name}
               </h2>
               <p
-                className="text-xs md:text-sm font-mono"
-                style={{ color: 'rgba(255, 255, 255, 0.6)' }}
+                className="text-sm font-mono"
+                style={{ color: '#00aa00' }}
               >
                 {alien.skills}
               </p>
@@ -179,8 +238,8 @@ export default function OmnitrixPage() {
             textShadow: '0 0 10px rgba(0, 255, 0, 0.5)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 0 20px #00ff00'
-            e.currentTarget.style.backgroundColor = 'rgba(0, 255, 0, 0.1)'
+            e.currentTarget.style.boxShadow = '0 0 20px #00ff00, 0 0 40px rgba(0, 255, 0, 0.3)'
+            e.currentTarget.style.backgroundColor = 'rgba(0, 255, 0, 0.2)'
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.boxShadow = 'none'
@@ -192,12 +251,22 @@ export default function OmnitrixPage() {
       </div>
 
       <style>{`
-        @keyframes omnitrix-pulse {
+        @keyframes pulse-dot {
           0%, 100% {
-            box-shadow: 0 0 30px #00ff00, 0 0 60px rgba(0, 255, 0, 0.3), inset 0 0 30px rgba(0, 255, 0, 0.1);
+            opacity: 1;
+            transform: scale(1);
           }
           50% {
-            box-shadow: 0 0 50px #00ff00, 0 0 100px rgba(0, 255, 0, 0.5), inset 0 0 40px rgba(0, 255, 0, 0.15);
+            opacity: 0.6;
+            transform: scale(1.2);
+          }
+        }
+        @keyframes blink-text {
+          0%, 49% {
+            opacity: 1;
+          }
+          50%, 100% {
+            opacity: 0.2;
           }
         }
         @keyframes scanlines {
@@ -206,14 +275,6 @@ export default function OmnitrixPage() {
           }
           100% {
             transform: translateY(10px);
-          }
-        }
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
           }
         }
       `}</style>
