@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { TerminalWindow } from "./terminal-window"
 
 /* ─── Count-up hook ──────────────────────────────────────────────── */
@@ -154,6 +155,8 @@ const NOISE_SVG =
 
 /* ─── Hero ───────────────────────────────────────────────────────── */
 export function Hero() {
+  const router = useRouter()
+
   return (
     <section
       className="relative h-[100dvh] w-full overflow-hidden"
@@ -268,7 +271,7 @@ export function Hero() {
               animation: "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
             }}
           >
-            Repeat<span className="text-cyan-400/80">.</span>
+            Repeat<button onClick={() => router.push('/omnitrix')} className="text-cyan-400/80 bg-none border-none p-0 cursor-pointer hover:cursor-pointer" aria-label="Transform">.</button>
           </span>
         </h1>
 
@@ -388,7 +391,7 @@ export function Hero() {
                 animation: "fade-scale-in 1200ms cubic-bezier(0.2,0.7,0.2,1) 1100ms forwards",
               }}
             >
-              Repeat<span className="text-cyan-400/80">.</span>
+              Repeat<button onClick={() => router.push('/omnitrix')} className="text-cyan-400/80 bg-none border-none p-0 cursor-pointer hover:cursor-pointer" aria-label="Transform">.</button>
             </span>
           </h1>
         </div>
