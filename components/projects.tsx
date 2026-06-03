@@ -18,8 +18,8 @@ const PROJECTS: Project[] = [
     description:
       "Full-stack AI writing SaaS for professionals and content creators. Features a distraction-free editor with real-time Claude-powered suggestions, project management dashboard, subscription billing, and secure auth — built end to end with Next.js and Supabase.",
     tech: ["NEXT.JS", "CLAUDE API", "SUPABASE", "PRISMA"],
-    href: "https://writepro-ai.vercel.app/",
-    demoUrl: "https://writepro-ai.vercel.app/",
+    href: "https://trywritepro.vercel.app/",
+    demoUrl: "https://trywritepro.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
   },
   {
