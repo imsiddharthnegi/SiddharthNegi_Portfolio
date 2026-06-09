@@ -9,7 +9,6 @@ https://siddharthnegi.vercel.app/
 - React.js
 - Tailwind CSS
 - Framer Motion
-- Lovable (AI-assisted development)
 - Vercel (deployment)
 
 ## 📌 Sections
