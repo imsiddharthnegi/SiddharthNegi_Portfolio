@@ -20,24 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Siddharth Negi — Full-Stack Engineer & SaaS Builder',
   description: 'Portfolio of Siddharth Negi — building digital products at the intersection of engineering and design.',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
+  themeColor: '#0c0c0c',
 }
 
 export default function RootLayout({

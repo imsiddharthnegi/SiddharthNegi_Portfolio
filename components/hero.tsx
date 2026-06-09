@@ -63,7 +63,7 @@ function StatCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseDown={() => handleClick()}
-      onMouseUp={() => {}}
+      onMouseUp={() => { }}
       onTouchStart={() => {
         setHovered(true)
         handleClick()
@@ -275,7 +275,7 @@ export function Hero() {
         {/* Mobile terminal — centered with max-width constraint */}
         <div
           className="mt-6 opacity-0 flex justify-center w-full"
-          style={{ 
+          style={{
             animation: "fade-in-up 800ms ease-out 1200ms forwards",
             fontSize: "11px",
           }}
