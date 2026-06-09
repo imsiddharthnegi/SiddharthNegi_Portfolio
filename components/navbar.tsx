@@ -41,9 +41,9 @@ export function Navbar() {
           display: "flex",
           alignItems: "center",
           gap: 0,
-          height: 64,
-          paddingLeft: 28,
-          paddingRight: 10,
+          height: 56,
+          paddingLeft: 20,
+          paddingRight: 8,
           borderRadius: 999,
           background: "rgba(226, 221, 211, 0.96)",
           border: "1px solid rgba(0,0,0,0.10)",
@@ -61,11 +61,11 @@ export function Navbar() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "clamp(28px, 3.5vw, 48px)",
+            gap: 32,
             listStyle: "none",
             margin: 0,
             padding: 0,
-            paddingRight: 32,
+            paddingRight: 44,
           }}
         >
           {NAV_LINKS.map((link) => (
@@ -103,7 +103,7 @@ function LogoMark() {
         boxShadow: hov ? "0 0 16px rgba(0,229,255,0.22)" : "0 0 6px rgba(0,210,220,0.08)",
         textDecoration: "none",
         flexShrink: 0,
-        marginRight: 28,
+        marginRight: 44,
         transition: "border-color 280ms ease, background 280ms ease, box-shadow 280ms ease",
       }}
     >
@@ -178,10 +178,10 @@ function PillCTA() {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        paddingLeft: 26,
-        paddingRight: 26,
-        paddingTop: 13,
-        paddingBottom: 13,
+        paddingLeft: 22,
+        paddingRight: 22,
+        paddingTop: 10,
+        paddingBottom: 10,
         borderRadius: 999,
         background: hov ? "#2a2a2a" : "#111111",
         color: "#ffffff",
