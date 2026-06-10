@@ -14,6 +14,7 @@ type Project = {
   tech: string[]
   demoUrl: string
   githubUrl: string
+  image: string
 }
 
 const PROJECTS: Project[] = [
@@ -25,6 +26,7 @@ const PROJECTS: Project[] = [
     tech: ["NEXT.JS", "TYPESCRIPT", "SUPABASE", "CLERK", "GEMINI API"],
     demoUrl: "https://trywritepro.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
+    image: "/projects/writepro.png",
   },
   {
     id: 2,
@@ -34,6 +36,7 @@ const PROJECTS: Project[] = [
     tech: ["NEXT.JS", "TYPESCRIPT", "TAILWIND CSS", "FRAMER MOTION"],
     demoUrl: "https://horatime.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/HORA",
+    image: "/projects/hora.png",
   },
   {
     id: 3,
@@ -43,6 +46,7 @@ const PROJECTS: Project[] = [
     tech: ["REACT", "TAILWIND CSS", "GROQ API", "NODE.JS"],
     demoUrl: "https://leadforgeproject.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/LeadForge",
+    image: "/projects/leadforge.png",
   },
   {
     id: 4,
@@ -52,6 +56,7 @@ const PROJECTS: Project[] = [
     tech: ["NEXT.JS", "TYPESCRIPT", "TAILWIND CSS", "FRAMER MOTION"],
     demoUrl: "https://botanitual.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/Botanitual",
+    image: "/projects/botanitual.png",
   },
   {
     id: 5,
@@ -61,6 +66,7 @@ const PROJECTS: Project[] = [
     tech: ["REACT", "TAILWIND CSS", "GEMINI API"],
     demoUrl: "https://stylematchapp.lovable.app/",
     githubUrl: "https://github.com/imsiddharthnegi/StyleMatch",
+    image: "/projects/stylematch.png",
   },
   {
     id: 6,
@@ -70,6 +76,7 @@ const PROJECTS: Project[] = [
     tech: ["NEXT.JS", "MONGODB", "NODE.JS", "TAILWIND CSS"],
     demoUrl: "https://projecturbanpulse.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/UrbanPulse",
+    image: "/projects/urbanpulse.png",
   },
 ]
 
@@ -138,6 +145,46 @@ function ProjectPlaceholder({ name, index }: { name: string; index: number }) {
           }}
         />
       ))}
+    </div>
+  )
+}
+
+/* ─────────────────────────────────────────────
+   PROJECT FRAME (screenshot in rounded frame)
+───────────────────────────────────────────── */
+function ProjectFrame({ project, index }: { project: Project; index: number }) {
+  const [errored, setErrored] = useState(false)
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        borderRadius: 12,
+        overflow: "hidden",
+        backgroundColor: "#0a0a0a",
+        border: "1px solid #333",
+      }}
+    >
+      {errored ? (
+        <ProjectPlaceholder name={project.name} index={index} />
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={project.image}
+          src={project.image}
+          alt={`${project.name} screenshot`}
+          onError={() => setErrored(true)}
+          draggable={false}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top center",
+            display: "block",
+          }}
+        />
+      )}
     </div>
   )
 }
@@ -326,7 +373,6 @@ export function Projects() {
               border: "1px solid rgba(0,229,255,0.14)",
               boxShadow:
                 "0 0 0 1px rgba(0,229,255,0.06), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset",
-              minHeight: "clamp(380px, 52vw, 580px)",
             }}
           >
             {/* Subtle top glow line */}
@@ -347,43 +393,30 @@ export function Projects() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="flex h-full w-full flex-col md:flex-row"
-                style={{ minHeight: "inherit" }}
+                className="w-full"
+                style={{ display: "flex", flexDirection: "row", alignItems: "stretch" }}
               >
-                {/* ── LEFT: Image / placeholder (55%) ── */}
+                {/* ── LEFT: Browser mockup with screenshot (55%) ── */}
                 <div
-                  className="relative w-full overflow-hidden md:w-[55%]"
                   style={{
-                    minHeight: "clamp(220px, 32vw, 480px)",
-                    borderRight: "1px solid rgba(0,229,255,0.08)",
-                    borderBottom: "1px solid rgba(0,229,255,0.08)",
+                    width: "55%",
+                    display: "flex",
+                    padding: 16,
                   }}
                 >
-                  {/* Rounded clip only on the left corners */}
-                  <ProjectPlaceholder name={project.name} index={current} />
-
-                  {/* Corner badge: project count */}
-                  <div
-                    className="absolute right-4 top-4 rounded-md px-3 py-1.5"
-                    style={{
-                      backgroundColor: "rgba(0,0,0,0.55)",
-                      border: "1px solid rgba(0,229,255,0.2)",
-                      backdropFilter: "blur(6px)",
-                    }}
-                  >
-                    <span
-                      className="font-mono text-[11px] font-medium"
-                      style={{ color: "rgba(0,229,255,0.8)", letterSpacing: "0.12em" }}
-                    >
-                      {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-                    </span>
-                  </div>
+                  <ProjectFrame project={project} index={current} />
                 </div>
 
                 {/* ── RIGHT: Details (45%) ── */}
                 <div
-                  className="flex w-full flex-col justify-center p-8 md:w-[45%] md:p-10 lg:p-14"
-                  style={{ gap: "clamp(16px, 2.5vw, 28px)" }}
+                  style={{
+                    width: "45%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    padding: 40,
+                    gap: "clamp(16px, 2.5vw, 28px)",
+                  }}
                 >
                   {/* Project number */}
                   <span
@@ -419,7 +452,7 @@ export function Projects() {
                   </p>
 
                   {/* Tech stack pills */}
-                  <div className="flex flex-wrap gap-2">
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                     {project.tech.map((t) => (
                       <span
                         key={t}
