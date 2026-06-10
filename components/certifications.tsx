@@ -47,77 +47,94 @@ function CertCard({ cert, index, revealed }: { cert: Cert; index: number; reveal
       tabIndex={0}
       className="group relative overflow-hidden rounded-xl border outline-none"
       style={{
-        backgroundColor: "rgba(255, 255, 255, 0.02)",
-        borderColor: hovered ? "rgba(0, 229, 255, 0.30)" : "rgba(255, 255, 255, 0.08)",
+        backgroundColor: hovered ? "rgba(255, 255, 255, 0.03)" : "rgba(255, 255, 255, 0.02)",
+        borderColor: hovered ? "rgba(0, 210, 255, 0.4)" : "rgba(255, 255, 255, 0.08)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         boxShadow: hovered
-          ? "0 0 0 1px rgba(0, 229, 255, 0.10), 0 0 40px rgba(0, 229, 255, 0.10), inset 0 0 60px rgba(0, 229, 255, 0.03)"
+          ? "0 0 20px rgba(0, 210, 255, 0.08), inset 0 0 60px rgba(0, 229, 255, 0.03)"
           : "inset 0 0 0 1px rgba(255, 255, 255, 0.0)",
         opacity: revealed ? 1 : 0,
-        transform: revealed ? "translateY(0)" : "translateY(16px)",
-        transition: `opacity 700ms ease-out ${index * 110}ms, transform 700ms ease-out ${index * 110}ms, border-color 320ms ease, box-shadow 320ms ease`,
+        transform: revealed ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 400ms ease-out ${index * 100}ms, transform 400ms ease-out ${index * 100}ms, border-color 200ms ease-out, box-shadow 200ms ease-out, background-color 200ms ease-out`,
       }}
     >
       <div className="flex items-start justify-between gap-6 p-6 md:p-7">
         <div className="flex min-w-0 flex-col gap-2">
-          <div className="flex items-center gap-2">
+          
+          <div 
+            className="flex items-center gap-1.5 rounded-full w-fit px-2 py-0.5"
+            style={{
+              backgroundColor: "rgba(0, 210, 255, 0.1)",
+              border: "1px solid rgba(0, 210, 255, 0.2)"
+            }}
+          >
             <span
-              className="grid h-4 w-4 place-items-center rounded-full"
+              className="grid h-3 w-3 place-items-center rounded-full"
               style={{
-                backgroundColor: "rgba(0, 229, 255, 0.12)",
-                border: "1px solid rgba(0, 229, 255, 0.45)",
+                backgroundColor: "rgba(0, 210, 255, 0.2)",
               }}
               aria-label="Verified"
             >
-              <Check className="h-2.5 w-2.5" style={{ color: "#00e5ff" }} strokeWidth={3} />
+              <Check className="h-2 w-2" style={{ color: "#00d2ff" }} strokeWidth={3} />
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300/80">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300/90 leading-none pt-[1px]">
               Verified
             </span>
           </div>
 
           <h3
-            className="text-balance font-medium tracking-[-0.01em] text-white"
+            className="text-balance font-medium tracking-[-0.01em] text-white mt-1"
             style={{ fontSize: "clamp(16px, 1.3vw, 19px)" }}
           >
             {cert.name}
           </h3>
 
-          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/40">
+          <span className="font-mono flex items-center gap-1.5 text-[11px] uppercase tracking-[0.16em] text-white/40 mt-1">
+            <span 
+              className="block w-1.5 h-1.5 rounded-full" 
+              style={{ 
+                backgroundColor: 
+                  cert.issuer.includes("Amazon") ? "#f97316" : 
+                  cert.issuer.includes("Google") ? "#3b82f6" : 
+                  cert.issuer.includes("LinkedIn") ? "#0077b5" : 
+                  cert.issuer.includes("Careerprep") ? "#00d2ff" : "#fff" 
+              }} 
+            />
             {cert.issuer}
           </span>
         </div>
 
-        <div className="shrink-0 flex flex-col items-end gap-2">
-  <span
-    className="font-mono tabular-nums text-white/45"
-    style={{ fontSize: "clamp(13px, 1vw, 14px)" }}
-  >
-    {cert.year}
-  </span>
-  <a
-    href={cert.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-400/70 transition-all duration-200 ease-out"
-    style={{
-      display: "inline-block",
-    }}
-    onMouseEnter={(e) => {
-      const el = e.currentTarget as HTMLAnchorElement
-      el.style.color = "rgba(0, 255, 204, 1)"
-      el.style.transform = "translateX(4px)"
-    }}
-    onMouseLeave={(e) => {
-      const el = e.currentTarget as HTMLAnchorElement
-      el.style.color = "rgba(0, 255, 204, 0.7)"
-      el.style.transform = "translateX(0)"
-    }}
-  >
-    View Certificate →
-  </a>
-</div>
+        <div className="shrink-0 flex flex-col items-end gap-3">
+          <span
+            className="font-mono tabular-nums rounded px-2 py-0.5"
+            style={{ 
+              fontSize: "clamp(12px, 1vw, 13px)",
+              backgroundColor: "rgba(255,255,255,0.06)",
+              color: "rgba(255,255,255,0.6)"
+            }}
+          >
+            {cert.year}
+          </span>
+          <a
+            href={cert.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono flex items-center gap-1 uppercase tracking-[0.16em] transition-all duration-200 ease-out mt-auto pt-4"
+            style={{
+              fontSize: "10px",
+              color: hovered ? "rgba(0, 210, 255, 1)" : "rgba(0, 210, 255, 0.6)",
+            }}
+          >
+            View Certificate
+            <span 
+              className="transition-transform duration-200"
+              style={{ transform: hovered ? "translateX(4px)" : "translateX(0)" }}
+            >
+              →
+            </span>
+          </a>
+        </div>
       </div>
 
       {/* Hover sheen */}
@@ -128,7 +145,7 @@ function CertCard({ cert, index, revealed }: { cert: Cert; index: number; reveal
           background:
             "linear-gradient(90deg, rgba(0,229,255,0) 0%, rgba(0,229,255,0.5) 50%, rgba(0,229,255,0) 100%)",
           opacity: hovered ? 1 : 0,
-          transition: "opacity 320ms ease",
+          transition: "opacity 200ms ease",
         }}
       />
     </div>

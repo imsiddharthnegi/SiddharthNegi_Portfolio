@@ -69,6 +69,8 @@ function JourneyRow({
     return () => observer.disconnect()
   }, [index])
 
+  const isActive = index === 0
+
   return (
     <div
       ref={ref}
@@ -77,32 +79,46 @@ function JourneyRow({
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
       tabIndex={0}
-      className={[
-        "group relative w-full outline-none",
-        isLast ? "border-b" : "",
-      ].join(" ")}
+      className="group relative w-full outline-none transition-all duration-200"
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(30px)",
-        transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
+        transitionProperty: "opacity, transform, background-color, border-color",
+        transitionDuration: "0.5s, 0.5s, 0.2s, 0.2s",
+        transitionTimingFunction: "ease-out, ease-out, ease, ease",
         transitionDelay: `${index * 120}ms`,
-        borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-        borderLeft: hovered ? "2px solid rgba(0, 229, 255, 1)" : "2px solid transparent",
+        borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+        borderBottom: isLast ? "1px solid rgba(255, 255, 255, 0.05)" : "none",
+        borderLeft: hovered
+          ? "3px solid rgba(0, 210, 255, 0.3)"
+          : isActive
+          ? "3px solid rgba(0, 210, 255, 1)"
+          : "3px solid rgba(0, 210, 255, 0.08)",
         backgroundColor: hovered
           ? "rgba(255, 255, 255, 0.03)"
+          : isActive
+          ? "rgba(0, 210, 255, 0.04)"
           : "transparent",
       }}
     >
       <div
-        className="grid grid-cols-12 items-baseline gap-4 transition-all duration-500 ease-out"
+        className="grid grid-cols-12 items-baseline gap-4 transition-all duration-200"
         style={{
           paddingTop: hovered ? "32px" : "26px",
           paddingBottom: hovered ? "32px" : "26px",
+          paddingLeft: "24px",
+          paddingRight: "24px",
         }}
       >
           {/* Years */}
         <div className="col-span-12 md:col-span-3">
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">
+          <span 
+            className="font-mono uppercase tracking-[0.18em] transition-colors duration-200"
+            style={{ 
+              fontSize: 13,
+              color: isActive ? "rgba(0,210,255,0.9)" : "rgba(255,255,255,0.4)" 
+            }}
+          >
             {entry.years}
           </span>
         </div>
@@ -110,8 +126,11 @@ function JourneyRow({
         {/* Role */}
         <div className="col-span-12 md:col-span-3">
           <h3
-            className="text-balance font-medium tracking-[-0.01em] text-white"
-            style={{ fontSize: "clamp(16px, 1.4vw, 20px)" }}
+            className="text-balance font-semibold tracking-[-0.01em] transition-colors duration-200"
+            style={{ 
+              fontSize: "clamp(18px, 1.5vw, 22px)",
+              color: hovered ? "rgba(0,210,255,0.9)" : "#ffffff" 
+            }}
           >
             {entry.role}
           </h3>
@@ -119,18 +138,23 @@ function JourneyRow({
 
         {/* Company */}
         <div className="col-span-12 md:col-span-2">
-          <a
-            href="#"
-            className="font-light tracking-tight text-cyan-300 hover:text-cyan-100 hover:underline transition-all duration-150 ease-out cursor-pointer"
-            style={{ fontSize: "clamp(15px, 1.3vw, 18px)" }}
+          <span
+            className="font-light tracking-tight transition-colors duration-200"
+            style={{ 
+              fontSize: "clamp(15px, 1.3vw, 18px)",
+              color: isActive && !hovered ? "rgba(0,210,255,1)" : hovered ? "rgba(0,210,255,0.8)" : "rgba(0,229,255,0.6)"
+            }}
           >
             {entry.company}
-          </a>
+          </span>
         </div>
 
         {/* Description */}
         <div className="col-span-12 md:col-span-4 md:text-right">
-          <p className="text-pretty text-sm leading-relaxed text-white/50 md:text-[15px]">
+          <p 
+            className="text-pretty text-sm leading-relaxed transition-opacity duration-200 md:text-[15px]"
+            style={{ color: "#ffffff", opacity: hovered ? 0.85 : 0.6 }}
+          >
             {entry.description}
           </p>
         </div>

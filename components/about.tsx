@@ -48,30 +48,12 @@ export function About() {
           paddingBottom: "clamp(96px, 14vh, 160px)",
         }}
       >
-        {/* LEFT: Big "01" + portrait placeholder */}
-        <div className="relative flex items-center justify-center lg:justify-start">
-          {/* Massive 01 number behind */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute select-none font-light leading-none text-white"
-            style={{
-              fontSize: "clamp(280px, 38vw, 560px)",
-              opacity: 0.08,
-              letterSpacing: "-0.06em",
-              left: "-2vw",
-              top: "50%",
-              transform: revealed ? "translateY(-50%)" : "translateY(-46%)",
-              transition: "transform 1400ms cubic-bezier(0.2, 0.7, 0.2, 1)",
-              fontFamily: "var(--font-sans), Geist, sans-serif",
-              fontWeight: 200,
-            }}
-          >
-            01
-          </span>
-
-          {/* Portrait placeholder */}
+        {/* LEFT: SN Card + Stats */}
+        <div className="relative flex flex-col items-center justify-center lg:items-start lg:justify-start w-full max-w-[360px] mx-auto lg:mx-0">
+          
+          {/* Portrait placeholder wrapper */}
           <div
-            className="relative"
+            className="relative flex flex-col items-center w-full"
             style={{
               opacity: revealed ? 1 : 0,
               transform: revealed ? "translateY(0)" : "translateY(24px)",
@@ -79,23 +61,19 @@ export function About() {
             }}
           >
             <div
-              className="relative grid place-items-center overflow-hidden rounded-2xl border"
+              className="relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border w-full aspect-square"
               style={{
-                width: "clamp(240px, 28vw, 360px)",
-                height: "clamp(240px, 28vw, 360px)",
                 backgroundColor: "#06080d",
-                borderColor: "rgba(0, 229, 255, 0.18)",
+                borderColor: "rgba(0, 210, 255, 0.15)",
                 boxShadow:
-                  "0 0 0 1px rgba(0, 229, 255, 0.08), 0 0 60px rgba(0, 229, 255, 0.10), inset 0 0 80px rgba(0, 229, 255, 0.04)",
+                  "0 0 0 1px rgba(0, 210, 255, 0.05), 0 0 40px rgba(0, 210, 255, 0.08), inset 0 0 80px rgba(0, 210, 255, 0.03)",
               }}
             >
-              {/* Subtle inner gradient */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
+              {/* Subtle animated inner gradient */}
+              <div 
+                className="pointer-events-none absolute -inset-[100%] animate-[spin_8s_linear_infinite]"
                 style={{
-                  background:
-                    "radial-gradient(circle at 30% 20%, rgba(0, 229, 255, 0.08) 0%, rgba(0, 229, 255, 0) 60%)",
+                  background: "radial-gradient(circle at 30% 30%, rgba(0, 210, 255, 0.12) 0%, transparent 60%)",
                 }}
               />
               {/* Corner ticks */}
@@ -104,28 +82,94 @@ export function About() {
               <span aria-hidden className="absolute bottom-3 left-3 h-3 w-3 border-b border-l border-cyan-400/40" />
               <span aria-hidden className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-cyan-400/40" />
 
-              {/* Initials */}
-              <span
-                className="relative font-light tracking-[-0.04em] text-white"
-                style={{
-                  fontSize: "clamp(80px, 11vw, 144px)",
-                  fontFamily: "var(--font-sans), Geist, sans-serif",
-                  textShadow: "0 0 40px rgba(0, 229, 255, 0.25)",
-                }}
-              >
-                SN
-              </span>
+              {/* Central Content */}
+              <div className="relative flex flex-col items-center gap-1 z-10">
+                <span
+                  className="font-light tracking-[-0.04em] text-white leading-none"
+                  style={{
+                    fontSize: "clamp(64px, 8vw, 96px)",
+                    fontFamily: "var(--font-sans), Geist, sans-serif",
+                    textShadow: "0 0 30px rgba(0, 210, 255, 0.2)",
+                  }}
+                >
+                  SN
+                </span>
+                <span className="text-white/40 text-[13px] tracking-wide font-light mt-1">
+                  Siddharth Negi
+                </span>
+                
+                <div 
+                  className="mt-3 flex items-center gap-2 rounded-full px-3 py-1.5"
+                  style={{
+                    backgroundColor: "rgba(0, 210, 255, 0.06)",
+                    border: "1px solid rgba(0, 210, 255, 0.15)"
+                  }}
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-cyan-300/80">
+                    Available for work
+                  </span>
+                </div>
+              </div>
 
               {/* Bottom hairline meta */}
               <span
                 aria-hidden
-                className="absolute bottom-4 left-4 right-4 flex items-center justify-between"
+                className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10"
               >
                 <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-white/35">
                   Engineer / 2026
                 </span>
                 <span className="block h-1 w-1 rounded-full bg-cyan-400" />
               </span>
+            </div>
+            
+            {/* 2x2 Stats Grid below card */}
+            <div 
+              className="mt-2 w-full grid grid-cols-2 rounded-xl overflow-hidden"
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.03)",
+                border: "1px solid rgba(255, 255, 255, 0.08)"
+              }}
+            >
+              {STATS.map((s, i) => (
+                <div
+                  key={s.label}
+                  className="flex flex-col gap-1.5 p-5 relative"
+                  style={{
+                    borderRight: i % 2 === 0 ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+                    borderBottom: i < 2 ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+                  }}
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-cyan-400/70">
+                    {s.label}
+                  </span>
+                  <span
+                    className="font-bold tracking-tight text-white leading-tight"
+                    style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
+                  >
+                    {s.value}
+                  </span>
+                </div>
+              ))}
+              {/* Education — full-width 5th row */}
+              <div
+                className="col-span-2 flex flex-col gap-1.5 p-5"
+                style={{ borderTop: "1px solid rgba(255, 255, 255, 0.1)" }}
+              >
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-cyan-400/70">
+                  Education
+                </span>
+                <span
+                  className="font-bold tracking-tight text-white leading-tight"
+                  style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
+                >
+                  B.Tech, Computer Science · 2026
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -204,13 +248,13 @@ export function About() {
           {/* Paragraphs */}
           <div className="mt-12 grid max-w-xl gap-6">
             {[
-              "Six shipped products, four internships, and a bias toward building things people actually use. I've worked across ed-tech SaaS, civic tech, and AI tooling — owning features from the first commit to production, and turning vague briefs into things real users press buttons on.",
-              "Full-stack by discipline, AI-native by choice. My stack: Next.js, React, and Tailwind on the front; Node.js, MongoDB, and AWS on the back. I layer in Gemini and Claude APIs where intelligence adds real value — not as a buzzword, but as a feature. AWS & GCP certified — I prefer infrastructure I can reason about.",
+              "Six shipped products, four internships, bias toward building things people actually use. I own features end-to-end — from first commit to production — across SaaS, e-commerce, and AI tooling.",
+              "Full-stack by discipline, AI-native by choice. Next.js, React, Node.js, MongoDB on the core. Gemini and Claude APIs where intelligence actually earns its place. AWS & GCP certified.",
               "Craft is non-negotiable. Pixel-precise UI, sub-100ms perceived performance, accessible by default. I sweat the spacing, the easing curves, and the empty states — because the gap between good and great is felt, not always seen.",
             ].map((text, i) => (
               <p
                 key={i}
-                className="text-pretty text-[15px] leading-relaxed text-white/55 md:text-[16px]"
+                className={`text-pretty leading-relaxed ${i === 0 ? "text-[16px] md:text-[18px] text-white/80" : "text-[15px] md:text-[16px] text-white/55"}`}
                 style={{
                   opacity: revealed ? 1 : 0,
                   transform: revealed ? "translateY(0)" : "translateY(12px)",
@@ -222,47 +266,6 @@ export function About() {
             ))}
           </div>
 
-          {/* Stats row */}
-          <div
-            className="mt-14 grid grid-cols-4 gap-x-10 gap-y-6 border-t border-white/[0.08] pt-8"
-            style={{
-              opacity: revealed ? 1 : 0,
-              transform: revealed ? "translateY(0)" : "translateY(12px)",
-              transition: "opacity 700ms ease-out 1100ms, transform 700ms ease-out 1100ms",
-            }}
-          >
-          {STATS.map((s, i) => (
-            <div
-              key={s.label}
-              className="flex flex-col gap-1.5 transition-all duration-150 ease-out"
-              style={{
-                padding: "12px",
-                borderLeft: "2px solid transparent",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLDivElement
-                el.style.borderLeftColor = "rgba(0, 229, 255, 1)"
-                el.style.backgroundColor = "rgba(255, 255, 255, 0.03)"
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLDivElement
-                el.style.borderLeftColor = "transparent"
-                el.style.backgroundColor = "transparent"
-              }}
-            >
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
-                <span className="text-cyan-400/70">{String(i + 1).padStart(2, "0")}</span>{" "}
-                {s.label}
-              </span>
-              <span
-                className="font-light tracking-tight text-white"
-                style={{ fontSize: "clamp(13px, 1.2vw, 17px)" }}
-              >
-                {s.value}
-              </span>
-            </div>
-          ))}
-          </div>
         </div>
       </div>
     </section>

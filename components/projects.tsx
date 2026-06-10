@@ -15,21 +15,12 @@ type Project = {
   demoUrl: string
   githubUrl: string
   image: string
+  category: string
 }
 
 const PROJECTS: Project[] = [
   {
     id: 1,
-    name: "WritePro",
-    description:
-      "AI writing platform with tone control, rewrite suggestions, and export — built for creators who move fast.",
-    tech: ["NEXT.JS", "TYPESCRIPT", "SUPABASE", "CLERK", "GEMINI API"],
-    demoUrl: "https://trywritepro.vercel.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
-    image: "/projects/writepro.png",
-  },
-  {
-    id: 2,
     name: "HORA",
     description:
       "Luxury watch brand landing page with cinematic design, bento-grid gallery, and smooth scroll animations — craft-first frontend.",
@@ -37,19 +28,10 @@ const PROJECTS: Project[] = [
     demoUrl: "https://horatime.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/HORA",
     image: "/projects/hora.png",
+    category: "LANDING PAGE",
   },
   {
-    id: 3,
-    name: "LeadForge",
-    description:
-      "B2B lead intelligence tool that enriches and scores prospects using AI — built for outbound sales teams.",
-    tech: ["REACT", "TAILWIND CSS", "GROQ API", "NODE.JS"],
-    demoUrl: "https://leadforgeproject.vercel.app/",
-    githubUrl: "https://github.com/imsiddharthnegi/LeadForge",
-    image: "/projects/leadforge.png",
-  },
-  {
-    id: 4,
+    id: 2,
     name: "Botanitual",
     description:
       "Premium skincare e-commerce with clean product showcase, smooth animations, and a minimal aesthetic built for conversion.",
@@ -57,6 +39,29 @@ const PROJECTS: Project[] = [
     demoUrl: "https://botanitual.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/Botanitual",
     image: "/projects/botanitual.png",
+    category: "E-COMMERCE",
+  },
+  {
+    id: 3,
+    name: "WritePro",
+    description:
+      "AI writing platform with tone control, rewrite suggestions, and export — built for creators who move fast.",
+    tech: ["NEXT.JS", "TYPESCRIPT", "SUPABASE", "CLERK", "GEMINI API"],
+    demoUrl: "https://trywritepro.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
+    image: "/projects/writepro.png",
+    category: "SAAS PLATFORM",
+  },
+  {
+    id: 4,
+    name: "LeadForge",
+    description:
+      "B2B lead intelligence tool that enriches and scores prospects using AI — built for outbound sales teams.",
+    tech: ["REACT", "TAILWIND CSS", "GROQ API", "NODE.JS"],
+    demoUrl: "https://leadforgeproject.vercel.app/",
+    githubUrl: "https://github.com/imsiddharthnegi/LeadForge",
+    image: "/projects/leadforge.png",
+    category: "AI TOOL",
   },
   {
     id: 5,
@@ -67,6 +72,7 @@ const PROJECTS: Project[] = [
     demoUrl: "https://stylematchapp.lovable.app/",
     githubUrl: "https://github.com/imsiddharthnegi/StyleMatch",
     image: "/projects/stylematch.png",
+    category: "AI TOOL",
   },
   {
     id: 6,
@@ -77,6 +83,7 @@ const PROJECTS: Project[] = [
     demoUrl: "https://projecturbanpulse.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/UrbanPulse",
     image: "/projects/urbanpulse.png",
+    category: "WEB APP",
   },
 ]
 
@@ -157,6 +164,7 @@ function ProjectFrame({ project, index }: { project: Project; index: number }) {
 
   return (
     <div
+      className="group relative"
       style={{
         width: "100%",
         height: "100%",
@@ -169,21 +177,30 @@ function ProjectFrame({ project, index }: { project: Project; index: number }) {
       {errored ? (
         <ProjectPlaceholder name={project.name} index={index} />
       ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={project.image}
-          src={project.image}
-          alt={`${project.name} screenshot`}
-          onError={() => setErrored(true)}
-          draggable={false}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "top center",
-            display: "block",
-          }}
-        />
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            key={project.image}
+            src={project.image}
+            alt={`${project.name} screenshot`}
+            onError={() => setErrored(true)}
+            draggable={false}
+            className="transition-transform duration-[600ms] ease-out group-hover:scale-[1.03]"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top center",
+              display: "block",
+            }}
+          />
+          <div 
+            className="pointer-events-none absolute bottom-0 left-0 w-full h-1/3"
+            style={{
+              background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%)"
+            }}
+          />
+        </>
       )}
     </div>
   )
@@ -210,13 +227,13 @@ function ArrowBtn({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       aria-label={direction === "left" ? "Previous project" : "Next project"}
-      className="relative z-20 flex items-center justify-center rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 disabled:opacity-30 disabled:cursor-not-allowed"
+      className="relative z-20 flex items-center justify-center rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
       style={{
-        width: 48,
-        height: 48,
-        borderColor: hovered ? "rgba(0,229,255,0.8)" : "rgba(255,255,255,0.12)",
-        backgroundColor: hovered ? "rgba(0,229,255,0.12)" : "rgba(12,12,18,0.85)",
-        boxShadow: hovered ? "0 0 20px rgba(0,229,255,0.35)" : "none",
+        width: 52,
+        height: 52,
+        borderColor: hovered ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.15)",
+        backgroundColor: hovered ? "rgba(0,210,255,0.15)" : "rgba(255,255,255,0.08)",
+        boxShadow: hovered ? "0 0 16px rgba(0,210,255,0.4)" : "none",
         backdropFilter: "blur(8px)",
         flexShrink: 0,
       }}
@@ -224,12 +241,12 @@ function ArrowBtn({
       {direction === "left" ? (
         <ChevronLeft
           className="h-5 w-5 transition-colors duration-200"
-          style={{ color: hovered ? "rgba(0,229,255,1)" : "rgba(255,255,255,0.7)" }}
+          style={{ color: "#ffffff" }}
         />
       ) : (
         <ChevronRight
           className="h-5 w-5 transition-colors duration-200"
-          style={{ color: hovered ? "rgba(0,229,255,1)" : "rgba(255,255,255,0.7)" }}
+          style={{ color: "#ffffff" }}
         />
       )}
     </button>
@@ -242,6 +259,7 @@ function ArrowBtn({
 export function Projects() {
   const [current, setCurrent] = useState<number>(0)
   const [direction, setDirection] = useState<1 | -1>(1)
+  const [cardHovered, setCardHovered] = useState(false)
 
   const total = PROJECTS.length
 
@@ -311,11 +329,11 @@ export function Projects() {
         <div className="flex items-center gap-3">
           <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
           <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
-            Selected Work · 2025—2026
+            PROJECTS
           </span>
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div className="mt-8 flex flex-col gap-3">
           <h2
             className="text-pretty leading-[0.92] tracking-[-0.04em] text-white"
             style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
@@ -342,12 +360,6 @@ export function Projects() {
               Shipped.
             </span>
           </h2>
-          <p
-            className="font-mono text-sm md:text-base pb-1"
-            style={{ color: "rgba(0,229,255,0.55)", letterSpacing: "0.05em" }}
-          >
-            Selected work — built to ship.
-          </p>
         </div>
       </div>
 
@@ -368,11 +380,16 @@ export function Projects() {
           {/* ── The Card ── */}
           <div
             className="relative flex-1 overflow-hidden rounded-2xl"
+            onMouseEnter={() => setCardHovered(true)}
+            onMouseLeave={() => setCardHovered(false)}
             style={{
               backgroundColor: "#0d0d12",
               border: "1px solid rgba(0,229,255,0.14)",
-              boxShadow:
-                "0 0 0 1px rgba(0,229,255,0.06), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset",
+              boxShadow: cardHovered
+                ? "0 0 0 1px rgba(0,210,255,0.2), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset"
+                : "0 0 0 1px rgba(0,229,255,0.06), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset",
+              transition: "box-shadow 0.3s ease",
+              padding: 24,
             }}
           >
             {/* Subtle top glow line */}
@@ -394,47 +411,61 @@ export function Projects() {
                 exit="exit"
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full"
-                style={{ display: "flex", flexDirection: "row", alignItems: "stretch" }}
+                style={{ display: "flex", flexDirection: "row", alignItems: "stretch", gap: 32 }}
               >
-                {/* ── LEFT: Browser mockup with screenshot (55%) ── */}
+                {/* ── LEFT: Browser mockup with screenshot (52%) ── */}
                 <div
                   style={{
-                    width: "55%",
+                    width: "52%",
                     display: "flex",
-                    padding: 16,
                   }}
                 >
                   <ProjectFrame project={project} index={current} />
                 </div>
 
-                {/* ── RIGHT: Details (45%) ── */}
-                <div
+                {/* ── RIGHT: Details (48%) ── */}
+                <motion.div
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                   style={{
-                    width: "45%",
+                    width: "48%",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    padding: 40,
-                    gap: "clamp(16px, 2.5vw, 28px)",
+                    gap: 12,
                   }}
                 >
-                  {/* Project number */}
-                  <span
-                    className="font-mono font-medium"
-                    style={{
-                      fontSize: 12,
-                      letterSpacing: "0.2em",
-                      color: "rgba(0,229,255,0.6)",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    Project {String(current + 1).padStart(2, "0")} of {String(total).padStart(2, "0")}
-                  </span>
+                  {/* Category and Project Number */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <span
+                      className="font-mono"
+                      style={{
+                        fontSize: 10,
+                        letterSpacing: "0.2em",
+                        color: "rgba(255,255,255,0.4)",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {project.category}
+                    </span>
+                    <span
+                      className="font-mono font-medium"
+                      style={{
+                        fontSize: 12,
+                        letterSpacing: "0.2em",
+                        color: "rgba(0,229,255,0.6)",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Project {String(current + 1).padStart(2, "0")} of {String(total).padStart(2, "0")}
+                    </span>
+                  </div>
 
                   {/* Name */}
                   <h3
                     className="font-bold leading-none tracking-tight text-white"
-                    style={{ fontSize: "clamp(32px, 4.5vw, 60px)", letterSpacing: "-0.02em" }}
+                    style={{ fontSize: 56, letterSpacing: "-0.02em" }}
                   >
                     {project.name}
                   </h3>
@@ -445,23 +476,24 @@ export function Projects() {
                     style={{
                       fontSize: "clamp(14px, 1.2vw, 16px)",
                       color: "rgba(255,255,255,0.5)",
-                      maxWidth: 380,
                     }}
                   >
                     {project.description}
                   </p>
+
+                  <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "4px 0" }} />
 
                   {/* Tech stack pills */}
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                     {project.tech.map((t) => (
                       <span
                         key={t}
-                        className="font-mono font-medium"
+                        className="font-mono font-medium flex items-center justify-center transition-colors duration-200 hover:bg-[rgba(0,210,255,0.15)] hover:border-[#00d2ff]"
                         style={{
-                          fontSize: 10,
+                          fontSize: 11,
                           letterSpacing: "0.12em",
                           textTransform: "uppercase",
-                          padding: "5px 10px",
+                          padding: "4px 12px",
                           borderRadius: 6,
                           backgroundColor: "rgba(0,229,255,0.06)",
                           border: "1px solid rgba(0,229,255,0.25)",
@@ -474,44 +506,47 @@ export function Projects() {
                   </div>
 
                   {/* Action buttons */}
-                  <div className="flex flex-wrap gap-3">
-                    {/* Live Demo — filled teal */}
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-2 rounded-lg font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-                      style={{
-                        padding: "11px 20px",
-                        backgroundColor: "rgba(0,229,255,1)",
-                        color: "#020408",
-                        letterSpacing: "0.1em",
-                        boxShadow: "0 0 24px rgba(0,229,255,0.3)",
-                      }}
-                    >
-                      Live Demo
-                      <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-                    </a>
+                  <div className="flex flex-wrap gap-3 mt-1">
+                      {/* Live Demo — filled teal */}
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] shadow-[0_0_24px_rgba(0,229,255,0.3)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                        style={{
+                          height: 40,
+                          fontSize: 12,
+                          padding: "0 20px",
+                          backgroundColor: "rgba(0,229,255,1)",
+                          color: "#020408",
+                          letterSpacing: "0.1em",
+                        }}
+                      >
+                        Live Demo
+                        <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </a>
 
-                    {/* GitHub — ghost outline */}
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-2 rounded-lg font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-                      style={{
-                        padding: "11px 20px",
-                        backgroundColor: "transparent",
-                        border: "1px solid rgba(255,255,255,0.18)",
-                        color: "rgba(255,255,255,0.75)",
-                        letterSpacing: "0.1em",
-                      }}
-                    >
-                      GitHub
-                      <Github className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-                    </a>
-                  </div>
-                </div>
+                      {/* GitHub — ghost outline */}
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] hover:bg-[rgba(255,255,255,0.08)] hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                        style={{
+                          height: 40,
+                          fontSize: 12,
+                          padding: "0 20px",
+                          backgroundColor: "transparent",
+                          border: "1px solid rgba(255,255,255,0.18)",
+                          color: "rgba(255,255,255,0.75)",
+                          letterSpacing: "0.1em",
+                        }}
+                      >
+                        GitHub
+                        <Github className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </a>
+                    </div>
+                  </motion.div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -520,20 +555,18 @@ export function Projects() {
           <ArrowBtn direction="right" onClick={next} disabled={false} />
         </div>
 
-        {/* ── Dot indicators ── */}
-        <div className="mt-8 flex items-center justify-center gap-2.5">
+        {/* ── Progress Bar ── */}
+        <div className="mt-8 flex items-center justify-between gap-2 w-full max-w-md mx-auto">
           {PROJECTS.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i, i > current ? 1 : -1)}
               aria-label={`Go to project ${i + 1}`}
-              className="rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+              className="flex-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-full"
               style={{
-                width: i === current ? 28 : 8,
-                height: 8,
-                backgroundColor:
-                  i === current ? "rgba(0,229,255,1)" : "rgba(255,255,255,0.15)",
-                boxShadow: i === current ? "0 0 12px rgba(0,229,255,0.6)" : "none",
+                height: 2,
+                backgroundColor: i === current ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.2)",
+                boxShadow: i === current ? "0 0 8px rgba(0,210,255,0.5)" : "none",
               }}
             />
           ))}
