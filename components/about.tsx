@@ -138,18 +138,22 @@ export function About() {
               {STATS.map((s, i) => (
                 <div
                   key={s.label}
-                  className="flex flex-col gap-1.5 p-5 relative"
+                  className="flex flex-col gap-1.5 px-5 py-4 relative"
                   style={{
-                    borderRight: i % 2 === 0 ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
-                    borderBottom: i < 2 ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+                    backgroundColor: "rgba(0, 210, 255, 0.08)",
+                    borderRight: i % 2 === 0 ? "1px solid rgba(0, 210, 255, 0.3)" : "none",
+                    borderBottom: i < 2 ? "1px solid rgba(0, 210, 255, 0.3)" : "none",
                   }}
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-cyan-400/70">
+                  <span 
+                    className="font-mono text-[10px] uppercase tracking-[0.15em]"
+                    style={{ color: "rgba(0, 210, 255, 0.9)" }}
+                  >
                     {s.label}
                   </span>
                   <span
-                    className="font-bold tracking-tight text-white leading-tight"
-                    style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
+                    className="font-bold text-white leading-tight"
+                    style={{ fontSize: "16px", letterSpacing: "0.5px" }}
                   >
                     {s.value}
                   </span>
@@ -157,15 +161,21 @@ export function About() {
               ))}
               {/* Education — full-width 5th row */}
               <div
-                className="col-span-2 flex flex-col gap-1.5 p-5"
-                style={{ borderTop: "1px solid rgba(255, 255, 255, 0.1)" }}
+                className="col-span-2 flex flex-col gap-1.5 px-5 py-4"
+                style={{ 
+                  borderTop: "2px solid rgba(0, 210, 255, 0.3)",
+                  backgroundColor: "rgba(0, 210, 255, 0.08)"
+                }}
               >
-                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-cyan-400/70">
+                <span 
+                  className="font-mono text-[10px] uppercase tracking-[0.15em]"
+                  style={{ color: "rgba(0, 210, 255, 0.9)" }}
+                >
                   Education
                 </span>
                 <span
-                  className="font-bold tracking-tight text-white leading-tight"
-                  style={{ fontSize: "clamp(14px, 1.3vw, 16px)" }}
+                  className="font-bold text-white leading-tight"
+                  style={{ fontSize: "16px", letterSpacing: "0.5px" }}
                 >
                   B.Tech, Computer Science · 2026
                 </span>
