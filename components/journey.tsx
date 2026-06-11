@@ -185,7 +185,7 @@ export function Journey() {
         <div className="flex items-center gap-3">
           <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
           <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
-            Track Record · 2025—2026
+            Experience · 2025—2026
           </span>
         </div>
 
@@ -199,7 +199,7 @@ export function Journey() {
             className="block font-light"
             style={{ fontSize: "clamp(56px, 9vw, 128px)", fontWeight: 300 }}
           >
-            The
+            Where I've
           </span>
           <span
             className="block italic"
@@ -214,7 +214,7 @@ export function Journey() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Journey.
+            Worked.
           </span>
         </h2>
       </div>

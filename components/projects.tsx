@@ -23,7 +23,7 @@ const PROJECTS: Project[] = [
     id: 1,
     name: "HORA",
     description:
-      "Luxury watch brand landing page with cinematic design, bento-grid gallery, and smooth scroll animations — craft-first frontend.",
+      "Engineered a luxury watch brand landing page with bento-grid gallery and scroll animations. Focused on conversion-ready UI, pixel-precise design, and mobile performance.",
     tech: ["NEXT.JS", "TYPESCRIPT", "TAILWIND CSS", "FRAMER MOTION"],
     demoUrl: "https://horatime.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/HORA",
@@ -34,8 +34,8 @@ const PROJECTS: Project[] = [
     id: 2,
     name: "Botanitual",
     description:
-      "Premium skincare e-commerce with clean product showcase, smooth animations, and a minimal aesthetic built for conversion.",
-    tech: ["NEXT.JS", "TYPESCRIPT", "TAILWIND CSS", "FRAMER MOTION"],
+      "Built a premium skincare e-commerce storefront with clean product showcase and smooth animations. Optimized for conversion with minimal, distraction-free UX.",
+    tech: ["NEXT.JS", "TAILWIND CSS", "FRAMER MOTION", "E-COMMERCE"],
     demoUrl: "https://botanitual.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/Botanitual",
     image: "/projects/botanitual.png",
@@ -45,8 +45,8 @@ const PROJECTS: Project[] = [
     id: 3,
     name: "WritePro",
     description:
-      "AI writing platform with tone control, rewrite suggestions, and export — built for creators who move fast.",
-    tech: ["NEXT.JS", "TYPESCRIPT", "SUPABASE", "CLERK", "GEMINI API"],
+      "Developed an AI writing platform with tone control, rewrite suggestions, and export flow — integrating LLM APIs to help creators produce content faster.",
+    tech: ["NEXT.JS", "GEMINI API", "CLERK", "TYPESCRIPT"],
     demoUrl: "https://trywritepro.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/WriteProAI",
     image: "/projects/writepro.png",
@@ -56,8 +56,8 @@ const PROJECTS: Project[] = [
     id: 4,
     name: "LeadForge",
     description:
-      "B2B lead intelligence tool that enriches and scores prospects using AI — built for outbound sales teams.",
-    tech: ["REACT", "TAILWIND CSS", "GROQ API", "NODE.JS"],
+      "Built a B2B lead intelligence tool using AI to enrich and score prospects automatically — reducing manual research time for outbound sales teams.",
+    tech: ["REACT", "GROQ API", "NODE.JS", "TAILWIND CSS"],
     demoUrl: "https://leadforgeproject.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/LeadForge",
     image: "/projects/leadforge.png",
@@ -67,8 +67,8 @@ const PROJECTS: Project[] = [
     id: 5,
     name: "StyleMatch",
     description:
-      "AI-powered outfit recommendation engine — upload a photo, get styled. Built for fashion-forward users who want smart suggestions.",
-    tech: ["REACT", "TAILWIND CSS", "GEMINI API"],
+      "Created an AI outfit recommendation engine — users upload a photo and receive styled suggestions. Integrated vision AI with a fashion-forward, mobile-first UI.",
+    tech: ["REACT", "GEMINI API", "VISION AI", "TAILWIND CSS"],
     demoUrl: "https://stylematchapp.lovable.app/",
     githubUrl: "https://github.com/imsiddharthnegi/StyleMatch",
     image: "/projects/stylematch.png",
@@ -78,8 +78,8 @@ const PROJECTS: Project[] = [
     id: 6,
     name: "UrbanPulse",
     description:
-      "City discovery platform surfacing local events, food, and culture in real time — built for explorers, not tourists.",
-    tech: ["NEXT.JS", "MONGODB", "NODE.JS", "TAILWIND CSS"],
+      "Developed a real-time city discovery platform surfacing local events, food, and culture — built for explorers with live data integration and location-aware UX.",
+    tech: ["NEXT.JS", "MONGODB", "NODE.JS", "REAL-TIME API"],
     demoUrl: "https://projecturbanpulse.vercel.app/",
     githubUrl: "https://github.com/imsiddharthnegi/UrbanPulse",
     image: "/projects/urbanpulse.png",
@@ -229,24 +229,24 @@ function ArrowBtn({
       aria-label={direction === "left" ? "Previous project" : "Next project"}
       className="relative z-20 flex items-center justify-center rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
       style={{
-        width: 52,
-        height: 52,
-        borderColor: hovered ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.15)",
-        backgroundColor: hovered ? "rgba(0,210,255,0.15)" : "rgba(255,255,255,0.08)",
-        boxShadow: hovered ? "0 0 16px rgba(0,210,255,0.4)" : "none",
+        width: 60,
+        height: 60,
+        borderColor: hovered ? "rgba(0,229,255,1)" : "rgba(0,229,255,0.45)",
+        backgroundColor: hovered ? "rgba(0,229,255,0.12)" : "rgba(0,229,255,0.02)",
+        boxShadow: hovered ? "0 0 20px rgba(0,229,255,0.5)" : "none",
         backdropFilter: "blur(8px)",
         flexShrink: 0,
       }}
     >
       {direction === "left" ? (
         <ChevronLeft
-          className="h-5 w-5 transition-colors duration-200"
-          style={{ color: "#ffffff" }}
+          className="h-6 w-6 transition-colors duration-200"
+          style={{ color: "#00e5ff" }}
         />
       ) : (
         <ChevronRight
-          className="h-5 w-5 transition-colors duration-200"
-          style={{ color: "#ffffff" }}
+          className="h-6 w-6 transition-colors duration-200"
+          style={{ color: "#00e5ff" }}
         />
       )}
     </button>
@@ -481,31 +481,7 @@ export function Projects() {
                     {project.description}
                   </p>
 
-                  <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "4px 0" }} />
-
-                  {/* Tech stack pills */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="font-mono font-medium flex items-center justify-center transition-colors duration-200 hover:bg-[rgba(0,210,255,0.15)] hover:border-[#00d2ff]"
-                        style={{
-                          fontSize: 11,
-                          letterSpacing: "0.12em",
-                          textTransform: "uppercase",
-                          padding: "4px 12px",
-                          borderRadius: 6,
-                          backgroundColor: "rgba(0,229,255,0.06)",
-                          border: "1px solid rgba(0,229,255,0.25)",
-                          color: "rgba(0,229,255,0.85)",
-                        }}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action buttons */}
+                  {/* Action buttons — moved above tech stack */}
                   <div className="flex flex-wrap gap-3 mt-1">
                       {/* Live Demo — filled teal */}
                       <a
@@ -546,6 +522,33 @@ export function Projects() {
                         <Github className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                       </a>
                     </div>
+
+                  <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "4px 0" }} />
+
+                  {/* Tech stack pills — moved below buttons */}
+                  <div style={{ display: "flex", flexWrap: "nowrap", gap: 5, overflow: "hidden" }}>
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="font-mono font-medium flex items-center justify-center transition-colors duration-200 hover:bg-[rgba(0,210,255,0.15)] hover:border-[#00d2ff]"
+                        style={{
+                          fontSize: 9.5,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          padding: "3px 9px",
+                          borderRadius: 6,
+                          backgroundColor: "rgba(0,229,255,0.06)",
+                          border: "1px solid rgba(0,229,255,0.25)",
+                          color: "rgba(0,229,255,0.85)",
+                          whiteSpace: "nowrap",
+                          flexShrink: 1,
+                          minWidth: 0,
+                        }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                   </motion.div>
               </motion.div>
             </AnimatePresence>

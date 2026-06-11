@@ -121,7 +121,7 @@ export function About() {
                 className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10"
               >
                 <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-white/35">
-                  Engineer / 2026
+                  Graduating · 2026
                 </span>
                 <span className="block h-1 w-1 rounded-full bg-cyan-400" />
               </span>
@@ -135,30 +135,53 @@ export function About() {
                 border: "1px solid rgba(255, 255, 255, 0.08)"
               }}
             >
-              {STATS.map((s, i) => (
-                <div
-                  key={s.label}
-                  className="flex flex-col gap-1.5 px-5 py-4 relative"
-                  style={{
-                    backgroundColor: "rgba(0, 210, 255, 0.08)",
-                    borderRight: i % 2 === 0 ? "1px solid rgba(0, 210, 255, 0.3)" : "none",
-                    borderBottom: i < 2 ? "1px solid rgba(0, 210, 255, 0.3)" : "none",
-                  }}
-                >
-                  <span 
-                    className="font-mono text-[10px] uppercase tracking-[0.15em]"
-                    style={{ color: "rgba(0, 210, 255, 0.9)" }}
+              {STATS.map((s, i) => {
+                const isCerts = s.label === "Certs";
+                const isProjects = s.label === "Projects";
+                const href = isProjects ? "#projects" : isCerts ? "#certifications" : undefined;
+
+                const CardElement = (
+                  <div
+                    className="flex flex-col gap-1.5 px-5 py-4 relative h-full transition-all duration-200"
+                    style={{
+                      backgroundColor: "rgba(0, 210, 255, 0.08)",
+                      borderRight: i % 2 === 0 ? "1px solid rgba(0, 210, 255, 0.3)" : "none",
+                      borderBottom: i < 2 ? "1px solid rgba(0, 210, 255, 0.3)" : "none",
+                    }}
                   >
-                    {s.label}
-                  </span>
-                  <span
-                    className="font-bold text-white leading-tight"
-                    style={{ fontSize: "16px", letterSpacing: "0.5px" }}
-                  >
-                    {s.value}
-                  </span>
-                </div>
-              ))}
+                    <span 
+                      className="font-mono text-[10px] uppercase tracking-[0.15em]"
+                      style={{ color: "rgba(0, 210, 255, 0.9)" }}
+                    >
+                      {s.label}
+                    </span>
+                    <span
+                      className="font-bold text-white leading-tight"
+                      style={{ fontSize: "16px", letterSpacing: "0.5px" }}
+                    >
+                      {s.value}
+                    </span>
+                  </div>
+                );
+
+                if (href) {
+                  return (
+                    <a
+                      key={s.label}
+                      href={href}
+                      className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:bg-cyan-950/20 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)] h-full"
+                    >
+                      {CardElement}
+                    </a>
+                  );
+                }
+
+                return (
+                  <div key={s.label} className="h-full">
+                    {CardElement}
+                  </div>
+                );
+              })}
               {/* Education — full-width 5th row */}
               <div
                 className="col-span-2 flex flex-col gap-1.5 px-5 py-4"
@@ -177,7 +200,13 @@ export function About() {
                   className="font-bold text-white leading-tight"
                   style={{ fontSize: "16px", letterSpacing: "0.5px" }}
                 >
-                  B.Tech, Computer Science · 2026
+                  B.Tech, Computer Science
+                </span>
+                <span
+                  className="font-mono text-white leading-tight mt-0.5"
+                  style={{ fontSize: "12px", letterSpacing: "0.5px" }}
+                >
+                  Quantum University · 2026
                 </span>
               </div>
             </div>

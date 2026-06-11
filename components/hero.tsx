@@ -205,15 +205,7 @@ export function Hero() {
 
 
 
-      {/* TOP-RIGHT: location */}
-      <div
-        className="absolute right-5 top-[72px] z-20 hidden items-center gap-4 opacity-0 md:flex md:right-12"
-        style={{ animation: "fade-in-up 900ms ease-out 500ms forwards" }}
-      >
-        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/40">
-          Dehradun, IN
-        </span>
-      </div>
+      {/* TOP-RIGHT: location — moved into stat cards column for precise alignment */}
 
       {/* ══════════════════════════════════════════════════════════════
           MOBILE — typography + terminal + badge + stat cards stacked
@@ -319,8 +311,12 @@ export function Hero() {
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto", marginTop: "32px" }}
         >
           <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} scrollTo="journey" />
-          <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} scrollTo="projects" />
-          <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} scrollTo="certifications" />
+          <a href="#projects" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
+            <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} scrollTo="projects" />
+          </a>
+          <a href="#certifications" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
+            <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} scrollTo="certifications" />
+          </a>
         </div>
 
         {/* Mobile name and subtitle at bottom — centered */}
@@ -350,7 +346,7 @@ export function Hero() {
         }}
       >
         {/* Column 1: Heading */}
-        <div className="flex flex-shrink-0 flex-col justify-center self-stretch">
+        <div className="flex flex-shrink-0 flex-col justify-center self-stretch mb-0" style={{ marginTop: "-80px" }}>
           <h1
             className="text-pretty leading-[0.92] tracking-[-0.04em]"
             style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
@@ -400,14 +396,25 @@ export function Hero() {
 
         {/* Column 3: Stat cards */}
         <div className="flex flex-shrink-0 flex-col gap-4">
+          {/* Location label — centered above the cards */}
+          <span
+            className="font-mono text-[10px] uppercase tracking-[0.24em] text-white text-center opacity-0"
+            style={{ animation: "fade-in-up 900ms ease-out 500ms forwards" }}
+          >
+            Dehradun, IN
+          </span>
           <div
             className="mb-1 h-px w-full bg-white/10 opacity-0"
             style={{ animation: "fade-in 900ms ease-out 1000ms forwards" }}
             aria-hidden
           />
           <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} scrollTo="journey" />
-          <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} scrollTo="projects" />
-          <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} scrollTo="certifications" />
+          <a href="#projects" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
+            <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} scrollTo="projects" />
+          </a>
+          <a href="#certifications" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
+            <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} scrollTo="certifications" />
+          </a>
           <div
             className="mt-3 h-px w-full bg-white/10 opacity-0"
             style={{ animation: "fade-in 900ms ease-out 1900ms forwards" }}
@@ -420,17 +427,18 @@ export function Hero() {
           BOTTOM-LEFT — name + role (DESKTOP ONLY)
       ══════════════════════════════════════════════════════════════ */}
       <div
-        className="absolute bottom-12 left-5 z-20 hidden md:flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
+        className="absolute top-[82%] left-5 z-20 hidden md:flex flex-col gap-1 opacity-0 md:left-[clamp(24px,8vw,120px)]"
         style={{ animation: "fade-in-up 900ms ease-out 1500ms forwards" }}
       >
         <div className="flex items-center gap-3">
           <span className="block h-px w-6 bg-white/30" aria-hidden />
-          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/80">
+          <span className="font-mono text-base uppercase tracking-[0.22em] text-white/80">
             Siddharth Negi
           </span>
         </div>
-        <span className="pl-9 font-mono text-[10px] tracking-[0.16em] text-white/35">
-          Full-Stack Developer · AI-Native SaaS Builder
+        <span className="pl-9 font-mono text-[11px] tracking-[0.16em]">
+          <span className="text-white">Full-Stack Developer · </span>
+          <span className="text-[#00e5ff]">AI-Native SaaS Builder</span>
         </span>
       </div>
 

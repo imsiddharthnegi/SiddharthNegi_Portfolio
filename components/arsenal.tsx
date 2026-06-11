@@ -123,7 +123,7 @@ export function Arsenal() {
         <div className="flex items-center gap-3">
           <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
           <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
-            Toolkit · Stack
+            Toolkit · Technologies
           </span>
         </div>
 
@@ -144,7 +144,7 @@ export function Arsenal() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Arsenal.
+            Stack.
           </span>
         </h2>
 
