@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { SiGooglecloud, SiTailwindcss, SiReact, SiNextdotjs, SiDocker, SiAirtable, SiGithubactions, SiZapier, SiN8N, SiVercel } from "react-icons/si"
+import { FaAws } from "react-icons/fa"
 
 type Category = {
   label: string
@@ -35,9 +37,9 @@ const CATEGORIES: Category[] = [
     skills: ["REST APIs", "Gemini API", "OpenAI", "Claude API"],
   },
   {
-    label: "No-Code",
+    label: "Automation & Workflows",
     color: "#f59e0b",
-    skills: ["Lovable", "Zapier", "Cursor", "n8n"],
+    skills: ["Cursor", "n8n", "Zapier", "GitHub Actions"],
   },
 ]
 
@@ -49,35 +51,35 @@ const HIGHLIGHTED_SKILLS = new Set([
   "AWS",
   "REST APIs",
   "Gemini API",
-  "Lovable",
+  "Cursor",
 ])
 
 // Icon map for different skills
-const SKILL_ICONS: Record<string, string> = {
-  "React.js": "⚛️",
-  "Next.js": "▲",
-  "Tailwind CSS": "🎨",
-  "JavaScript": "JS",
+const SKILL_ICONS: Record<string, React.ReactNode> = {
+  "React.js": <SiReact color="#FFFFFF" />,
+  "Next.js": <SiNextdotjs color="#FFFFFF" />,
+  "Tailwind CSS": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" className="w-4 h-4 object-contain" alt="Tailwind CSS" />,
+  "JavaScript": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" className="w-4 h-4 object-contain" alt="JavaScript" />,
   "Node.js": "🟢",
   "Express.js": "⚡",
-  "Python": "🐍",
+  "Python": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" className="w-4 h-4 object-contain" alt="Python" />,
   "Django": "🎯",
   "MongoDB": "🍃",
-  "PostgreSQL": "🐘",
-  "SQLite": "💾",
-  "Airtable": "📊",
-  "AWS": "☁️",
-  "GCP": "🔵",
-  "Docker": "🐳",
-  "Vercel": "▲",
+  "PostgreSQL": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" className="w-4 h-4 object-contain" alt="PostgreSQL" />,
+  "SQLite": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg" className="w-4 h-4 object-contain" alt="SQLite" />,
+  "Airtable": <SiAirtable color="#18BFFF" />,
+  "AWS": <FaAws color="#FF9900" />,
+  "GCP": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" className="w-4 h-4 object-contain" alt="GCP" />,
+  "Docker": <SiDocker color="#2496ED" />,
+  "Vercel": <SiVercel color="#FFFFFF" />,
   "REST APIs": "🔗",
   "Gemini API": "✨",
   "OpenAI": "🤖",
   "Claude API": "🧠",
-  "Lovable": "💜",
-  "Zapier": "⚙️",
-  "Cursor": "💻",
-  "n8n": "🔄",
+  "Cursor": <svg viewBox="0 0 24 24" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 object-contain"><path d="M4.686 2.052c-.672-.315-1.423.238-1.324.98L5.2 19.34c.088.663.856.963 1.348.528L9.9 16.9l2.76 5.86c.2.42.72.6 1.15.4l2.45-1.15c.42-.2.6-.72.4-1.15l-2.76-5.86 4.38-1.55c.63-.22.75-1.07.22-1.47L4.686 2.052z"/></svg>,
+  "n8n": <SiN8N color="#FF6D5A" className="w-4 h-4 object-contain" />,
+  "Zapier": <SiZapier color="#FF4A00" className="w-4 h-4 object-contain" />,
+  "GitHub Actions": <SiGithubactions color="#2088FF" className="w-4 h-4 object-contain" />,
 }
 
 export function Arsenal() {

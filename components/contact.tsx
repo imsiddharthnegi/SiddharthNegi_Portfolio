@@ -120,12 +120,11 @@ export function Contact() {
       />
 
       <div
-        className="relative grid grid-cols-1 items-start gap-8 lg:gap-16 lg:grid-cols-12"
+        className="relative grid grid-cols-1 items-start gap-8 lg:gap-16 lg:grid-cols-12 pt-24 md:pt-32"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",
-          paddingTop: "clamp(120px, 18vh, 200px)",
-          paddingBottom: "clamp(80px, 12vh, 140px)",
+          paddingBottom: "clamp(80px, 12vh, 120px)",
         }}
       >
         {/* Left: Giant text */}
@@ -145,7 +144,7 @@ export function Contact() {
           </div>
 
           <h2
-            className="mt-10 lg:mt-12 text-pretty leading-[1.2] lg:leading-[1.1] tracking-[-0.045em] text-white"
+            className="mt-4 lg:mt-5 text-pretty leading-[1.2] lg:leading-[1.1] tracking-[-0.045em] text-white"
             style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
           >
             <span
@@ -158,7 +157,7 @@ export function Contact() {
                 transition: "opacity 900ms ease-out 250ms, transform 900ms ease-out 250ms",
               }}
             >
-              Let&apos;s build
+              Let&apos;s work
             </span>
             <span
               className="block italic"
@@ -176,13 +175,13 @@ export function Contact() {
                 transition: "opacity 900ms ease-out 450ms, transform 900ms ease-out 450ms",
               }}
             >
-              something<span className="text-cyan-400/80 not-italic">.</span>
+              together<span className="text-cyan-400/80 not-italic">.</span>
             </span>
           </h2>
         </div>
 
         {/* Right: contact links */}
-        <div className="flex flex-col gap-8 lg:gap-10 lg:col-span-5 w-full lg:pt-2">
+        <div className="flex flex-col gap-8 lg:gap-10 lg:col-span-5 w-full">
           <div
             className="flex flex-col gap-4 lg:items-end"
             style={{
@@ -192,7 +191,7 @@ export function Contact() {
             }}
           >
             <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
-              Email · Direct line
+              Currently Available · Open to Full-Time Roles
             </span>
             <TravelingLink href={`mailto:${EMAIL}`} size="lg" isEmail>
               <span
@@ -215,9 +214,6 @@ export function Contact() {
               transition: "opacity 800ms ease-out 850ms, transform 800ms ease-out 850ms",
             }}
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
-              Elsewhere
-            </span>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3 lg:justify-end">
               {SOCIALS.map((s) => (
                 <TravelingLink key={s.label} href={s.href} external size="sm">
@@ -230,6 +226,9 @@ export function Contact() {
                 </TravelingLink>
               ))}
             </div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">
+              Based in India · IST · Open to Relocation
+            </span>
           </div>
         </div>
       </div>

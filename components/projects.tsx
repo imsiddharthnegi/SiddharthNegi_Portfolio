@@ -318,68 +318,64 @@ export function Projects() {
       className="relative w-full"
       style={{ backgroundColor: "#020408" }}
     >
-      {/* ── Section header ── */}
+      {/* ── Main Content Grid ── */}
       <div
-        className="pt-24 pb-12 md:pt-32 md:pb-14"
-        style={{
-          paddingLeft: "clamp(24px, 8vw, 120px)",
-          paddingRight: "clamp(24px, 8vw, 120px)",
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
-            PROJECTS
-          </span>
-        </div>
-
-        <div className="mt-8 flex flex-col gap-3">
-          <h2
-            className="text-pretty leading-[0.92] tracking-[-0.04em] text-white"
-            style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
-          >
-            <span
-              className="block font-light"
-              style={{ fontSize: "clamp(48px, 8vw, 112px)", fontWeight: 300 }}
-            >
-              Things I&apos;ve
-            </span>
-            <span
-              className="block italic"
-              style={{
-                fontSize: "clamp(48px, 8vw, 112px)",
-                fontWeight: 800,
-                backgroundImage:
-                  "linear-gradient(90deg, #ffffff 0%, #ffffff 40%, #00e5ff 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Shipped.
-            </span>
-          </h2>
-        </div>
-      </div>
-
-      {/* ── Viewer wrapper ── */}
-      <div
-        className="relative w-full"
+        className="pt-24 pb-12 md:pt-32 md:pb-14 w-full"
         style={{
           paddingLeft: "clamp(16px, 5vw, 80px)",
           paddingRight: "clamp(16px, 5vw, 80px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
         }}
       >
-        {/* Row: arrow + card + arrow */}
-        <div className="flex items-center gap-4 md:gap-6">
+        <div className="grid grid-cols-[auto_1fr_auto] gap-4 md:gap-6 w-full items-center">
+          
+          {/* Header (aligned with card in col-start-2) */}
+          <div className="col-start-2 col-span-1 mb-8">
+            <div className="flex items-center gap-3">
+              <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
+                PROJECTS
+              </span>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3">
+              <h2
+                className="text-pretty leading-[0.92] tracking-[-0.04em] text-white"
+                style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
+              >
+                <span
+                  className="block font-light"
+                  style={{ fontSize: "clamp(40px, 6vw, 84px)", fontWeight: 300 }}
+                >
+                  Things I&apos;ve
+                </span>
+                <span
+                  className="block italic"
+                  style={{
+                    fontSize: "clamp(40px, 6vw, 84px)",
+                    fontWeight: 800,
+                    backgroundImage:
+                      "linear-gradient(90deg, #ffffff 0%, #ffffff 40%, #00e5ff 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  Shipped.
+                </span>
+              </h2>
+            </div>
+          </div>
+
           {/* Left arrow */}
-          <ArrowBtn direction="left" onClick={prev} disabled={false} />
+          <div className="col-start-1 col-span-1 flex justify-center">
+            <ArrowBtn direction="left" onClick={prev} disabled={false} />
+          </div>
 
           {/* ── The Card ── */}
           <div
-            className="relative flex-1 overflow-hidden rounded-2xl"
+            className="col-start-2 col-span-1 relative flex-1 overflow-hidden rounded-2xl"
             onMouseEnter={() => setCardHovered(true)}
             onMouseLeave={() => setCardHovered(false)}
             style={{
@@ -555,40 +551,45 @@ export function Projects() {
           </div>
 
           {/* Right arrow */}
-          <ArrowBtn direction="right" onClick={next} disabled={false} />
-        </div>
+          <div className="col-start-3 col-span-1 flex justify-center">
+            <ArrowBtn direction="right" onClick={next} disabled={false} />
+          </div>
 
-        {/* ── Progress Bar ── */}
-        <div className="mt-8 flex items-center justify-between gap-2 w-full max-w-md mx-auto">
-          {PROJECTS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i, i > current ? 1 : -1)}
-              aria-label={`Go to project ${i + 1}`}
-              className="flex-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-full"
-              style={{
-                height: 2,
-                backgroundColor: i === current ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.2)",
-                boxShadow: i === current ? "0 0 8px rgba(0,210,255,0.5)" : "none",
-              }}
-            />
-          ))}
-        </div>
+          {/* ── Progress Bar & Footer Meta ── */}
+          <div className="col-start-2 col-span-1 mt-8 flex flex-col gap-8 w-full">
+            <div className="flex items-center justify-between gap-2 w-full max-w-md mx-auto">
+              {PROJECTS.map((p, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i, i > current ? 1 : -1)}
+                  aria-label={`Go to project ${i + 1}: ${p.name}`}
+                  className="group relative flex-1 flex items-center justify-center h-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020408] rounded-sm"
+                >
+                  <span 
+                    className="w-full transition-all duration-300 rounded-full group-hover:bg-cyan-400/50"
+                    style={{
+                      height: i === current ? 3 : 2,
+                      backgroundColor: i === current ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.2)",
+                      boxShadow: i === current ? "0 0 8px rgba(0,210,255,0.5)" : "none",
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
 
-        {/* ── Footer meta row ── */}
-        <div
-          className="mt-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center"
-        >
-          <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/30">
-            {String(PROJECTS.length).padStart(2, "0")} Projects · Use ← → keys to navigate
-          </span>
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-white/60 transition-colors hover:text-white"
-          >
-            <span className="block h-px w-6 bg-white/25 transition-all duration-300 group-hover:w-10 group-hover:bg-cyan-400" />
-            Start a Project
-          </a>
+            <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/30">
+                {String(PROJECTS.length).padStart(2, "0")} Projects · Use ← → keys to navigate
+              </span>
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-white/60 transition-colors hover:text-white"
+              >
+                <span className="block h-px w-6 bg-white/25 transition-all duration-300 group-hover:w-10 group-hover:bg-cyan-400" />
+                Start a Project
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

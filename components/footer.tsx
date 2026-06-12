@@ -33,8 +33,8 @@ export function Footer() {
           alignItems: "center",
           justifyContent: "center",
           gap: 10,
-          paddingTop: 40,
-          paddingBottom: 40,
+          paddingTop: 16,
+          paddingBottom: 16,
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",
         }}
@@ -43,13 +43,14 @@ export function Footer() {
         <p
           style={{
             margin: 0,
+            padding: "16px 0",
             fontFamily: "'Geist Mono', monospace",
             fontSize: 11,
             fontWeight: 400,
             letterSpacing: "0.24em",
             textTransform: "uppercase",
             textAlign: "center",
-            color: "rgba(255,255,255,0.28)",
+            color: "rgba(255,255,255,0.45)",
             lineHeight: 1.6,
           }}
         >
@@ -57,7 +58,7 @@ export function Footer() {
           <span
             style={{
               fontWeight: 700,
-              color: "rgba(255,255,255,0.62)",
+              color: "rgba(255,255,255,0.85)",
               letterSpacing: "0.20em",
             }}
           >
@@ -65,7 +66,7 @@ export function Footer() {
           </span>
           <span
             style={{
-              color: "rgba(0,210,220,0.55)",
+              color: "rgba(0,210,220,0.75)",
               margin: "0 10px",
             }}
             aria-hidden
@@ -73,22 +74,16 @@ export function Footer() {
             ·
           </span>
           Built with precision
-        </p>
-
-        {/* Sub-line */}
-        <p
-          style={{
-            margin: 0,
-            fontFamily: "'Geist Mono', monospace",
-            fontSize: 9,
-            fontWeight: 400,
-            letterSpacing: "0.30em",
-            textTransform: "uppercase",
-            textAlign: "center",
-            color: "rgba(255,255,255,0.14)",
-          }}
-        >
-          Next.js · TypeScript · Tailwind
+          <span
+            style={{
+              color: "rgba(0,210,220,0.75)",
+              margin: "0 10px",
+            }}
+            aria-hidden
+          >
+            ·
+          </span>
+          Open to Work
         </p>
       </div>
     </footer>
