@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
 
 /* ─────────────────────────────────────────────
    DATA
-───────────────────────────────────────────── */
+   ───────────────────────────────────────────── */
 type Project = {
   id: number
   name: string
@@ -89,7 +89,7 @@ const PROJECTS: Project[] = [
 
 /* ─────────────────────────────────────────────
    PLACEHOLDER IMAGE (renders inside the card)
-───────────────────────────────────────────── */
+   ───────────────────────────────────────────── */
 function ProjectPlaceholder({ name, index }: { name: string; index: number }) {
   // Unique gradient per project
   const gradients = [
@@ -158,7 +158,7 @@ function ProjectPlaceholder({ name, index }: { name: string; index: number }) {
 
 /* ─────────────────────────────────────────────
    PROJECT FRAME (screenshot in rounded frame)
-───────────────────────────────────────────── */
+   ───────────────────────────────────────────── */
 function ProjectFrame({ project, index }: { project: Project; index: number }) {
   const [errored, setErrored] = useState(false)
 
@@ -208,7 +208,7 @@ function ProjectFrame({ project, index }: { project: Project; index: number }) {
 
 /* ─────────────────────────────────────────────
    NAV ARROW BUTTON
-───────────────────────────────────────────── */
+   ───────────────────────────────────────────── */
 function ArrowBtn({
   direction,
   onClick,
@@ -255,11 +255,13 @@ function ArrowBtn({
 
 /* ─────────────────────────────────────────────
    MAIN PROJECTS COMPONENT
-───────────────────────────────────────────── */
+   ───────────────────────────────────────────── */
 export function Projects() {
   const [current, setCurrent] = useState<number>(0)
   const [direction, setDirection] = useState<1 | -1>(1)
   const [cardHovered, setCardHovered] = useState(false)
+
+  const [touchStartX, setTouchStartX] = useState(0)
 
   const total = PROJECTS.length
 
@@ -280,6 +282,17 @@ export function Projects() {
     const idx = (current + 1) % total
     goTo(idx, 1)
   }, [current, total, goTo])
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.changedTouches[0].screenX)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEndX = e.changedTouches[0].screenX
+    const diff = touchStartX - touchEndX
+    if (diff > 50) next()
+    if (diff < -50) prev()
+  }
 
   // Keyboard navigation
   useEffect(() => {
@@ -327,10 +340,282 @@ export function Projects() {
           paddingBottom: "clamp(48px, 6vw, 96px)",
         }}
       >
-        <div className="grid grid-cols-[auto_1fr_auto] gap-4 md:gap-6 w-full items-center">
-          
-          {/* Header (aligned with card in col-start-2) */}
-          <div className="col-start-2 col-span-1 mb-8">
+        {/* DESKTOP LAYOUT (completely untouched) */}
+        <div className="desktop-projects-carousel">
+          <div className="grid grid-cols-[auto_1fr_auto] gap-4 md:gap-6 w-full items-center">
+            
+            {/* Header (aligned with card in col-start-2) */}
+            <div className="col-start-2 col-span-1 mb-8">
+              <div className="flex items-center gap-3">
+                <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
+                  PROJECTS
+                </span>
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3">
+                <h2
+                  className="text-pretty leading-[0.92] tracking-[-0.04em] text-white"
+                  style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
+                >
+                  <span
+                    className="block font-light"
+                    style={{ fontSize: "clamp(40px, 6vw, 84px)", fontWeight: 300 }}
+                  >
+                    Things I&apos;ve
+                  </span>
+                  <span
+                    className="block italic"
+                    style={{
+                      fontSize: "clamp(40px, 6vw, 84px)",
+                      fontWeight: 800,
+                      backgroundImage:
+                        "linear-gradient(90deg, #ffffff 0%, #ffffff 40%, #00e5ff 100%)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      color: "transparent",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    Shipped.
+                  </span>
+                </h2>
+              </div>
+            </div>
+
+            {/* Left arrow */}
+            <div className="col-start-1 col-span-1 flex justify-center">
+              <ArrowBtn direction="left" onClick={prev} disabled={false} />
+            </div>
+
+            {/* ── The Card ── */}
+            <div
+              className="col-start-2 col-span-1 relative flex-1 overflow-hidden rounded-2xl"
+              onMouseEnter={() => setCardHovered(true)}
+              onMouseLeave={() => setCardHovered(false)}
+              style={{
+                backgroundColor: "#0d0d12",
+                border: "1px solid rgba(0,229,255,0.14)",
+                boxShadow: cardHovered
+                  ? "0 0 0 1px rgba(0,210,255,0.2), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset"
+                  : "0 0 0 1px rgba(0,229,255,0.06), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset",
+                transition: "box-shadow 0.3s ease",
+                padding: 24,
+              }}
+            >
+              {/* Subtle top glow line */}
+              <div
+                className="pointer-events-none absolute left-0 top-0 h-px w-full"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.35) 35%, rgba(0,229,255,0.35) 65%, transparent 100%)",
+                }}
+              />
+
+              <AnimatePresence custom={direction} initial={false} mode="wait">
+                <motion.div
+                  key={current}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="w-full"
+                  style={{ display: "flex", flexDirection: "row", alignItems: "stretch", gap: 32 }}
+                >
+                  {/* ── LEFT: Browser mockup with screenshot (52%) ── */}
+                  <div
+                    style={{
+                      width: "52%",
+                      display: "flex",
+                    }}
+                  >
+                    <ProjectFrame project={project} index={current} />
+                  </div>
+
+                  {/* ── RIGHT: Details (48%) ── */}
+                  <motion.div
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    style={{
+                      width: "48%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      gap: 12,
+                    }}
+                  >
+                    {/* Category and Project Number */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      <span
+                        className="font-mono"
+                        style={{
+                          fontSize: 10,
+                          letterSpacing: "0.2em",
+                          color: "rgba(255,255,255,0.4)",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {project.category}
+                      </span>
+                      <span
+                        className="font-mono font-medium"
+                        style={{
+                          fontSize: 12,
+                          letterSpacing: "0.2em",
+                          color: "rgba(0,229,255,0.6)",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Project {String(current + 1).padStart(2, "0")} of {String(total).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    {/* Name */}
+                    <h3
+                      className="font-bold leading-none tracking-tight text-white"
+                      style={{ fontSize: 56, letterSpacing: "-0.02em" }}
+                    >
+                      {project.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p
+                      className="leading-relaxed"
+                      style={{
+                        fontSize: "clamp(14px, 1.2vw, 16px)",
+                        color: "rgba(255,255,255,0.5)",
+                      }}
+                    >
+                      {project.description}
+                    </p>
+
+                    {/* Action buttons */}
+                    <div className="flex flex-wrap gap-3 mt-1">
+                        {/* Live Demo — filled teal */}
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] shadow-[0_0_24px_rgba(0,229,255,0.3)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                          style={{
+                            height: 40,
+                            fontSize: 12,
+                            padding: "0 20px",
+                            backgroundColor: "rgba(0,229,255,1)",
+                            color: "#020408",
+                            letterSpacing: "0.1em",
+                          }}
+                        >
+                          Live Demo
+                          <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        </a >
+
+                        {/* GitHub — ghost outline */}
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] hover:bg-[rgba(255,255,255,0.08)] hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                          style={{
+                            height: 40,
+                            fontSize: 12,
+                            padding: "0 20px",
+                            backgroundColor: "transparent",
+                            border: "1px solid rgba(255,255,255,0.18)",
+                            color: "rgba(255,255,255,0.75)",
+                            letterSpacing: "0.1em",
+                          }}
+                        >
+                          GitHub
+                          <Github className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        </a>
+                      </div>
+
+                    <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "4px 0" }} />
+
+                    {/* Tech stack pills */}
+                    <div style={{ display: "flex", flexWrap: "nowrap", gap: 5, overflow: "hidden" }}>
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="font-mono font-medium flex items-center justify-center transition-colors duration-200 hover:bg-[rgba(0,210,255,0.15)] hover:border-[#00d2ff]"
+                          style={{
+                            fontSize: 9.5,
+                            letterSpacing: "0.08em",
+                            textTransform: "uppercase",
+                            padding: "3px 9px",
+                            borderRadius: 6,
+                            backgroundColor: "rgba(0,229,255,0.06)",
+                            border: "1px solid rgba(0,229,255,0.25)",
+                            color: "rgba(0,229,255,0.85)",
+                            whiteSpace: "nowrap",
+                            flexShrink: 1,
+                            minWidth: 0,
+                          }}
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    </motion.div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Right arrow */}
+            <div className="col-start-3 col-span-1 flex justify-center">
+              <ArrowBtn direction="right" onClick={next} disabled={false} />
+            </div>
+
+            {/* ── Progress Bar & Footer Meta ── */}
+            <div className="col-start-2 col-span-1 mt-8 flex flex-col gap-8 w-full">
+              <div className="flex items-center justify-between gap-2 w-full max-w-md mx-auto">
+                {PROJECTS.map((p, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goTo(i, i > current ? 1 : -1)}
+                    aria-label={`Go to project ${i + 1}: ${p.name}`}
+                    className="group relative flex-1 flex items-center justify-center h-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020408] rounded-sm"
+                  >
+                    <span 
+                      className="w-full transition-all duration-300 rounded-full group-hover:bg-cyan-400/50"
+                      style={{
+                        height: i === current ? 3 : 2,
+                        backgroundColor: i === current ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.2)",
+                        boxShadow: i === current ? "0 0 8px rgba(0,210,255,0.5)" : "none",
+                      }}
+                    />
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/30">
+                  {String(PROJECTS.length).padStart(2, "0")} Projects · Use ← → keys to navigate
+                </span>
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-white/60 transition-colors hover:text-white"
+                >
+                  <span className="block h-px w-6 bg-white/25 transition-all duration-300 group-hover:w-10 group-hover:bg-cyan-400" />
+                  Start a Project
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* MOBILE LAYOUT (shows only on screens <= 768px via media query) */}
+        <div 
+          className="mobile-projects-carousel w-full"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Header */}
+          <div className="mb-6">
             <div className="flex items-center gap-3">
               <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
               <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
@@ -338,21 +623,20 @@ export function Projects() {
               </span>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3">
+            <div className="mt-4 flex flex-col gap-2">
               <h2
                 className="text-pretty leading-[0.92] tracking-[-0.04em] text-white"
                 style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
               >
                 <span
-                  className="block font-light"
-                  style={{ fontSize: "clamp(40px, 6vw, 84px)", fontWeight: 300 }}
+                  className="block font-light text-[32px]"
+                  style={{ fontWeight: 300 }}
                 >
                   Things I&apos;ve
                 </span>
                 <span
-                  className="block italic"
+                  className="block italic text-[32px]"
                   style={{
-                    fontSize: "clamp(40px, 6vw, 84px)",
                     fontWeight: 800,
                     backgroundImage:
                       "linear-gradient(90deg, #ffffff 0%, #ffffff 40%, #00e5ff 100%)",
@@ -368,146 +652,149 @@ export function Projects() {
             </div>
           </div>
 
-          {/* Left arrow */}
-          <div className="col-start-1 col-span-1 flex justify-center">
-            <ArrowBtn direction="left" onClick={prev} disabled={false} />
-          </div>
-
-          {/* ── The Card ── */}
-          <div
-            className="col-start-2 col-span-1 relative flex-1 overflow-hidden rounded-2xl"
-            onMouseEnter={() => setCardHovered(true)}
-            onMouseLeave={() => setCardHovered(false)}
-            style={{
-              backgroundColor: "#0d0d12",
-              border: "1px solid rgba(0,229,255,0.14)",
-              boxShadow: cardHovered
-                ? "0 0 0 1px rgba(0,210,255,0.2), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset"
-                : "0 0 0 1px rgba(0,229,255,0.06), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset",
-              transition: "box-shadow 0.3s ease",
-              padding: 24,
-            }}
-          >
-            {/* Subtle top glow line */}
-            <div
-              className="pointer-events-none absolute left-0 top-0 h-px w-full"
+          {/* Carousel Grid with Arrows on sides */}
+          <div className="flex items-center gap-2 w-full justify-between">
+            {/* Left arrow */}
+            <button
+              onClick={prev}
+              aria-label="Previous project"
+              className="flex items-center justify-center rounded-full border transition-all duration-300"
               style={{
-                background:
-                  "linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.35) 35%, rgba(0,229,255,0.35) 65%, transparent 100%)",
+                width: 44,
+                height: 44,
+                borderColor: "rgba(0,229,255,0.45)",
+                backgroundColor: "rgba(0,229,255,0.02)",
+                backdropFilter: "blur(8px)",
+                flexShrink: 0,
               }}
-            />
+            >
+              <ChevronLeft className="h-5 w-5" style={{ color: "#00e5ff" }} />
+            </button>
 
-            <AnimatePresence custom={direction} initial={false} mode="wait">
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="w-full"
-                style={{ display: "flex", flexDirection: "row", alignItems: "stretch", gap: 32 }}
-              >
-                {/* ── LEFT: Browser mockup with screenshot (52%) ── */}
-                <div
-                  style={{
-                    width: "52%",
-                    display: "flex",
-                  }}
-                >
-                  <ProjectFrame project={project} index={current} />
-                </div>
+            {/* The Card */}
+            <div
+              className="relative flex-1 overflow-hidden rounded-2xl"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              style={{
+                backgroundColor: "#0d0d12",
+                border: "1px solid rgba(0,229,255,0.14)",
+                boxShadow: "0 0 0 1px rgba(0,229,255,0.06), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset",
+              }}
+            >
+              {/* Subtle top glow line */}
+              <div
+                className="pointer-events-none absolute left-0 top-0 h-px w-full z-10"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.35) 35%, rgba(0,229,255,0.35) 65%, transparent 100%)",
+                }}
+              />
 
-                {/* ── RIGHT: Details (48%) ── */}
+              <AnimatePresence custom={direction} initial={false} mode="wait">
                 <motion.div
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  style={{
-                    width: "48%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    gap: 12,
-                  }}
+                  key={current}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="w-full flex flex-col"
                 >
-                  {/* Category and Project Number */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                    <span
-                      className="font-mono"
-                      style={{
-                        fontSize: 10,
-                        letterSpacing: "0.2em",
-                        color: "rgba(255,255,255,0.4)",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {project.category}
-                    </span>
-                    <span
-                      className="font-mono font-medium"
-                      style={{
-                        fontSize: 12,
-                        letterSpacing: "0.2em",
-                        color: "rgba(0,229,255,0.6)",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      Project {String(current + 1).padStart(2, "0")} of {String(total).padStart(2, "0")}
-                    </span>
+                  {/* Image */}
+                  <div className="w-full h-[200px] overflow-hidden relative">
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={`${project.name} screenshot`}
+                        draggable={false}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    ) : (
+                      <ProjectPlaceholder name={project.name} index={current} />
+                    )}
                   </div>
 
-                  {/* Name */}
-                  <h3
-                    className="font-bold leading-none tracking-tight text-white"
-                    style={{ fontSize: 56, letterSpacing: "-0.02em" }}
-                  >
-                    {project.name}
-                  </h3>
+                  {/* Content below the image with 16px padding */}
+                  <div className="p-4 flex flex-col gap-3">
+                    {/* Category and Counter */}
+                    <div className="flex flex-col gap-1">
+                      <span
+                        className="font-mono text-[10px] uppercase tracking-[0.2em]"
+                        style={{ color: "rgba(0, 229, 255, 0.8)" }}
+                      >
+                        {project.category}
+                      </span>
+                      <span
+                        className="font-mono font-medium text-[11px] uppercase tracking-[0.15em]"
+                        style={{ color: "rgba(255, 255, 255, 0.4)" }}
+                      >
+                        Project {String(current + 1).padStart(2, "0")} of {String(total).padStart(2, "0")}
+                      </span>
+                    </div>
 
-                  {/* Description */}
-                  <p
-                    className="leading-relaxed"
-                    style={{
-                      fontSize: "clamp(14px, 1.2vw, 16px)",
-                      color: "rgba(255,255,255,0.5)",
-                    }}
-                  >
-                    {project.description}
-                  </p>
+                    {/* Name */}
+                    <h3
+                      className="font-bold text-white leading-none tracking-tight"
+                      style={{ fontSize: "28px" }}
+                    >
+                      {project.name}
+                    </h3>
 
-                  {/* Action buttons — moved above tech stack */}
-                  <div className="flex flex-wrap gap-3 mt-1">
-                      {/* Live Demo — filled teal */}
+                    {/* Description */}
+                    <p
+                      className="leading-relaxed text-white/60 text-[14px] line-clamp-3"
+                    >
+                      {project.description}
+                    </p>
+
+                    {/* Tech stack tags */}
+                    <div className="flex flex-wrap gap-1.5 mt-1">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="font-mono font-medium text-[9px] uppercase tracking-[0.08em] px-2.5 py-1 rounded-md"
+                          style={{
+                            backgroundColor: "rgba(0, 229, 255, 0.06)",
+                            border: "1px solid rgba(0, 229, 255, 0.25)",
+                            color: "rgba(0, 229, 255, 0.85)",
+                          }}
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.08)", margin: "4px 0" }} />
+
+                    {/* Action buttons */}
+                    <div className="grid grid-cols-2 gap-3 w-full">
                       <a
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] shadow-[0_0_24px_rgba(0,229,255,0.3)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                        className="flex items-center justify-center gap-2 rounded-lg font-mono font-bold uppercase tracking-wider transition-all duration-200"
                         style={{
-                          height: 40,
-                          fontSize: 12,
-                          padding: "0 20px",
+                          height: 44,
+                          fontSize: 11,
                           backgroundColor: "rgba(0,229,255,1)",
                           color: "#020408",
                           letterSpacing: "0.1em",
                         }}
                       >
                         Live Demo
-                        <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        <ExternalLink className="h-3.5 w-3.5" />
                       </a>
 
-                      {/* GitHub — ghost outline */}
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] hover:bg-[rgba(255,255,255,0.08)] hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                        className="flex items-center justify-center gap-2 rounded-lg font-mono font-bold uppercase tracking-wider transition-all duration-200"
                         style={{
-                          height: 40,
-                          fontSize: 12,
-                          padding: "0 20px",
+                          height: 44,
+                          fontSize: 11,
                           backgroundColor: "transparent",
                           border: "1px solid rgba(255,255,255,0.18)",
                           color: "rgba(255,255,255,0.75)",
@@ -515,82 +802,54 @@ export function Projects() {
                         }}
                       >
                         GitHub
-                        <Github className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        <Github className="h-3.5 w-3.5" />
                       </a>
                     </div>
-
-                  <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "4px 0" }} />
-
-                  {/* Tech stack pills — moved below buttons */}
-                  <div style={{ display: "flex", flexWrap: "nowrap", gap: 5, overflow: "hidden" }}>
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="font-mono font-medium flex items-center justify-center transition-colors duration-200 hover:bg-[rgba(0,210,255,0.15)] hover:border-[#00d2ff]"
-                        style={{
-                          fontSize: 9.5,
-                          letterSpacing: "0.08em",
-                          textTransform: "uppercase",
-                          padding: "3px 9px",
-                          borderRadius: 6,
-                          backgroundColor: "rgba(0,229,255,0.06)",
-                          border: "1px solid rgba(0,229,255,0.25)",
-                          color: "rgba(0,229,255,0.85)",
-                          whiteSpace: "nowrap",
-                          flexShrink: 1,
-                          minWidth: 0,
-                        }}
-                      >
-                        {t}
-                      </span>
-                    ))}
                   </div>
-                  </motion.div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Right arrow */}
-          <div className="col-start-3 col-span-1 flex justify-center">
-            <ArrowBtn direction="right" onClick={next} disabled={false} />
-          </div>
-
-          {/* ── Progress Bar & Footer Meta ── */}
-          <div className="col-start-2 col-span-1 mt-8 flex flex-col gap-8 w-full">
-            <div className="flex items-center justify-between gap-2 w-full max-w-md mx-auto">
-              {PROJECTS.map((p, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i, i > current ? 1 : -1)}
-                  aria-label={`Go to project ${i + 1}: ${p.name}`}
-                  className="group relative flex-1 flex items-center justify-center h-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020408] rounded-sm"
-                >
-                  <span 
-                    className="w-full transition-all duration-300 rounded-full group-hover:bg-cyan-400/50"
-                    style={{
-                      height: i === current ? 3 : 2,
-                      backgroundColor: i === current ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.2)",
-                      boxShadow: i === current ? "0 0 8px rgba(0,210,255,0.5)" : "none",
-                    }}
-                  />
-                </button>
-              ))}
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/30">
-                {String(PROJECTS.length).padStart(2, "0")} Projects · Use ← → keys to navigate
-              </span>
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-white/60 transition-colors hover:text-white"
+            {/* Right arrow */}
+            <button
+              onClick={next}
+              aria-label="Next project"
+              className="flex items-center justify-center rounded-full border transition-all duration-300"
+              style={{
+                width: 44,
+                height: 44,
+                borderColor: "rgba(0,229,255,0.45)",
+                backgroundColor: "rgba(0,229,255,0.02)",
+                backdropFilter: "blur(8px)",
+                flexShrink: 0,
+              }}
+            >
+              <ChevronRight className="h-5 w-5" style={{ color: "#00e5ff" }} />
+            </button>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center justify-between gap-2 w-full max-w-xs mx-auto mt-6">
+            {PROJECTS.map((p, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i, i > current ? 1 : -1)}
+                aria-label={`Go to project ${i + 1}: ${p.name}`}
+                className="group relative flex-1 flex items-center justify-center h-6 focus:outline-none rounded-sm"
               >
-                <span className="block h-px w-6 bg-white/25 transition-all duration-300 group-hover:w-10 group-hover:bg-cyan-400" />
-                Start a Project
-              </a>
-            </div>
+                <span 
+                  className="w-full transition-all duration-300 rounded-full"
+                  style={{
+                    height: i === current ? 4 : 2,
+                    backgroundColor: i === current ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.2)",
+                    boxShadow: i === current ? "0 0 8px rgba(0,210,255,0.5)" : "none",
+                  }}
+                />
+              </button>
+            ))}
           </div>
         </div>
+
       </div>
     </section>
   )

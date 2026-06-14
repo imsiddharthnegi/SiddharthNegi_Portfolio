@@ -371,3 +371,30 @@ body {
     cursor: auto !important;
   }
 }
+
+/* Mobile-only stats and education styling for About section */
+.about-mobile-stats-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .about-mobile-stats-container {
+    display: flex !important;
+  }
+}
+
+/* Projects Carousel Desktop/Mobile Toggles */
+.mobile-projects-carousel {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-projects-carousel {
+    display: block !important;
+  }
+  .desktop-projects-carousel {
+    display: none !important;
+  }
+}
+
+

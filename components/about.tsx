@@ -305,6 +305,110 @@ export function About() {
             ))}
           </div>
 
+          {/* Mobile-only Stats & Education */}
+          <div 
+            className="about-mobile-stats-container flex-col gap-3 mt-12 w-full"
+            style={{
+              opacity: revealed ? 1 : 0,
+              transform: revealed ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 700ms ease-out 1060ms, transform 700ms ease-out 1060ms",
+            }}
+          >
+            {/* Grid of 4 Stats Cards */}
+            <div 
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "10px"
+              }}
+            >
+              {STATS.map((s) => {
+                const isCerts = s.label === "Certs";
+                const isProjects = s.label === "Projects";
+                const href = isProjects ? "#projects" : isCerts ? "#certifications" : undefined;
+
+                const CardElement = (
+                  <div
+                    style={{
+                      backgroundColor: "rgba(0, 210, 255, 0.08)",
+                      border: "1px solid rgba(0, 210, 255, 0.15)",
+                      borderRadius: "12px",
+                      padding: "16px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "6px",
+                      height: "100%",
+                    }}
+                  >
+                    <span 
+                      className="font-mono text-[10px] uppercase tracking-[0.15em]"
+                      style={{ color: "rgba(0, 210, 255, 0.9)" }}
+                    >
+                      {s.label}
+                    </span>
+                    <span
+                      className="font-bold text-white leading-tight"
+                      style={{ fontSize: "16px", letterSpacing: "0.5px" }}
+                    >
+                      {s.value}
+                    </span>
+                  </div>
+                );
+
+                if (href) {
+                  return (
+                    <a
+                      key={s.label}
+                      href={href}
+                      className="cursor-pointer transition-all duration-200 hover:brightness-110 h-full block"
+                    >
+                      {CardElement}
+                    </a>
+                  );
+                }
+
+                return (
+                  <div key={s.label} className="h-full">
+                    {CardElement}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Education Card */}
+            <div
+              style={{
+                backgroundColor: "rgba(0, 210, 255, 0.08)",
+                border: "1px solid rgba(0, 210, 255, 0.15)",
+                borderRadius: "12px",
+                padding: "16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+                width: "100%",
+              }}
+            >
+              <span 
+                className="font-mono text-[10px] uppercase tracking-[0.15em]"
+                style={{ color: "rgba(0, 210, 255, 0.9)" }}
+              >
+                Education
+              </span>
+              <span
+                className="font-bold text-white leading-tight"
+                style={{ fontSize: "16px", letterSpacing: "0.5px" }}
+              >
+                B.Tech, Computer Science
+              </span>
+              <span
+                className="font-mono text-white leading-tight mt-0.5"
+                style={{ fontSize: "12px", letterSpacing: "0.5px", opacity: 0.8 }}
+              >
+                Quantum University · 2026
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
