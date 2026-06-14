@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
+import { useIsMobile } from "@/components/ui/use-mobile"
 
 /* ─────────────────────────────────────────────
    DATA
@@ -254,12 +255,162 @@ function ArrowBtn({
 }
 
 /* ─────────────────────────────────────────────
+   MOBILE PROJECT CARD
+───────────────────────────────────────────── */
+function MobileProjectCard({ project, index }: { project: Project; index: number }) {
+  const [cardTapped, setCardTapped] = useState(false)
+  const [imgErrored, setImgErrored] = useState(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="mobile-project-card w-full rounded-xl overflow-hidden flex flex-col"
+      onMouseDown={() => setCardTapped(true)}
+      onMouseUp={() => setCardTapped(false)}
+      onMouseLeave={() => setCardTapped(false)}
+      style={{
+        backgroundColor: cardTapped ? "rgba(0,229,255,0.08)" : "#0d0d12",
+        border: "1px solid rgba(0,229,255,0.18)",
+        transition: "all 0.2s ease",
+      }}
+    >
+      {/* Project Image - Full Width Top Section */}
+      <div className="project-image w-full" style={{ height: "200px", overflow: "hidden" }}>
+        {imgErrored ? (
+          <ProjectPlaceholder name={project.name} index={index} />
+        ) : (
+          <img
+            key={project.image}
+            src={project.image}
+            alt={`${project.name} screenshot`}
+            onError={() => setImgErrored(true)}
+            draggable={false}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top center",
+              display: "block",
+            }}
+          />
+        )}
+      </div>
+
+      {/* Project Details - Full Width Below Image */}
+      <div className="project-details w-full" style={{ padding: "16px" }}>
+        {/* Category */}
+        <span
+          className="font-mono text-xs uppercase tracking-wider"
+          style={{
+            color: "rgba(255,255,255,0.4)",
+            letterSpacing: "0.2em",
+          }}
+        >
+          {project.category}
+        </span>
+
+        {/* Title */}
+        <h3
+          className="font-bold mt-2 leading-tight text-white"
+          style={{ fontSize: "18px" }}
+        >
+          {project.name}
+        </h3>
+
+        {/* Description */}
+        <p
+          className="mt-3 leading-relaxed"
+          style={{
+            fontSize: "14px",
+            color: "rgba(255,255,255,0.55)",
+            lineHeight: 1.5,
+          }}
+        >
+          {project.description}
+        </p>
+
+        {/* Tech Stack Pills */}
+        <div className="flex flex-wrap gap-2 mt-4">
+          {project.tech.map((t) => (
+            <span
+              key={t}
+              className="font-mono font-medium flex items-center justify-center"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                padding: "4px 10px",
+                borderRadius: 6,
+                backgroundColor: "rgba(0,229,255,0.06)",
+                border: "1px solid rgba(0,229,255,0.25)",
+                color: "rgba(0,229,255,0.85)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col gap-2 mt-4">
+          {/* Live Demo Button */}
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+            style={{
+              fontSize: "12px",
+              letterSpacing: "0.1em",
+              backgroundColor: "rgba(0,229,255,1)",
+              color: "#020408",
+              border: "1px solid rgba(0,229,255,1)",
+            }}
+          >
+            Live Demo
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+
+          {/* GitHub Button */}
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+            style={{
+              fontSize: "12px",
+              letterSpacing: "0.1em",
+              backgroundColor: "transparent",
+              color: "rgba(255,255,255,0.75)",
+              border: "1px solid rgba(255,255,255,0.18)",
+            }}
+          >
+            GitHub
+            <Github className="h-3.5 w-3.5" />
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+/* ─────────────────────────────────────────────
    MAIN PROJECTS COMPONENT
 ───────────────────────────────────────────── */
 export function Projects() {
   const [current, setCurrent] = useState<number>(0)
   const [direction, setDirection] = useState<1 | -1>(1)
   const [cardHovered, setCardHovered] = useState(false)
+  const isMobile = useIsMobile()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const total = PROJECTS.length
 
@@ -281,15 +432,17 @@ export function Projects() {
     goTo(idx, 1)
   }, [current, total, goTo])
 
-  // Keyboard navigation
+  // Keyboard navigation (desktop only)
   useEffect(() => {
+    if (isMobile) return
+
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") prev()
       if (e.key === "ArrowRight") next()
     }
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
-  }, [prev, next])
+  }, [prev, next, isMobile])
 
   const project = PROJECTS[current]
 
@@ -310,6 +463,205 @@ export function Projects() {
       scale: 0.96,
     }),
   }
+
+  if (!isMounted) return null
+
+  // ─── MOBILE LAYOUT ───
+  if (isMobile) {
+    return (
+      <section
+        id="projects"
+        aria-label="Selected projects"
+        className="relative w-full"
+        style={{ backgroundColor: "#020408" }}
+      >
+        <div
+          className="pt-24 pb-12 md:pt-32 md:pb-14 w-full"
+          style={{
+            paddingLeft: "clamp(16px, 5vw, 24px)",
+            paddingRight: "clamp(16px, 5vw, 24px)",
+            paddingBottom: "clamp(32px, 6vw, 48px)",
+          }}
+        >
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex items-center gap-3">
+              <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
+                PROJECTS
+              </span>
+            </div>
+
+            <h2
+              className="text-pretty leading-tight tracking-tight text-white mt-6 font-bold"
+              style={{
+                fontSize: "clamp(24px, 6vw, 36px)",
+              }}
+            >
+              My Projects
+            </h2>
+          </div>
+
+          {/* Mobile Carousel - Horizontal slider with 1 card visible */}
+          <div style={{ position: "relative", width: "100%" }}>
+            {/* Arrow buttons */}
+            <button
+              onClick={prev}
+              aria-label="Previous project"
+              style={{
+                position: "absolute",
+                left: -8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: 10,
+                width: 40,
+                height: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(0,229,255,0.1)",
+                border: "1px solid rgba(0,229,255,0.3)",
+                borderRadius: 8,
+                color: "rgba(0,229,255,0.8)",
+                cursor: "pointer",
+                transition: "all 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.2)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.5)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.1)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.3)"
+              }}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            <button
+              onClick={next}
+              aria-label="Next project"
+              style={{
+                position: "absolute",
+                right: -8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: 10,
+                width: 40,
+                height: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(0,229,255,0.1)",
+                border: "1px solid rgba(0,229,255,0.3)",
+                borderRadius: 8,
+                color: "rgba(0,229,255,0.8)",
+                cursor: "pointer",
+                transition: "all 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.2)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.5)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.1)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.3)"
+              }}
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            {/* Carousel container - overflow hidden for sliding effect */}
+            <div
+              style={{
+                overflow: "hidden",
+                width: "100%",
+                paddingLeft: 16,
+                paddingRight: 16,
+              }}
+            >
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={PROJECTS[current].id}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  style={{ width: "100%" }}
+                >
+                  <MobileProjectCard project={project} index={current} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Dot indicators */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 8,
+                marginTop: 16,
+              }}
+            >
+              {PROJECTS.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => goTo(idx, idx > current ? 1 : -1)}
+                  aria-label={`Go to project ${idx + 1}`}
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    border: "none",
+                    background:
+                      idx === current
+                        ? "rgba(0,229,255,0.8)"
+                        : "rgba(0,229,255,0.2)",
+                    cursor: "pointer",
+                    transition: "all 200ms ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (idx !== current) {
+                      e.currentTarget.style.background = "rgba(0,229,255,0.4)"
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (idx !== current) {
+                      e.currentTarget.style.background = "rgba(0,229,255,0.2)"
+                    }
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Project counter */}
+            <div
+              style={{
+                textAlign: "center",
+                marginTop: 12,
+                fontFamily: "Geist Mono, monospace",
+                fontSize: 11,
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              {String(current + 1).padStart(2, "0")} of{" "}
+              {String(total).padStart(2, "0")}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // ─── DESKTOP LAYOUT (unchanged) ───
 
   return (
     <section
@@ -579,7 +931,7 @@ export function Projects() {
 
             <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
               <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/30">
-                {String(PROJECTS.length).padStart(2, "0")} Projects · Use ← → keys to navigate
+                {String(PROJECTS.length).padStart(2, "0")} Projects
               </span>
               <a
                 href="#contact"
