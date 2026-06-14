@@ -259,6 +259,7 @@ function ArrowBtn({
 ───────────────────────────────────────────── */
 function MobileProjectCard({ project, index }: { project: Project; index: number }) {
   const [cardTapped, setCardTapped] = useState(false)
+  const [imgErrored, setImgErrored] = useState(false)
 
   return (
     <motion.div
@@ -266,7 +267,7 @@ function MobileProjectCard({ project, index }: { project: Project; index: number
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="w-full rounded-xl p-4 md:p-6"
+      className="mobile-project-card w-full rounded-xl overflow-hidden flex flex-col"
       onMouseDown={() => setCardTapped(true)}
       onMouseUp={() => setCardTapped(false)}
       onMouseLeave={() => setCardTapped(false)}
@@ -276,97 +277,122 @@ function MobileProjectCard({ project, index }: { project: Project; index: number
         transition: "all 0.2s ease",
       }}
     >
-      {/* Category */}
-      <span
-        className="font-mono text-xs uppercase tracking-wider"
-        style={{
-          color: "rgba(255,255,255,0.4)",
-          letterSpacing: "0.2em",
-        }}
-      >
-        {project.category}
-      </span>
-
-      {/* Title */}
-      <h3
-        className="font-bold mt-2 leading-tight text-white"
-        style={{ fontSize: "18px" }}
-      >
-        {project.name}
-      </h3>
-
-      {/* Description */}
-      <p
-        className="mt-3 leading-relaxed"
-        style={{
-          fontSize: "14px",
-          color: "rgba(255,255,255,0.55)",
-          lineHeight: 1.5,
-        }}
-      >
-        {project.description}
-      </p>
-
-      {/* Tech Stack Pills */}
-      <div className="flex flex-wrap gap-2 mt-4">
-        {project.tech.map((t) => (
-          <span
-            key={t}
-            className="font-mono font-medium flex items-center justify-center"
+      {/* Project Image - Full Width Top Section */}
+      <div className="project-image w-full" style={{ height: "200px", overflow: "hidden" }}>
+        {imgErrored ? (
+          <ProjectPlaceholder name={project.name} index={index} />
+        ) : (
+          <img
+            key={project.image}
+            src={project.image}
+            alt={`${project.name} screenshot`}
+            onError={() => setImgErrored(true)}
+            draggable={false}
             style={{
-              fontSize: "11px",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              padding: "4px 10px",
-              borderRadius: 6,
-              backgroundColor: "rgba(0,229,255,0.06)",
-              border: "1px solid rgba(0,229,255,0.25)",
-              color: "rgba(0,229,255,0.85)",
-              whiteSpace: "nowrap",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top center",
+              display: "block",
             }}
-          >
-            {t}
-          </span>
-        ))}
+          />
+        )}
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex flex-col gap-2 mt-4">
-        {/* Live Demo Button */}
-        <a
-          href={project.demoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+      {/* Project Details - Full Width Below Image */}
+      <div className="project-details w-full" style={{ padding: "16px" }}>
+        {/* Category */}
+        <span
+          className="font-mono text-xs uppercase tracking-wider"
           style={{
-            fontSize: "12px",
-            letterSpacing: "0.1em",
-            backgroundColor: "rgba(0,229,255,1)",
-            color: "#020408",
-            border: "1px solid rgba(0,229,255,1)",
+            color: "rgba(255,255,255,0.4)",
+            letterSpacing: "0.2em",
           }}
         >
-          Live Demo
-          <ExternalLink className="h-3.5 w-3.5" />
-        </a>
+          {project.category}
+        </span>
 
-        {/* GitHub Button */}
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+        {/* Title */}
+        <h3
+          className="font-bold mt-2 leading-tight text-white"
+          style={{ fontSize: "18px" }}
+        >
+          {project.name}
+        </h3>
+
+        {/* Description */}
+        <p
+          className="mt-3 leading-relaxed"
           style={{
-            fontSize: "12px",
-            letterSpacing: "0.1em",
-            backgroundColor: "transparent",
-            color: "rgba(255,255,255,0.75)",
-            border: "1px solid rgba(255,255,255,0.18)",
+            fontSize: "14px",
+            color: "rgba(255,255,255,0.55)",
+            lineHeight: 1.5,
           }}
         >
-          GitHub
-          <Github className="h-3.5 w-3.5" />
-        </a>
+          {project.description}
+        </p>
+
+        {/* Tech Stack Pills */}
+        <div className="flex flex-wrap gap-2 mt-4">
+          {project.tech.map((t) => (
+            <span
+              key={t}
+              className="font-mono font-medium flex items-center justify-center"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                padding: "4px 10px",
+                borderRadius: 6,
+                backgroundColor: "rgba(0,229,255,0.06)",
+                border: "1px solid rgba(0,229,255,0.25)",
+                color: "rgba(0,229,255,0.85)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col gap-2 mt-4">
+          {/* Live Demo Button */}
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+            style={{
+              fontSize: "12px",
+              letterSpacing: "0.1em",
+              backgroundColor: "rgba(0,229,255,1)",
+              color: "#020408",
+              border: "1px solid rgba(0,229,255,1)",
+            }}
+          >
+            Live Demo
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+
+          {/* GitHub Button */}
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+            style={{
+              fontSize: "12px",
+              letterSpacing: "0.1em",
+              backgroundColor: "transparent",
+              color: "rgba(255,255,255,0.75)",
+              border: "1px solid rgba(255,255,255,0.18)",
+            }}
+          >
+            GitHub
+            <Github className="h-3.5 w-3.5" />
+          </a>
+        </div>
       </div>
     </motion.div>
   )

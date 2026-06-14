@@ -251,6 +251,22 @@ body {
     min-height: unset;
   }
 
+  /* ── PROJECTS: mobile card layout - image on top, details below ─ */
+  .mobile-project-card {
+    flex-direction: column !important;
+  }
+
+  .mobile-project-card .project-image {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+  }
+
+  .mobile-project-card .project-details {
+    width: 100% !important;
+    padding: 16px !important;
+  }
+
   /* ── PROJECTS: show description always on mobile ─────────────── */
   /* The .mobile-description div has inline style maxHeight:0 on desktop.
      Override it on mobile so descriptions are always readable. */
