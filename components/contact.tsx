@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useIsMobile } from "@/components/ui/use-mobile"
 
 const SOCIALS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/imsiddarthnegi" },
@@ -78,6 +79,7 @@ function TravelingLink({
 export function Contact() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const [revealed, setRevealed] = useState(false)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     const node = sectionRef.current
@@ -120,11 +122,13 @@ export function Contact() {
       />
 
       <div
-        className="relative grid grid-cols-1 items-start gap-8 lg:gap-16 lg:grid-cols-12 pt-24 md:pt-32"
+        className="contact-inner relative grid grid-cols-1 lg:grid-cols-12 items-start"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",
-          paddingBottom: "clamp(80px, 12vh, 120px)",
+          paddingTop: isMobile ? "80px" : "clamp(96px, 14vh, 160px)",
+          paddingBottom: isMobile ? "32px" : "clamp(80px, 12vh, 120px)",
+          gap: isMobile ? "24px" : "clamp(32px, 4vw, 64px)",
         }}
       >
         {/* Left: Giant text */}

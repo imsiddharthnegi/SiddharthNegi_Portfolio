@@ -412,8 +412,6 @@ export function Projects() {
     setIsMounted(true)
   }, [])
 
-  const [touchStartX, setTouchStartX] = useState(0)
-
   const total = PROJECTS.length
 
   const goTo = useCallback(
@@ -434,16 +432,26 @@ export function Projects() {
     goTo(idx, 1)
   }, [current, total, goTo])
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.changedTouches[0].screenX)
+  // ─── Swipe / drag tracking (useRef = no re-render mid-gesture) ───
+  const dragStartX = useRef(0)
+  const isDragging = useRef(false)
+
+  const onDragStart = (e: React.TouchEvent | React.MouseEvent | React.PointerEvent) => {
+    dragStartX.current =
+      'touches' in e ? e.touches[0].clientX : e.clientX
+    isDragging.current = true
   }
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const touchEndX = e.changedTouches[0].screenX
-    const diff = touchStartX - touchEndX
-    if (diff > 50) next()
-    if (diff < -50) prev()
+  const onDragEnd = (e: React.TouchEvent | React.MouseEvent | React.PointerEvent) => {
+    if (!isDragging.current) return
+    isDragging.current = false
+    const endX =
+      'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX
+    const diff = dragStartX.current - endX
+    if (diff > 40) next()
+    if (diff < -40) prev()
   }
+
   // Keyboard navigation (desktop only)
   useEffect(() => {
     if (isMobile) return
@@ -583,13 +591,22 @@ export function Projects() {
               <ChevronRight size={20} />
             </button>
 
-            {/* Carousel container - overflow hidden for sliding effect */}
+            {/* Carousel container — all 6 event handlers for reliable swipe on real mobile browsers */}
             <div
+              onMouseDown={onDragStart}
+              onMouseUp={onDragEnd}
+              onTouchStart={onDragStart}
+              onTouchEnd={onDragEnd}
+              onPointerDown={onDragStart}
+              onPointerUp={onDragEnd}
               style={{
                 overflow: "hidden",
                 width: "100%",
                 paddingLeft: 16,
                 paddingRight: 16,
+                touchAction: "pan-y",
+                userSelect: "none",
+                cursor: "grab",
               }}
             >
               <AnimatePresence mode="wait" custom={direction}>
@@ -962,8 +979,6 @@ export function Projects() {
         {/* MOBILE LAYOUT (shows only on screens <= 768px via media query) */}
         <div 
           className="mobile-projects-carousel w-full"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
         >
           {/* Header */}
           <div className="mb-6">
@@ -1022,11 +1037,8 @@ export function Projects() {
               <ChevronLeft className="h-5 w-5" style={{ color: "#00e5ff" }} />
             </button>
 
-            {/* The Card */}
             <div
               className="relative flex-1 overflow-hidden rounded-2xl"
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
               style={{
                 backgroundColor: "#0d0d12",
                 border: "1px solid rgba(0,229,255,0.14)",

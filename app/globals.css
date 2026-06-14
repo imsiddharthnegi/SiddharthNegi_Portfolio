@@ -412,5 +412,10 @@ body {
     display: none !important;
   }
 }
-
+/* Contact section — reduce bottom padding on mobile */
+@media (max-width: 768px) {
+  .contact-inner {
+    padding-bottom: 32px !important;
+  }
+}
 
