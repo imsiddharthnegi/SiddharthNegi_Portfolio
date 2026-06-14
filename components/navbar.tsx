@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { Menu, X } from "lucide-react"
+import { useIsMobile } from "@/components/ui/use-mobile"
 
 const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
@@ -11,10 +13,173 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [mounted, setMounted] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Close menu when clicking a link
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setMobileMenuOpen(false)
+    }
+  }
+
+  // Close menu on escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false)
+    }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [])
+
+  // ─── MOBILE NAVBAR ───
+  if (isMobile && mounted) {
+    return (
+      <div
+        aria-label="Primary navigation"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          width: "100%",
+        }}
+      >
+        {/* Top bar */}
+        <nav
+          role="navigation"
+          aria-label="Mobile navigation"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            height: 60,
+            paddingLeft: 16,
+            paddingRight: 16,
+            backgroundColor: "rgba(226, 221, 211, 0.96)",
+            backdropFilter: "blur(16px) saturate(140%)",
+            WebkitBackdropFilter: "blur(16px) saturate(140%)",
+            borderBottom: "1px solid rgba(0,0,0,0.10)",
+            opacity: mounted ? 1 : 0,
+            transition: "opacity 600ms ease 100ms",
+          }}
+        >
+          {/* Logo */}
+          <LogoMark />
+
+          {/* Hamburger button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 40,
+              height: 40,
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              color: "#111111",
+            }}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </nav>
+
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div
+            style={{
+              position: "absolute",
+              top: 60,
+              left: 0,
+              right: 0,
+              width: "100%",
+              backgroundColor: "rgba(226, 221, 211, 0.96)",
+              backdropFilter: "blur(16px) saturate(140%)",
+              WebkitBackdropFilter: "blur(16px) saturate(140%)",
+              borderBottom: "1px solid rgba(0,0,0,0.10)",
+              padding: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 0,
+            }}
+          >
+            {/* Mobile Nav links */}
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={handleLinkClick}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  height: 44,
+                  paddingLeft: 12,
+                  paddingRight: 12,
+                  fontFamily: "Geist, sans-serif",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: "#1a1a1a",
+                  textDecoration: "none",
+                  borderRadius: 6,
+                  transition: "background-color 200ms ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.05)"
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent"
+                }}
+              >
+                {link.label}
+              </a>
+            ))}
+
+            {/* CTA Button in menu */}
+            <a
+              href="#contact"
+              onClick={handleLinkClick}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 44,
+                marginTop: 8,
+                borderRadius: 6,
+                background: "#111111",
+                color: "#ffffff",
+                fontFamily: "Geist, sans-serif",
+                fontSize: 13,
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "background 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#2a2a2a"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#111111"
+              }}
+            >
+              Let&apos;s Connect
+            </a>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ─── DESKTOP NAVBAR ───
 
   return (
     <div
