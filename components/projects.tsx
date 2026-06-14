@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
+import { useIsMobile } from "@/components/ui/use-mobile"
 
 /* ─────────────────────────────────────────────
    DATA
@@ -260,6 +261,9 @@ export function Projects() {
   const [current, setCurrent] = useState<number>(0)
   const [direction, setDirection] = useState<1 | -1>(1)
   const [cardHovered, setCardHovered] = useState(false)
+  const isMobile = useIsMobile()
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
 
   const total = PROJECTS.length
 
@@ -281,15 +285,40 @@ export function Projects() {
     goTo(idx, 1)
   }, [current, total, goTo])
 
-  // Keyboard navigation
+  // Keyboard navigation (desktop only)
   useEffect(() => {
+    if (isMobile) return
+    
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") prev()
       if (e.key === "ArrowRight") next()
     }
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
-  }, [prev, next])
+  }, [prev, next, isMobile])
+
+  // Touch swipe handling
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].screenX
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].screenX
+    handleSwipe()
+  }
+
+  const handleSwipe = () => {
+    const swipeThreshold = 50
+    const difference = touchStartX.current - touchEndX.current
+
+    if (Math.abs(difference) > swipeThreshold) {
+      if (difference > 0) {
+        next()
+      } else {
+        prev()
+      }
+    }
+  }
 
   const project = PROJECTS[current]
 
@@ -311,6 +340,308 @@ export function Projects() {
     }),
   }
 
+  // Mobile View
+  if (isMobile) {
+    return (
+      <section
+        id="projects"
+        aria-label="Selected projects"
+        className="relative w-full"
+        style={{ backgroundColor: "#020408" }}
+      >
+        <div
+          className="pt-16 pb-12 w-full"
+          style={{
+            paddingLeft: "clamp(16px, 5vw, 24px)",
+            paddingRight: "clamp(16px, 5vw, 24px)",
+          }}
+        >
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex items-center gap-3">
+              <span className="block h-1.5 w-1.5 rounded-full bg-cyan-400/80" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300/80">
+                PROJECTS
+              </span>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-2">
+              <h2
+                className="text-pretty leading-tight tracking-[-0.04em] text-white"
+                style={{ fontFamily: "var(--font-sans), Geist, sans-serif" }}
+              >
+                <span
+                  className="block font-light"
+                  style={{ fontSize: "clamp(28px, 7vw, 40px)", fontWeight: 300 }}
+                >
+                  Things I&apos;ve
+                </span>
+                <span
+                  className="block italic"
+                  style={{
+                    fontSize: "clamp(28px, 7vw, 40px)",
+                    fontWeight: 800,
+                    backgroundImage:
+                      "linear-gradient(90deg, #ffffff 0%, #ffffff 40%, #00e5ff 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  Shipped.
+                </span>
+              </h2>
+            </div>
+          </div>
+
+          {/* Mobile Card Container with Swipe */}
+          <div
+            className="relative overflow-hidden rounded-xl"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              backgroundColor: "#0d0d12",
+              border: "1px solid rgba(0,229,255,0.14)",
+              boxShadow: "0 0 0 1px rgba(0,229,255,0.06), 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.04) inset",
+            }}
+          >
+            {/* Top glow line */}
+            <div
+              className="pointer-events-none absolute left-0 top-0 h-px w-full z-10"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.35) 35%, rgba(0,229,255,0.35) 65%, transparent 100%)",
+              }}
+            />
+
+            <AnimatePresence custom={direction} initial={false} mode="wait">
+              <motion.div
+                key={current}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="w-full"
+                style={{ display: "flex", flexDirection: "column", gap: 16 }}
+              >
+                {/* Image/Frame */}
+                <div
+                  style={{
+                    width: "100%",
+                    height: 240,
+                  }}
+                >
+                  <ProjectFrame project={project} index={current} />
+                </div>
+
+                {/* Details */}
+                <motion.div
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    padding: "0 16px 16px 16px",
+                  }}
+                >
+                  {/* Category and Project Number */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <span
+                      className="font-mono"
+                      style={{
+                        fontSize: 10,
+                        letterSpacing: "0.2em",
+                        color: "rgba(255,255,255,0.4)",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {project.category}
+                    </span>
+                    <span
+                      className="font-mono font-medium"
+                      style={{
+                        fontSize: 11,
+                        letterSpacing: "0.2em",
+                        color: "rgba(0,229,255,0.6)",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Project {String(current + 1).padStart(2, "0")} of {String(total).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  {/* Name */}
+                  <h3
+                    className="font-bold leading-tight tracking-tight text-white"
+                    style={{ fontSize: 24 }}
+                  >
+                    {project.name}
+                  </h3>
+
+                  {/* Description */}
+                  <p
+                    className="leading-relaxed"
+                    style={{
+                      fontSize: "13px",
+                      color: "rgba(255,255,255,0.5)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {project.description}
+                  </p>
+
+                  {/* Action buttons */}
+                  <div className="flex flex-col gap-2 mt-2">
+                    {/* Live Demo */}
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 w-full shadow-[0_0_24px_rgba(0,229,255,0.3)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)]"
+                      style={{
+                        height: 40,
+                        fontSize: 11,
+                        backgroundColor: "rgba(0,229,255,1)",
+                        color: "#020408",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      Live Demo
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+
+                    {/* GitHub */}
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider transition-all duration-200 w-full"
+                      style={{
+                        height: 40,
+                        fontSize: 11,
+                        backgroundColor: "transparent",
+                        border: "1px solid rgba(255,255,255,0.18)",
+                        color: "rgba(255,255,255,0.75)",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      GitHub
+                      <Github className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+
+                  <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: "4px 0" }} />
+
+                  {/* Tech stack pills */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="font-mono font-medium transition-colors duration-200"
+                        style={{
+                          fontSize: 9,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          padding: "4px 10px",
+                          borderRadius: 6,
+                          backgroundColor: "rgba(0,229,255,0.06)",
+                          border: "1px solid rgba(0,229,255,0.25)",
+                          color: "rgba(0,229,255,0.85)",
+                        }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="mt-8 flex flex-col gap-6">
+            {/* Prev/Next Buttons */}
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={prev}
+                aria-label="Previous project"
+                className="flex items-center justify-center rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-95"
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderColor: "rgba(0,229,255,0.45)",
+                  backgroundColor: "rgba(0,229,255,0.02)",
+                  boxShadow: "0 0 20px rgba(0,229,255,0.3)",
+                }}
+              >
+                <ChevronLeft
+                  className="h-5 w-5"
+                  style={{ color: "#00e5ff" }}
+                />
+              </button>
+
+              <button
+                onClick={next}
+                aria-label="Next project"
+                className="flex items-center justify-center rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-95"
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderColor: "rgba(0,229,255,0.45)",
+                  backgroundColor: "rgba(0,229,255,0.02)",
+                  boxShadow: "0 0 20px rgba(0,229,255,0.3)",
+                }}
+              >
+                <ChevronRight
+                  className="h-5 w-5"
+                  style={{ color: "#00e5ff" }}
+                />
+              </button>
+            </div>
+
+            {/* Pagination Dots */}
+            <div className="flex items-center justify-center gap-2">
+              {PROJECTS.map((p, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i, i > current ? 1 : -1)}
+                  aria-label={`Go to project ${i + 1}: ${p.name}`}
+                  className="group transition-all duration-300 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                  style={{
+                    width: i === current ? 28 : 8,
+                    height: 8,
+                    backgroundColor: i === current ? "rgba(0,210,255,1)" : "rgba(255,255,255,0.2)",
+                    boxShadow: i === current ? "0 0 8px rgba(0,210,255,0.5)" : "none",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Footer text */}
+            <div className="flex flex-col items-center justify-center gap-2 text-center">
+              <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-white/40">
+                Swipe or tap arrows to navigate
+              </span>
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/60 transition-colors hover:text-white"
+              >
+                <span className="block h-px w-4 bg-white/25 transition-all duration-300 group-hover:w-6 group-hover:bg-cyan-400" />
+                Start a Project
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Desktop View (Original)
   return (
     <section
       id="projects"
