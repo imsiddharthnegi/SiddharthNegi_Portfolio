@@ -332,15 +332,44 @@ body {
   }
 
   /* ── ABOUT: portrait card hidden; right col full width ────────── */
-  /* Hide the left "01 + portrait" column on mobile */
-  #about .relative.grid.h-full.min-h-\[100dvh\].grid-cols-1.lg\:grid-cols-2 > div:first-child {
+  #about {
+    display: block;
+  }
+
+  /* Force grid to stack vertically on mobile */
+  #about > div {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  /* Left panel - show and center on mobile */
+  #about > div > div:first-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 32px !important;
+    padding: 0 clamp(16px, 5vw, 24px) !important;
+    display: block !important;
+  }
+
+  /* Hide only the SN avatar/name section but keep stats below */
+  #about > div > div:first-child > div:first-child {
     display: none !important;
   }
 
-  /* Stats: 2×2 grid */
-  #about .grid.grid-cols-4.gap-x-10.gap-y-6 {
+  /* Ensure stats grid displays on mobile */
+  #about > div > div:first-child > div:nth-child(2) {
+    display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px 12px !important;
+    width: 100% !important;
+  }
+
+  /* Right panel - full width below left on mobile */
+  #about > div > div:last-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 clamp(16px, 5vw, 24px) !important;
+    margin: 0 !important;
   }
 
   /* About headings: scale down slightly */
