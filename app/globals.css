@@ -331,50 +331,49 @@ body {
     gap: 16px !important;
   }
 
-  /* ── ABOUT: portrait card hidden; right col full width ────────── */
-  #about {
-    display: block;
-  }
-
-  /* Force grid to stack vertically on mobile */
+  /* ── ABOUT: reorder on mobile - text first, stats below ──────── */
+  /* Container: use flexbox to enable reordering */
   #about > div {
     display: flex !important;
     flex-direction: column !important;
     min-height: auto !important;
   }
 
-  /* Left panel - show and center on mobile */
-  #about > div > div:first-child {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto 32px !important;
-    padding: 0 clamp(16px, 5vw, 24px) !important;
-    display: block !important;
-  }
-
-  /* Hide only the SN avatar/name section but keep stats below */
-  #about > div > div:first-child > div:first-child {
-    display: none !important;
-  }
-
-  /* Ensure stats grid displays on mobile */
-  #about > div > div:first-child > div:nth-child(2) {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    width: 100% !important;
-  }
-
-  /* Right panel - full width below left on mobile */
+  /* Right panel (about text) - show FIRST on mobile */
   #about > div > div:last-child {
+    order: 1 !important;
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 clamp(16px, 5vw, 24px) !important;
     margin: 0 !important;
   }
 
-  /* About headings: scale down slightly */
-  #about h2 span {
-    font-size: clamp(40px, 12vw, 60px) !important;
+  /* Left panel (stats, badge, education) - show AFTER text */
+  #about > div > div:first-child {
+    order: 2 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 32px 0 0 0 !important;
+    padding: 0 clamp(16px, 5vw, 24px) !important;
+    display: block !important;
+  }
+
+  /* Hide avatar/name card on mobile, keep stats below */
+  #about > div > div:first-child > div:first-child {
+    display: none !important;
+  }
+
+  /* Stats grid - visible and full width */
+  #about > div > div:first-child > div:nth-child(2) {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    width: 100% !important;
+  }
+
+  /* Education block - visible */
+  #about > div > div:first-child > div:nth-child(3) {
+    display: block !important;
+    width: 100% !important;
   }
 
   /* ── CONTACT: left-align everything ──────────────────────────── */
