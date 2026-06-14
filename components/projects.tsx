@@ -264,9 +264,9 @@ function MobileProjectCard({ project, index }: { project: Project; index: number
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
       className="mobile-project-card w-full rounded-xl overflow-hidden flex flex-col"
       onMouseDown={() => setCardTapped(true)}
       onMouseUp={() => setCardTapped(false)}
@@ -476,7 +476,7 @@ export function Projects() {
         style={{ backgroundColor: "#020408" }}
       >
         <div
-          className="pt-16 pb-12 md:pt-32 md:pb-14 w-full"
+          className="pt-24 pb-12 md:pt-32 md:pb-14 w-full"
           style={{
             paddingLeft: "clamp(16px, 5vw, 24px)",
             paddingRight: "clamp(16px, 5vw, 24px)",
@@ -502,11 +502,159 @@ export function Projects() {
             </h2>
           </div>
 
-          {/* Stacked Cards */}
-          <div className="flex flex-col gap-4">
-            {PROJECTS.map((proj, idx) => (
-              <MobileProjectCard key={proj.id} project={proj} index={idx} />
-            ))}
+          {/* Mobile Carousel - Horizontal slider with 1 card visible */}
+          <div style={{ position: "relative", width: "100%" }}>
+            {/* Arrow buttons */}
+            <button
+              onClick={prev}
+              aria-label="Previous project"
+              style={{
+                position: "absolute",
+                left: -8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: 10,
+                width: 40,
+                height: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(0,229,255,0.1)",
+                border: "1px solid rgba(0,229,255,0.3)",
+                borderRadius: 8,
+                color: "rgba(0,229,255,0.8)",
+                cursor: "pointer",
+                transition: "all 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.2)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.5)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.1)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.3)"
+              }}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            <button
+              onClick={next}
+              aria-label="Next project"
+              style={{
+                position: "absolute",
+                right: -8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: 10,
+                width: 40,
+                height: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(0,229,255,0.1)",
+                border: "1px solid rgba(0,229,255,0.3)",
+                borderRadius: 8,
+                color: "rgba(0,229,255,0.8)",
+                cursor: "pointer",
+                transition: "all 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.2)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.5)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(0,229,255,0.1)"
+                e.currentTarget.style.borderColor = "rgba(0,229,255,0.3)"
+              }}
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            {/* Carousel container - overflow hidden for sliding effect */}
+            <div
+              style={{
+                overflow: "hidden",
+                width: "100%",
+                paddingLeft: 16,
+                paddingRight: 16,
+              }}
+            >
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={PROJECTS[current].id}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  style={{ width: "100%" }}
+                >
+                  <MobileProjectCard project={project} index={current} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Dot indicators */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 8,
+                marginTop: 16,
+              }}
+            >
+              {PROJECTS.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => goTo(idx, idx > current ? 1 : -1)}
+                  aria-label={`Go to project ${idx + 1}`}
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    border: "none",
+                    background:
+                      idx === current
+                        ? "rgba(0,229,255,0.8)"
+                        : "rgba(0,229,255,0.2)",
+                    cursor: "pointer",
+                    transition: "all 200ms ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (idx !== current) {
+                      e.currentTarget.style.background = "rgba(0,229,255,0.4)"
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (idx !== current) {
+                      e.currentTarget.style.background = "rgba(0,229,255,0.2)"
+                    }
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Project counter */}
+            <div
+              style={{
+                textAlign: "center",
+                marginTop: 12,
+                fontFamily: "Geist Mono, monospace",
+                fontSize: 11,
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              {String(current + 1).padStart(2, "0")} of{" "}
+              {String(total).padStart(2, "0")}
+            </div>
           </div>
         </div>
       </section>
