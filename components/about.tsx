@@ -25,7 +25,7 @@ export function About() {
           }
         })
       },
-      { threshold: 0.15 },
+      { threshold: 0.05 },
     )
     observer.observe(node)
     return () => observer.disconnect()

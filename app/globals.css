@@ -332,10 +332,6 @@ body {
   }
 
   /* ── ABOUT: portrait card hidden; right col full width ────────── */
-  /* Hide the left "01 + portrait" column on mobile */
-  #about .relative.grid.h-full.min-h-\[100dvh\].grid-cols-1.lg\:grid-cols-2 > div:first-child {
-    display: none !important;
-  }
 
   /* Stats: 2×2 grid */
   #about .grid.grid-cols-4.gap-x-10.gap-y-6 {
@@ -393,7 +389,10 @@ body {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
+  #about .relative.grid.h-full.min-h-\[100dvh\].grid-cols-1.lg\:grid-cols-2 > div:first-child {
+    display: none !important;
+  }
   .about-mobile-stats-container {
     display: flex !important;
   }

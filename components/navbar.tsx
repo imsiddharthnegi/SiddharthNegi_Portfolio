@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Menu, X } from "lucide-react"
 import { useIsMobile } from "@/components/ui/use-mobile"
 
@@ -16,6 +16,7 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isMobile = useIsMobile()
+  const mobileNavRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -27,6 +28,22 @@ export function Navbar() {
       setMobileMenuOpen(false)
     }
   }
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (mobileNavRef.current && !mobileNavRef.current.contains(e.target as Node)) {
+        setMobileMenuOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("touchstart", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("touchstart", handleClickOutside)
+    }
+  }, [mobileMenuOpen])
 
   // Close menu on escape
   useEffect(() => {
@@ -69,6 +86,7 @@ export function Navbar() {
   if (isMobile) {
     return (
       <div
+        ref={mobileNavRef}
         aria-label="Primary navigation"
         style={{
           position: "fixed",
@@ -104,7 +122,7 @@ export function Navbar() {
           }}
         >
           {/* Logo — remove the large desktop marginRight */}
-          <MobileLogoMark />
+          <MobileLogoMark onClick={handleLinkClick} />
 
           {/* Hamburger button */}
           <button
@@ -115,8 +133,8 @@ export function Navbar() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 36,
-              height: 36,
+              width: 44,
+              height: 44,
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -330,12 +348,13 @@ function LogoMark() {
 }
 
 /* ── Mobile logo mark — same design, no right margin for compact pill ── */
-function MobileLogoMark() {
+function MobileLogoMark({ onClick }: { onClick?: () => void }) {
   const [hov, setHov] = useState(false)
   return (
     <a
       href="#top"
       aria-label="Home — Siddharth Negi"
+      onClick={onClick}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{

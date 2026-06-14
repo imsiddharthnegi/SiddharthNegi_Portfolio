@@ -184,6 +184,7 @@ function ProjectFrame({ project, index }: { project: Project; index: number }) {
             key={project.image}
             src={project.image}
             alt={`${project.name} screenshot`}
+            loading="lazy"
             onError={() => setErrored(true)}
             draggable={false}
             className="transition-transform duration-[600ms] ease-out group-hover:scale-[1.03]"
@@ -286,6 +287,7 @@ function MobileProjectCard({ project, index }: { project: Project; index: number
             key={project.image}
             src={project.image}
             alt={`${project.name} screenshot`}
+            loading="lazy"
             onError={() => setImgErrored(true)}
             draggable={false}
             style={{
@@ -362,13 +364,14 @@ function MobileProjectCard({ project, index }: { project: Project; index: number
             href={project.demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider px-3 transition-all duration-200"
             style={{
               fontSize: "12px",
               letterSpacing: "0.1em",
               backgroundColor: "rgba(0,229,255,1)",
               color: "#020408",
               border: "1px solid rgba(0,229,255,1)",
+              height: "44px",
             }}
           >
             Live Demo
@@ -380,13 +383,14 @@ function MobileProjectCard({ project, index }: { project: Project; index: number
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider py-2.5 px-3 transition-all duration-200"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold uppercase tracking-wider px-3 transition-all duration-200"
             style={{
               fontSize: "12px",
               letterSpacing: "0.1em",
               backgroundColor: "transparent",
               color: "rgba(255,255,255,0.75)",
               border: "1px solid rgba(255,255,255,0.18)",
+              height: "44px",
             }}
           >
             GitHub
@@ -414,8 +418,15 @@ export function Projects() {
 
   const total = PROJECTS.length
 
+  const isAnimating = useRef(false)
+
   const goTo = useCallback(
     (idx: number, dir: 1 | -1) => {
+      if (isAnimating.current) return
+      isAnimating.current = true
+      setTimeout(() => {
+        isAnimating.current = false
+      }, 400)
       setDirection(dir)
       setCurrent(idx)
     },
@@ -434,11 +445,14 @@ export function Projects() {
 
   // ─── Swipe / drag tracking (useRef = no re-render mid-gesture) ───
   const dragStartX = useRef(0)
+  const dragStartY = useRef(0)
   const isDragging = useRef(false)
 
   const onDragStart = (e: React.TouchEvent | React.MouseEvent | React.PointerEvent) => {
     dragStartX.current =
       'touches' in e ? e.touches[0].clientX : e.clientX
+    dragStartY.current =
+      'touches' in e ? e.touches[0].clientY : e.clientY
     isDragging.current = true
   }
 
@@ -447,9 +461,15 @@ export function Projects() {
     isDragging.current = false
     const endX =
       'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX
-    const diff = dragStartX.current - endX
-    if (diff > 40) next()
-    if (diff < -40) prev()
+    const endY =
+      'changedTouches' in e ? e.changedTouches[0].clientY : e.clientY
+    const diffX = dragStartX.current - endX
+    const diffY = dragStartY.current - endY
+    
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX > 0) next()
+      else prev()
+    }
   }
 
   // Keyboard navigation (desktop only)
@@ -534,8 +554,8 @@ export function Projects() {
                 top: "50%",
                 transform: "translateY(-50%)",
                 zIndex: 10,
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -567,8 +587,8 @@ export function Projects() {
                 top: "50%",
                 transform: "translateY(-50%)",
                 zIndex: 10,
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -644,28 +664,30 @@ export function Projects() {
                   onClick={() => goTo(idx, idx > current ? 1 : -1)}
                   aria-label={`Go to project ${idx + 1}`}
                   style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
+                    width: 44,
+                    height: 44,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "transparent",
                     border: "none",
-                    background:
-                      idx === current
-                        ? "rgba(0,229,255,0.8)"
-                        : "rgba(0,229,255,0.2)",
                     cursor: "pointer",
-                    transition: "all 200ms ease",
+                    padding: 0,
                   }}
-                  onMouseEnter={(e) => {
-                    if (idx !== current) {
-                      e.currentTarget.style.background = "rgba(0,229,255,0.4)"
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (idx !== current) {
-                      e.currentTarget.style.background = "rgba(0,229,255,0.2)"
-                    }
-                  }}
-                />
+                >
+                  <span
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      background:
+                        idx === current
+                          ? "rgba(0,229,255,0.8)"
+                          : "rgba(0,229,255,0.2)",
+                      transition: "all 200ms ease",
+                    }}
+                  />
+                </button>
               ))}
             </div>
 

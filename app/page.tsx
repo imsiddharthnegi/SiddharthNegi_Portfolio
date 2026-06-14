@@ -25,7 +25,7 @@ function SectionDivider() {
 
 export default function Page() {
   return (
-    <main className="min-h-[100dvh]" style={{ backgroundColor: "#020408" }}>
+    <main className="min-h-[100dvh]" style={{ backgroundColor: "#020408", overflowX: "hidden" }}>
       <Navbar />
       <Hero />
       <SectionDivider />
