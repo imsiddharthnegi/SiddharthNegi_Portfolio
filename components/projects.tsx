@@ -294,7 +294,7 @@ export function Projects() {
     if (diff < -50) prev()
   }
 
-  // Keyboard navigation
+  // Keyboard navigation (desktop only)
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") prev()
