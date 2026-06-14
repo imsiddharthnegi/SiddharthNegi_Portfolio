@@ -407,6 +407,8 @@ export function Projects() {
   const [cardHovered, setCardHovered] = useState(false)
   const isMobile = useIsMobile()
   const [isMounted, setIsMounted] = useState(false)
+  const [touchStartX, setTouchStartX] = useState(0)
+  const [touchEndX, setTouchEndX] = useState(0)
 
   useEffect(() => {
     setIsMounted(true)
@@ -443,6 +445,18 @@ export function Projects() {
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
   }, [prev, next, isMobile])
+
+  // Touch swipe handlers (mobile only)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.changedTouches[0].screenX)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setTouchEndX(e.changedTouches[0].screenX)
+    const diff = touchStartX - e.changedTouches[0].screenX
+    if (diff > 50) next()      // swiped left
+    if (diff < -50) prev()     // swiped right
+  }
 
   const project = PROJECTS[current]
 
@@ -573,6 +587,8 @@ export function Projects() {
 
             {/* Carousel container - overflow hidden for sliding effect */}
             <div
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
               style={{
                 overflow: "hidden",
                 width: "100%",
