@@ -11,7 +11,7 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
-    years: "Jan — May 2026",
+    years: "Jan — June 2026",
     role: "Full-Stack Developer Intern",
     company: "Tech Vista",
     description: "Engineered React.js component architecture and redesigned MongoDB schemas, reducing API response times by ~40% and improving page load performance across core product views.",
