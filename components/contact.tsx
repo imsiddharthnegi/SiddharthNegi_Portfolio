@@ -5,7 +5,7 @@ import { useIsMobile } from "@/components/ui/use-mobile"
 
 const SOCIALS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/imsiddarthnegi" },
-  { label: "GitHub", href: "https://github.com/imsiddarthnegi" },
+  { label: "GitHub", href: "https://github.com/imsiddharthnegi" },
   { label: "WhatsApp", href: "https://wa.me/919389273455" },
 ]
 
