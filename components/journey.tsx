@@ -26,7 +26,7 @@ const ENTRIES: Entry[] = [
     years: "Aug 2024 — Jun 2025",
     role: "Founding Engineer",
     company: "Zero Monk",
-    description: "Early tech member at a college-founded ed-tech startup connecting tier 2 & 3 students to industry networks across 300+ schools in India. Contributed to building and shipping the platform — owning full-stack development decisions from architecture to deployment.",
+    description: "Founding engineer at a college ed-tech startup — built and shipped the platform serving 300+ schools across India, owning full-stack decisions from architecture to deployment.",
   },
 ]
 
