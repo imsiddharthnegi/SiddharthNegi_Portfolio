@@ -23,16 +23,10 @@ const ENTRIES: Entry[] = [
     description: "Owned 6+ features end-to-end in an ed-tech SaaS product — from scoping with designers to production deployment — moving at startup speed in a cross-functional team.",
   },
   {
-    years: "Apr — Jun 2025",
-    role: "Software Engineer Trainee",
-    company: "Web Dev Open",
-    description: "Designed 5+ RESTful endpoints with structured MongoDB schemas and integrated Gemini API to power an automated code-feedback pipeline for learners.",
-  },
-  {
-    years: "Jan — Mar 2025",
-    role: "Data Analyst Intern",
-    company: "Blacksof",
-    description: "Automated data processing pipelines in Python, cutting manual workload by 30%. Queried and analyzed large datasets with SQL to surface insights for business reporting.",
+    years: "Aug 2024 — Jun 2025",
+    role: "Founding Member",
+    company: "Zero Monk",
+    description: "Early tech member at a college-founded ed-tech startup connecting tier 2 & 3 students to industry networks across 300+ schools in India. Contributed to building and shipping the platform — owning full-stack development decisions from architecture to deployment.",
   },
 ]
 
