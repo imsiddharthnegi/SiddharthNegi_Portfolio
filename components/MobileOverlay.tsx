@@ -66,7 +66,7 @@ export default function MobileOverlay() {
         border: '1px solid rgba(0,255,204,0.4)',
         boxShadow: '0 0 20px rgba(0,255,204,0.15)',
         padding: '12px 16px',
-        marginBottom: '24px',
+        marginBottom: '12px',
         fontSize: '18px',
         fontWeight: 'bold',
         color: '#ffffff',
@@ -74,6 +74,17 @@ export default function MobileOverlay() {
         position: 'relative',
         zIndex: 1,
       }}>SN</div>
+
+      {/* Name & Title */}
+      <p style={{
+        fontSize: '15px',
+        color: 'rgba(255,255,255,0.8)',
+        textAlign: 'center',
+        marginBottom: '32px',
+        letterSpacing: '0.05em',
+        position: 'relative',
+        zIndex: 1,
+      }}>SIDDHARTH NEGI · FULL-STACK DEVELOPER</p>
 
       {/* Heading */}
       <h1 style={{
@@ -124,36 +135,7 @@ export default function MobileOverlay() {
         ))}
       </div>
 
-      {/* Enter Anyway button */}
-      <button
-        onClick={handleEnter}
-        onMouseEnter={() => setEnterHover(true)}
-        onMouseLeave={() => setEnterHover(false)}
-        onTouchStart={() => { setEnterHover(true); }}
-        onTouchEnd={() => { setEnterHover(false); }}
-        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)' }}
-        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
-        style={{
-          width: '100%',
-          maxWidth: '400px',
-          padding: '16px',
-          marginBottom: '12px',
-          background: enterHover ? 'rgba(0,255,204,0.15)' : 'rgba(0,255,204,0.15)',
-          border: `2px solid rgba(0,255,204,1)`,
-          boxShadow: enterHover ? '0 0 20px rgba(0,255,204,0.4)' : '0 0 12px rgba(0,255,204,0.2)',
-          color: '#00ffcc',
-          fontSize: '13px',
-          fontFamily: 'monospace',
-          letterSpacing: '0.05em',
-          cursor: 'pointer',
-          borderRadius: '4px',
-          transition: 'background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >Enter Anyway →</button>
-
-      {/* View Resume button */}
+      {/* View Resume button - Primary filled */}
       <a
         href="/siddharthnegi_resume.pdf"
         target="_blank"
@@ -168,9 +150,68 @@ export default function MobileOverlay() {
           width: '100%',
           maxWidth: '400px',
           padding: '16px',
-          background: resumeHover ? 'rgba(0,255,204,0.08)' : 'transparent',
-          border: `1px solid ${resumeHover ? 'rgba(0,255,204,0.4)' : 'rgba(0,255,204,0.2)'}`,
-          color: resumeHover ? 'rgba(0,255,204,0.9)' : 'rgba(0,255,204,0.6)',
+          marginBottom: '12px',
+          background: resumeHover ? 'rgba(0,255,204,0.15)' : 'rgba(0,255,204,0.15)',
+          border: `2px solid rgba(0,255,204,1)`,
+          boxShadow: resumeHover ? '0 0 20px rgba(0,255,204,0.4)' : '0 0 12px rgba(0,255,204,0.2)',
+          color: '#00ffcc',
+          fontSize: '13px',
+          fontFamily: 'monospace',
+          letterSpacing: '0.05em',
+          cursor: 'pointer',
+          textAlign: 'center',
+          textDecoration: 'none',
+          display: 'block',
+          borderRadius: '4px',
+          boxSizing: 'border-box',
+          transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 200ms ease',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >View Resume →</a>
+
+      {/* Enter Anyway button - Secondary outlined */}
+      <button
+        onClick={handleEnter}
+        onMouseEnter={() => setEnterHover(true)}
+        onMouseLeave={() => setEnterHover(false)}
+        onTouchStart={() => { setEnterHover(true); }}
+        onTouchEnd={() => { setEnterHover(false); }}
+        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)' }}
+        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
+        style={{
+          width: '100%',
+          maxWidth: '400px',
+          padding: '16px',
+          marginBottom: '12px',
+          background: enterHover ? 'rgba(0,255,204,0.08)' : 'transparent',
+          border: `1px solid ${enterHover ? 'rgba(0,255,204,0.4)' : 'rgba(0,255,204,0.2)'}`,
+          color: enterHover ? 'rgba(0,255,204,0.9)' : 'rgba(0,255,204,0.6)',
+          fontSize: '13px',
+          fontFamily: 'monospace',
+          letterSpacing: '0.05em',
+          cursor: 'pointer',
+          borderRadius: '4px',
+          transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >Enter Anyway →</button>
+
+      {/* GitHub button - Secondary outlined */}
+      <a
+        href="https://github.com/imsiddharthnegi"
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseEnter={() => { /* would need separate state for this */ }}
+        onMouseLeave={() => { /* would need separate state for this */ }}
+        style={{
+          width: '100%',
+          maxWidth: '400px',
+          padding: '16px',
+          background: 'transparent',
+          border: `1px solid rgba(0,255,204,0.2)`,
+          color: 'rgba(0,255,204,0.6)',
           fontSize: '13px',
           fontFamily: 'monospace',
           letterSpacing: '0.05em',
@@ -184,18 +225,11 @@ export default function MobileOverlay() {
           position: 'relative',
           zIndex: 1,
         }}
-      >View Resume →</a>
+        onMouseDown={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(0.97)' }}
+        onMouseUp={(e) => { (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1)' }}
+      >GitHub →</a>
 
-      {/* Bottom tagline */}
-      <p style={{
-        position: 'absolute',
-        bottom: '24px',
-        fontSize: '11px',
-        color: 'rgba(255,255,255,0.35)',
-        letterSpacing: '0.1em',
-        textTransform: 'uppercase',
-        zIndex: 1,
-      }}>Siddharth Negi · Full-Stack Developer</p>
+
     </div>
   )
 }
