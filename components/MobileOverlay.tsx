@@ -99,7 +99,7 @@ export default function MobileOverlay() {
         position: 'relative',
         zIndex: 1,
       }}>
-        This portfolio is designed for a full desktop experience. For the best view, open on a larger screen.
+        Full-Stack Developer · AI-Native SaaS Builder · 6 products shipped and counting.
       </p>
 
       {/* Stat pills */}
