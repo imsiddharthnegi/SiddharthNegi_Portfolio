@@ -287,7 +287,7 @@ export function About() {
           {/* Paragraphs */}
           <div className="mt-12 grid max-w-xl gap-6">
             {[
-              "Six shipped products, four internships, bias toward building things people actually use. I own features end-to-end — from first commit to production — across SaaS, e-commerce, and AI tooling.",
+              "Six shipped products, three internships, bias toward building things people actually use. I own features end-to-end — from first commit to production — across SaaS, e-commerce, and AI tooling.",
               "Full-stack by discipline, AI-native by choice. Next.js, React, Node.js, MongoDB on the core. Gemini and Claude APIs where intelligence actually earns its place. AWS & GCP certified.",
               "Craft is non-negotiable. Pixel-precise UI, sub-100ms perceived performance, accessible by default. I sweat the spacing, the easing curves, and the empty states — because the gap between good and great is felt, not always seen.",
             ].map((text, i) => (
