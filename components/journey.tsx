@@ -6,6 +6,7 @@ type Entry = {
   years: string
   role: string
   company: string
+  companyUrl?: string
   description: string
 }
 
@@ -14,18 +15,21 @@ const ENTRIES: Entry[] = [
     years: "Jan — June 2026",
     role: "Full-Stack Developer",
     company: "Techvista Global",
+    companyUrl: "https://in.linkedin.com/in/techvista-global-b34402367",
     description: "Engineered React.js component architecture and redesigned MongoDB schemas, reducing API response times by ~40% and improving page load performance across core product views.",
   },
   {
     years: "Jul — Dec 2025",
     role: "Web Developer",
     company: "LaunchED Global",
+    companyUrl: "https://in.linkedin.com/company/launchedglobal",
     description: "Owned 6+ features end-to-end in an ed-tech SaaS product — from scoping with designers to production deployment — moving at startup speed in a cross-functional team.",
   },
   {
     years: "JULY 2024 — JUNE 2025 ",
     role: "Founding Engineer",
     company: "Zero Monk",
+    companyUrl: "https://in.linkedin.com/company/zeromonk",
     description: "Founding engineer at a college ed-tech startup — built and shipped the platform serving 300+ schools across India, owning full-stack decisions from architecture to deployment.",
   },
 ]
@@ -132,15 +136,30 @@ function JourneyRow({
 
         {/* Company */}
         <div className="col-span-12 md:col-span-2">
-          <span
-            className="font-light tracking-tight transition-colors duration-200"
-            style={{ 
-              fontSize: "clamp(15px, 1.3vw, 18px)",
-              color: isActive && !hovered ? "rgba(0,210,255,1)" : hovered ? "rgba(0,210,255,0.8)" : "rgba(0,229,255,0.6)"
-            }}
-          >
-            {entry.company}
-          </span>
+          {entry.companyUrl ? (
+            <a
+              href={entry.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-light tracking-tight transition-colors duration-200"
+              style={{ 
+                fontSize: "clamp(15px, 1.3vw, 18px)",
+                color: isActive && !hovered ? "rgba(0,210,255,1)" : hovered ? "rgba(0,210,255,0.8)" : "rgba(0,229,255,0.6)"
+              }}
+            >
+              {entry.company}
+            </a>
+          ) : (
+            <span
+              className="font-light tracking-tight transition-colors duration-200"
+              style={{ 
+                fontSize: "clamp(15px, 1.3vw, 18px)",
+                color: isActive && !hovered ? "rgba(0,210,255,1)" : hovered ? "rgba(0,210,255,0.8)" : "rgba(0,229,255,0.6)"
+              }}
+            >
+              {entry.company}
+            </span>
+          )}
         </div>
 
         {/* Description */}
