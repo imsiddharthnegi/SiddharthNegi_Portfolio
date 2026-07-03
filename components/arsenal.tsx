@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { SiGooglecloud, SiTailwindcss, SiReact, SiNextdotjs, SiDocker, SiAirtable, SiGithubactions, SiZapier, SiN8N, SiVercel } from "react-icons/si"
+import { SiGooglecloud, SiTailwindcss, SiReact, SiNextdotjs, SiDocker, SiSupabase, SiGithubactions, SiZapier, SiN8N, SiVercel } from "react-icons/si"
 import { FaAws } from "react-icons/fa"
 
 type Category = {
@@ -24,7 +24,7 @@ const CATEGORIES: Category[] = [
   {
     label: "Database",
     color: "#a855f7",
-    skills: ["MongoDB", "PostgreSQL", "SQLite", "Airtable"],
+    skills: ["MongoDB", "PostgreSQL", "SQLite", "Supabase"],
   },
   {
     label: "Cloud",
@@ -67,7 +67,7 @@ const SKILL_ICONS: Record<string, React.ReactNode> = {
   "MongoDB": "🍃",
   "PostgreSQL": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" className="w-4 h-4 object-contain" alt="PostgreSQL" />,
   "SQLite": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg" className="w-4 h-4 object-contain" alt="SQLite" />,
-  "Airtable": <SiAirtable color="#18BFFF" />,
+  "Supabase": <SiSupabase color="#3ECF8E" />,
   "AWS": <FaAws color="#FF9900" />,
   "GCP": <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" className="w-4 h-4 object-contain" alt="GCP" />,
   "Docker": <SiDocker color="#2496ED" />,
