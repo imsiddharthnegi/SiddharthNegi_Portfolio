@@ -13,7 +13,7 @@ const ENTRIES: Entry[] = [
   {
     years: "Jan — June 2026",
     role: "Full-Stack Developer Intern",
-    company: "Tech Vista",
+    company: "Techvista Global",
     description: "Engineered React.js component architecture and redesigned MongoDB schemas, reducing API response times by ~40% and improving page load performance across core product views.",
   },
   {
@@ -24,7 +24,7 @@ const ENTRIES: Entry[] = [
   },
   {
     years: "JULY 2024 — JUNE 2025 ",
-    role: "Founding Engineer",
+    role: "Tech Founding Engineer",
     company: "Zero Monk",
     description: "Founding engineer at a college ed-tech startup — built and shipped the platform serving 300+ schools across India, owning full-stack decisions from architecture to deployment.",
   },
