@@ -7,7 +7,7 @@ const CLI_LINES: { text: string; type: "prompt" | "check" | "deploy" | "plain" }
   { text: "> npm install ambition",       type: "prompt" },
   { text: "> npm run build",             type: "prompt" },
   { text: "✓ 6 projects shipped",        type: "check"  },
-  { text: "✓ 4 internships completed",   type: "check"  },
+  { text: "✓ 3 roles completed",   type: "check"  },
   { text: "> ./deploy --to=production",  type: "prompt" },
   { text: "● Deploying...",              type: "deploy" },
   { text: "✓ Successfully shipped.",     type: "check"  },
