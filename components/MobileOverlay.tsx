@@ -112,7 +112,7 @@ export default function MobileOverlay() {
         position: 'relative',
         zIndex: 1,
       }}>
-        {['6 PROJECTS', '4 INTERNSHIPS', '4 CERTS'].map((stat) => (
+        {['6 PROJECTS', '3 ROLES', '4 CERTS'].map((stat) => (
           <span key={stat} style={{
             border: '1px solid rgba(0,255,204,0.4)',
             color: '#00ffcc',
