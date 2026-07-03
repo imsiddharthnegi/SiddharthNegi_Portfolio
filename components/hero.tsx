@@ -310,10 +310,10 @@ export function Hero() {
           className="mt-8 grid grid-cols-3 gap-2 opacity-0 w-full justify-center"
           style={{ animation: "fade-in-up 800ms ease-out 1450ms forwards", maxWidth: "clamp(260px, 26vw, 360px)", margin: "0 auto", marginTop: "32px" }}
         >
-          <StatCard target={4} label="Internships" icon="🏢" delay={1450} animDelay={0} scrollTo="journey" />
           <a href="#projects" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
-            <StatCard target={6} label="Projects" icon="🚀" delay={1600} animDelay={60} scrollTo="projects" />
+            <StatCard target={6} label="Projects" icon="🚀" delay={1450} animDelay={0} scrollTo="projects" />
           </a>
+          <StatCard target={3} label="Roles" icon="🏢" delay={1600} animDelay={60} scrollTo="journey" />
           <a href="#certifications" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
             <StatCard target={4} label="Certs" icon="🏅" delay={1750} animDelay={120} scrollTo="certifications" />
           </a>
@@ -408,10 +408,10 @@ export function Hero() {
             style={{ animation: "fade-in 900ms ease-out 1000ms forwards" }}
             aria-hidden
           />
-          <StatCard target={4} label="Internships" icon="🏢" delay={1200} animDelay={1200} scrollTo="journey" />
           <a href="#projects" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
-            <StatCard target={6} label="Projects" icon="🚀" delay={1400} animDelay={1380} scrollTo="projects" />
+            <StatCard target={6} label="Projects" icon="🚀" delay={1200} animDelay={1200} scrollTo="projects" />
           </a>
+          <StatCard target={3} label="Roles" icon="🏢" delay={1400} animDelay={1380} scrollTo="journey" />
           <a href="#certifications" className="cursor-pointer transition-all duration-200 hover:brightness-110 hover:drop-shadow-[0_0_8px_rgba(0,255,204,0.15)]">
             <StatCard target={4} label="Certifications" icon="🏅" delay={1600} animDelay={1560} scrollTo="certifications" />
           </a>
