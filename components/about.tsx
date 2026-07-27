@@ -37,10 +37,10 @@ export function About() {
       ref={sectionRef}
       aria-label="About the engineer"
       className="relative w-full overflow-hidden"
-      style={{ backgroundColor: "#020408", minHeight: "100dvh" }}
+      style={{ backgroundColor: "#020408", minHeight: "100svh" }}
     >
       <div
-        className="relative grid h-full min-h-[100dvh] grid-cols-1 lg:grid-cols-2"
+        className="relative grid h-full min-h-[100svh] grid-cols-1 lg:grid-cols-2"
         style={{
           paddingLeft: "clamp(24px, 8vw, 120px)",
           paddingRight: "clamp(24px, 8vw, 120px)",

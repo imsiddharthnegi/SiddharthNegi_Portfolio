@@ -390,7 +390,7 @@ body {
 }
 
 @media (max-width: 1023px) {
-  #about .relative.grid.h-full.min-h-\[100dvh\].grid-cols-1.lg\:grid-cols-2 > div:first-child {
+  #about .relative.grid.h-full.min-h-\[100svh\].grid-cols-1.lg\:grid-cols-2 > div:first-child {
     display: none !important;
   }
   .about-mobile-stats-container {
