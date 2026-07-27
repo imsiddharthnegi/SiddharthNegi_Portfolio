@@ -156,7 +156,7 @@ const NOISE_SVG =
 export function Hero() {
   return (
     <section
-      className="relative h-[100dvh] w-full overflow-hidden"
+      className="relative min-h-[100dvh] w-full overflow-hidden md:h-[100dvh]"
       style={{ backgroundColor: "#020408" }}
       aria-label="Hero"
       id="top"
@@ -218,7 +218,6 @@ export function Hero() {
           paddingTop: "16px",
           paddingBottom: "0",
           overflowX: "hidden",
-          overflowY: "auto",
           justifyContent: "center",
           alignItems: "center",
         }}
