@@ -135,7 +135,36 @@ export default function MobileOverlay() {
         ))}
       </div>
 
-      {/* View Resume button - Primary filled */}
+      {/* Enter Anyway button - Primary filled */}
+      <button
+        onClick={handleEnter}
+        onMouseEnter={() => setEnterHover(true)}
+        onMouseLeave={() => setEnterHover(false)}
+        onTouchStart={() => { setEnterHover(true); }}
+        onTouchEnd={() => { setEnterHover(false); }}
+        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)' }}
+        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
+        style={{
+          width: '100%',
+          maxWidth: '400px',
+          padding: '16px',
+          marginBottom: '12px',
+          background: enterHover ? 'rgba(0,255,204,0.15)' : 'rgba(0,255,204,0.15)',
+          border: `2px solid rgba(0,255,204,1)`,
+          boxShadow: enterHover ? '0 0 20px rgba(0,255,204,0.4)' : '0 0 12px rgba(0,255,204,0.2)',
+          color: '#00ffcc',
+          fontSize: '13px',
+          fontFamily: 'monospace',
+          letterSpacing: '0.05em',
+          cursor: 'pointer',
+          borderRadius: '4px',
+          transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 200ms ease',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >Enter Anyway →</button>
+
+      {/* View Resume button - Secondary outlined */}
       <a
         href="/siddharthnegi_resume.pdf"
         target="_blank"
@@ -151,10 +180,9 @@ export default function MobileOverlay() {
           maxWidth: '400px',
           padding: '16px',
           marginBottom: '12px',
-          background: resumeHover ? 'rgba(0,255,204,0.15)' : 'rgba(0,255,204,0.15)',
-          border: `2px solid rgba(0,255,204,1)`,
-          boxShadow: resumeHover ? '0 0 20px rgba(0,255,204,0.4)' : '0 0 12px rgba(0,255,204,0.2)',
-          color: '#00ffcc',
+          background: resumeHover ? 'rgba(0,255,204,0.08)' : 'transparent',
+          border: `1px solid ${resumeHover ? 'rgba(0,255,204,0.4)' : 'rgba(0,255,204,0.2)'}`,
+          color: resumeHover ? 'rgba(0,255,204,0.9)' : 'rgba(0,255,204,0.6)',
           fontSize: '13px',
           fontFamily: 'monospace',
           letterSpacing: '0.05em',
@@ -164,39 +192,11 @@ export default function MobileOverlay() {
           display: 'block',
           borderRadius: '4px',
           boxSizing: 'border-box',
-          transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 200ms ease',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >View Resume →</a>
-
-      {/* Enter Anyway button - Secondary outlined */}
-      <button
-        onClick={handleEnter}
-        onMouseEnter={() => setEnterHover(true)}
-        onMouseLeave={() => setEnterHover(false)}
-        onTouchStart={() => { setEnterHover(true); }}
-        onTouchEnd={() => { setEnterHover(false); }}
-        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)' }}
-        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
-        style={{
-          width: '100%',
-          maxWidth: '400px',
-          padding: '16px',
-          marginBottom: '12px',
-          background: enterHover ? 'rgba(0,255,204,0.08)' : 'transparent',
-          border: `1px solid ${enterHover ? 'rgba(0,255,204,0.4)' : 'rgba(0,255,204,0.2)'}`,
-          color: enterHover ? 'rgba(0,255,204,0.9)' : 'rgba(0,255,204,0.6)',
-          fontSize: '13px',
-          fontFamily: 'monospace',
-          letterSpacing: '0.05em',
-          cursor: 'pointer',
-          borderRadius: '4px',
           transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease',
           position: 'relative',
           zIndex: 1,
         }}
-      >Enter Anyway →</button>
+      >View Resume →</a>
 
       {/* GitHub button - Secondary outlined */}
       <a

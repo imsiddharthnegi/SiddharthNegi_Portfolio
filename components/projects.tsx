@@ -402,7 +402,7 @@ function MobileProjectCard({ project, index }: { project: Project; index: number
   )
 }
 
-/* ─────────────────────────────────────────────
+/* ────────────────────────────────��────────────
    MAIN PROJECTS COMPONENT
    ───────────────────────────────────────────── */
 export function Projects() {
@@ -1094,6 +1094,7 @@ export function Projects() {
                         src={project.image}
                         alt={`${project.name} screenshot`}
                         draggable={false}
+                        loading="lazy"
                         className="w-full h-full object-cover object-top"
                       />
                     ) : (
