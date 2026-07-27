@@ -5,9 +5,11 @@ import Lenis from "lenis"
 
 export function SmoothScroll() {
   useEffect(() => {
-    // Respect reduced motion
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return
+    // Disable on touch devices and respect reduced motion
+    if (typeof window !== "undefined") {
+      const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      if (isTouch || reduced) return
     }
 
     const lenis = new Lenis({
