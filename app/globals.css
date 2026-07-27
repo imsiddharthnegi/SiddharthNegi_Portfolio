@@ -222,6 +222,65 @@
 }
 
 /* ════════════════════════════════════════════════════════════════
+   TOUCH DEVICE ANIMATION OPTIMIZATION
+   Pause/slow continuously-looping background animations on touch
+   devices to prevent performance jank during scrolling
+   ════════════════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  @keyframes blob-drift {
+    0%, 100% {
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+    33% {
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+    66% {
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+  }
+
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes travel-dot {
+    0% {
+      transform: translateY(-4px);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(-4px);
+      opacity: 0;
+    }
+  }
+
+  /* Slow down the spin animation from 8s to 30s on touch devices */
+  .animate-\[spin_8s_linear_infinite\] {
+    animation: spin 30s linear infinite !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   TOUCH DEVICE SMOOTH SCROLL
+   Restore smooth scrolling for anchor links on touch devices
+   since Lenis is disabled there
+   ════════════════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
    GLOBAL — prevent horizontal scroll on all sizes
    ════════════════════════════════════════════════════════════════ */
 
