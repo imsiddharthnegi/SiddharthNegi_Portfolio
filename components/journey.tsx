@@ -12,7 +12,7 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
-    years: "Jan — June 2026",
+    years: "Jan — Present",
     role: "Full-Stack Developer",
     company: "Techvista Global",
     companyUrl: "https://in.linkedin.com/in/techvista-global-b34402367",
