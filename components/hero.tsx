@@ -215,10 +215,10 @@ export function Hero() {
         style={{
           paddingLeft: "16px",
           paddingRight: "16px",
-          paddingTop: "16px",
-          paddingBottom: "0",
+          paddingTop: "96px",
+          paddingBottom: "36px",
           overflowX: "hidden",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
         }}
       >
