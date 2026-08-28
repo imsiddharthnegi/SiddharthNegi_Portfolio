@@ -12,25 +12,25 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
-    years: "Jan — Present",
-    role: "Full-Stack Developer",
-    company: "Techvista Global",
+    years: "Aug 2025 — Present",
+    role: "Full Stack Developer",
+    company: "Power Research Consulting",
     companyUrl: "https://in.linkedin.com/in/techvista-global-b34402367",
-    description: "Engineered React.js component architecture and redesigned MongoDB schemas, reducing API response times by ~40% and improving page load performance across core product views.",
+    description: "Refactored React.js component architecture across core product views, reducing API response times by ~40% and improving page load performance. Redesigned MongoDB schemas to normalize data relationships, eliminating redundant queries and improving read efficiency across high-traffic endpoints.",
   },
   {
-    years: "Jul — Dec 2025",
-    role: "Web Developer",
+    years: "Jan 2025 — Jul 2025",
+    role: "Web Developer Intern",
     company: "LaunchED Global",
     companyUrl: "https://in.linkedin.com/company/launchedglobal",
-    description: "Owned 6+ features end-to-end in an ed-tech SaaS product — from scoping with designers to production deployment — moving at startup speed in a cross-functional team.",
+    description: "Developed and maintained responsive, cross-device web interfaces using React.js as part of a full-stack product team building live edtech features. Improved page responsiveness and load performance across key product flows, contributing to a better user experience for 25,000+ platform users.",
   },
   {
-    years: "JULY 2024 — JUNE 2025 ",
-    role: "Founding Engineer",
+    years: "Jul 2024 — Jun 2025",
+    role: "Founding Tech Engineer",
     company: "Zero Monk",
     companyUrl: "https://in.linkedin.com/company/zeromonk",
-    description: "Founding engineer at a college ed-tech startup — built and shipped the platform serving 300+ schools across India, owning full-stack decisions from architecture to deployment.",
+    description: "Built the complete full-stack web application independently — React.js frontend, Node.js REST APIs, PostgreSQL database — from zero to production deployment. Implemented user authentication, role-based access control, and multi-school data architecture as core platform features.",
   },
 ]
 
